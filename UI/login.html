@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description"
+        content="ProperyPro Lite is a platform where people can create and search properties for sale or rent">
+    <meta name="author" content="Nwankwo Emmanuel">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login | PropertyPro-Lite</title>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./assets/styles/util.css">
+    <link rel="stylesheet" href="./assets/styles/main.css">
+</head>
+
+<body>
+    <div id="container">
+        <nav class="fixed front-navbar container f-18 w-100">
+            <span class="front-navbar-toggle" id="navbar_toggle_btn">
+                &#9776;
+            </span>
+            <a href="index.html" class="logo">
+                PropertyPro-<span class="logo-small">Lite</span>
+            </a>
+            <ul class="front-main-nav" id="main_nav_menu">
+                <li><a href="login.html" class="nav-link active">Login</a></li>
+                <li><a href="sign-up.html" class="nav-link">Sign up</a></li>
+
+            </ul>
+        </nav>
+        <section class="banner wrapper d-flex flex-col j-c-center a-i-center hv-100">
+            <div class="form-wrap">
+                <h1 class="text-center mt-4 mb-2">Sign In</h1>
+                <form method="POST" action="agent.html">
+                    <div class="alert" id="alert-error">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <p id="error"></p>
+                    </div>
+                    <div class="alert-success">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <p id="success"></p>
+                    </div>
+                    <div class="text-center spinner">
+                        <i class="fas fa-spinner fa-spin text-blue f-48"></i>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="error">Password</label>
+                        <input type="password" name="password" id="password" class="form-control"
+                            placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn-submit mt-1" id="login" value="Login">
+                    </div>
+                </form>
+                <div class="text-center mt-1">
+                    <a href="sign-up.html" class="text-center text-white no-a-style">Not Registered? <span class="text-primary-color">Create Account</span></a>
+                </div>
+            </div>
+        </section>
+        <footer id="footer" class="w-100 text-white d-flex flex-col j-c-center a-i-center text-center">
+            <p id="footer-text">&copy;copyright 2019 PropertyPro-Lite all rights reserved</p>
+        </footer>
+    </div>
+    <script src="./assets/scripts/main.js"></script>
+    <script src="./assets/scripts/login.js"></script>
+</body>
+
+</html>
