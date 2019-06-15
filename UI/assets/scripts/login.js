@@ -41,5 +41,6 @@ login.addEventListener('click', (e) => {
     return false;
   }
   password.classList.remove('has-error');
-
+  alertError.style.display = 'none';
+  spinner.style.display = 'block';
 });
