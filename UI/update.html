@@ -8,7 +8,7 @@
     <meta name="author" content="Nwankwo Emmanuel">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Post Advert | PropertyPro-Lite</title>
+    <title>Update Property | PropertyPro-Lite</title>
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800&display=swap"
         rel="stylesheet">
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./assets/styles/main.css">
     <link rel="stylesheet" href="./assets/styles/dashboard.css">
     <link rel="stylesheet" href="./assets/styles/responsive.css">
+    <link rel="stylesheet" href="./assets/styles/test.css">
 </head>
 
 <body>
@@ -51,7 +52,7 @@
     <div class="property mt-150">
         <div class="property-title text-center">
             <h2>
-                Add Property
+                Update Property
             </h2>
         </div>
         <div class="row">
@@ -73,7 +74,7 @@
                         <label for="property-name">Property Name</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-name" name="property-name" placeholder="" required>
+                        <input type="text" id="property-name" name="property-name" value="Twin Duplex for sale at Lekki" required>
                     </div>
                 </div>
                 <div class="property-row">
@@ -103,7 +104,7 @@
                         <label for="property-owner">Owner</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-owner" name="property-owner" placeholder="">
+                        <input type="text" id="property-owner" name="property-owner" value="Mike">
                     </div>
                 </div>
                 <div class="property-row">
@@ -111,7 +112,7 @@
                         <label for="property-owner-phone">Owner Phone</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-owner-phone" name="property-owner-phone" placeholder="">
+                        <input type="text" id="property-owner-phone" name="property-owner-phone" value="070-000-0000">
                     </div>
                 </div>
                 <div class="property-row">
@@ -119,7 +120,7 @@
                         <label for="property-bedroom">Bedrooms</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-bedroom" name="property-bedroom" placeholder="">
+                        <input type="text" id="property-bedroom" name="property-bedroom" value="2">
                     </div>
                 </div>
                 <div class="property-row">
@@ -127,7 +128,7 @@
                         <label for="property-bathroom">Bathrooms</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-bathroom" name="property-bathroom" placeholder="">
+                        <input type="text" id="property-bathroom" name="property-bathroom" value="3">
                     </div>
                 </div>
                 <div class="property-row">
@@ -137,7 +138,7 @@
                     <div class="col-75">
                         <select id="property-state" name="property-state">
                             <option value="abia">Abia</option>
-                            <option value="lagos">Lagos</option>
+                            <option value="lagos" selected>Lagos</option>
                             <option value="ogun">Ogun</option>
                         </select>
                     </div>
@@ -147,7 +148,7 @@
                         <label for="property-city">City</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-city" name="property-city" placeholder="">
+                        <input type="text" id="property-city" name="property-city" value="Lekki">
                     </div>
                 </div>
                 <div class="property-row">
@@ -155,7 +156,7 @@
                         <label for="property-landmark">Nearest Landmark</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-landmark" name="property-landmark" placeholder="">
+                        <input type="text" id="property-landmark" name="property-landmark" value="Victoria Island">
                     </div>
                 </div>
                 <div class="property-row">
@@ -163,7 +164,7 @@
                         <label for="property-price">Price</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-price" name="property-price" placeholder="">
+                        <input type="text" id="property-price" name="property-price" value="₦ 5,500,000">
                     </div>
                 </div>
                 <div class="property-row">
@@ -187,7 +188,7 @@
                         <label for="subject">Address</label>
                     </div>
                     <div class="col-75">
-                        <textarea id="property-address" name="property-address" placeholder=""></textarea>
+                        <textarea id="property-address" name="property-address">Lekki 1</textarea>
                     </div>
                 </div>
                 <div class="property-row">
@@ -195,11 +196,11 @@
                         <label for="subject">Description</label>
                     </div>
                     <div class="col-75">
-                        <textarea id="property-description" name="property-description" placeholder=""></textarea>
+                        <textarea id="property-description" name="property-description" >This is a Twin duplex in a quite and reserved part of Lekki.</textarea>
                     </div>
                 </div> <br />
                 <div class="property-row">
-                    <input type="submit" class="btn btn-primary" value="Add Property">
+                    <input type="submit" class="btn btn-primary" value="Update Property">
                 </div><br />
             </form>
         </div>
