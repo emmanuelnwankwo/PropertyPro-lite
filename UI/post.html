@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description"
+        content="ProperyPro Lite is a platform where people can create and search properties for sale or rent">
+    <meta name="author" content="Nwankwo Emmanuel">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Post Advert | PropertyPro-Lite</title>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./assets/styles/util.css">
+    <link rel="stylesheet" href="./assets/styles/main.css">
+    <link rel="stylesheet" href="./assets/styles/dashboard.css">
+    <link rel="stylesheet" href="./assets/styles/responsive.css">
+</head>
+
+<body>
+    <nav class="fixed front-navbar container f-18 w-100">
+        <a href="index.html" class="logo">
+            PropertyPro-<span class="logo-small">Lite</span>
+        </a>
+        <ul class="front-main-nav" id="main_nav_menu">
+            <li><a href="#" class="nav-link">Log out</a></li>
+        </ul>
+    </nav>
+    <aside class="menu" tabindex="0">
+        <div class="smartphone-menu-trigger"></div>
+        <header class="avatar">
+            <img src="./assets/img/avatar.png" />
+            <h2>Hi John!</h2>
+        </header>
+        <ul>
+            <a href="./agent.html">
+                <li tabindex="0" class="icon-dashboard"><span>Dashboard</span></li>
+            </a>
+            <a href="./post.html">
+                <li tabindex="0" class="icon-plus"><span>Post</span></li>
+            </a>
+            <a href="./user.html">
+                <li tabindex="0" class="icon-user"><span>Users</span></li>
+            </a>
+            <a href="#">
+                <li tabindex="0" class="icon-log-out"><span>Log out</span></li>
+            </a>
+        </ul>
+    </aside>
+    <div class="property mt-150">
+        <div class="property-title text-center">
+            <h2>
+                Add Property
+            </h2>
+        </div>
+        <div class="row">
+            <form action="" class="property-post">
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-type">Specific Property Type</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="property-type" name="property-type">
+                            <option value="Apartment">Apartment</option>
+                            <option value="House">House</option>
+                            <option value="Commercial">Commercial</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-name">Property Name</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="property-name" name="property-name" placeholder="" required>
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-purpose">Purpose</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="property-purpose" name="property-purpose">
+                            <option value="rent">Rent</option>
+                            <option value="sale">Sale</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-negotiable">Negotiable</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="property-negotiable" name="property-negotiable">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-owner">Owner</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="property-owner" name="property-owner" placeholder="">
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-owner-phone">Owner Phone</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="property-owner-phone" name="property-owner-phone" placeholder="">
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-bedroom">Bedrooms</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="property-bedroom" name="property-bedroom" placeholder="">
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-bathroom">Bathrooms</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="property-bathroom" name="property-bathroom" placeholder="">
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-state">State</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="property-state" name="property-state">
+                            <option value="abia">Abia</option>
+                            <option value="lagos">Lagos</option>
+                            <option value="ogun">Ogun</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-city">City</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="property-city" name="property-city" placeholder="">
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-landmark">Nearest Landmark</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="property-landmark" name="property-landmark" placeholder="">
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-price">Price</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="property-price" name="property-price" placeholder="">
+                    </div>
+                </div>
+                <div class="property-row">
+                        <div class="col-25">
+                            <label for="property-image1">Featured Image</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="file" accept=".jpg, .png, .jpeg" id="property-image1" name="property-image1" placeholder="">
+                        </div>
+                    </div>
+                <div class="property-row">
+                        <div class="col-25">
+                            <label for="property-image2">Featured Image 2</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="file" accept=".jpg, .png, .jpeg" id="property-image2" name="property-image2" placeholder="">
+                        </div>
+                    </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="subject">Description</label>
+                    </div>
+                    <div class="col-75">
+                        <textarea id="property-description" name="property-description" placeholder=""
+                            style="height:200px"></textarea>
+                    </div>
+                </div> <br />
+                <div class="property-row">
+                    <input type="submit" class="btn btn-primary" value="Add Property">
+                </div><br />
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
