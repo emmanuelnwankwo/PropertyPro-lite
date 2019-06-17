@@ -457,7 +457,9 @@ padding: 12px 12px 12px 50px;
 display: inline-block;
 font-weight: bold;
 }
-
+textarea#property-description {
+  height: 200px;
+}
 .property-row input[type=submit] {
 float: right;
 width: 150px;
