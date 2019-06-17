@@ -56,16 +56,7 @@ body {
   text-decoration: none;
 }
 .menu ul li.icon-dashboard {
-  background-image: url("http://www.entypo.com/images//gauge.svg");
-}
-.menu ul li.icon-customers {
-  background-image: url("http://www.entypo.com/images//briefcase.svg");
-}
-.menu ul li.icon-users {
-  background-image: url("http://www.entypo.com/images//users.svg");
-}
-.menu ul li.icon-settings {
-  background-image: url("http://www.entypo.com/images//tools.svg");
+  background-image: url("../img/gauge.svg");
 }
 .menu ul li.icon-home {
   background-image: url("../img/home.svg");
@@ -75,6 +66,9 @@ body {
 }
 .menu ul li.icon-user {
   background-image: url("../img/user.svg");
+}
+.menu ul li.icon-plus {
+  background-image: url("../img/plus.svg");
 }
 .menu ul li:hover {
   background-color: rgba(0, 0, 0, 0.1);
@@ -301,7 +295,7 @@ body {
 #carousel > .item > img {
     line-height: 1;
     display: block;
-    width: 100%;
+    width: 100% \9;
     max-width: 100%;
     height: auto;
 }
@@ -316,4 +310,161 @@ div#carousel > div > img {
 div#carousel > div.visible > img {
   display: block;
   width: 100%;
+}
+
+/*  Agent Dashboard */
+.row .agent-table-body {
+color: #000000;
+}
+.agent-property-top {
+border-bottom: none;
+margin: 25px 0;
+padding: 0;
+}
+.agent-property-top div {
+float: right !important;
+}
+.agent-property-top div a {
+font-size: 15px;
+}
+.agent-property-top div a:hover {
+background: rgba(0,0,0,.5);
+}
+
+.agent-table-body {
+margin-bottom: 22px;
+background-color: #FFFFFF;
+border: 1px solid transparent;
+border-radius: 5px;
+-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+border-color: #DDDDDD;
+box-shadow: 0px 3px 5px #E2E2E2E2;
+padding: 15px;
+}
+
+div.agent-table-filter label {
+white-space: nowrap;
+font-weight: bold;
+}
+
+div.agent-table-filter {
+float: right;
+margin-bottom: 5px;
+}
+div.agent-table-filter input {
+padding: 12px 20px;
+width: 83%;
+}
+.agent-table {
+border-collapse: collapse;
+width: 100%;
+}
+
+.agent-table td, .agent-table th {
+border: 1px solid #DDDDDD;
+padding: 8px;
+}
+
+.agent-table tr:nth-child(even){background-color: #F2F2F2;}
+
+.agent-table tr:hover {background-color: #DDDDDD;}
+
+.agent-table th {
+padding-top: 12px;
+padding-bottom: 12px;
+text-align: left;
+background-color: #F64C72;
+color: #FFFFFF;
+}
+
+a i.icon-plus {
+background-image: url("../img/plus.svg");
+padding: 0em 1em 0em 0.2em;
+background-repeat: no-repeat;
+background-position: left;
+}
+a i.icon-trash {
+background-image: url("../img/trash.svg");
+padding: 0.5em 1em 1em 0em;
+font-size: 14px;
+font-weight: 400;
+background-repeat: no-repeat;
+background-position: center;
+background-size: auto 20px;
+}
+a i.icon-edit {
+background-image: url("../img/edit.svg");
+padding: 0.5em 1em 1em 0em;
+font-size: 14px;
+font-weight: 400;
+background-repeat: no-repeat;
+background-position: center;
+background-size: auto 20px;
+cursor: pointer;
+
+}
+tr td > a {
+  border: 1px solid #DDDDDD !important;
+}
+
+/*       Post Property Page         */
+.row form.property-post {
+color: #000000;
+}
+.property-row .col-25 {
+float: left;
+width: 25%;
+margin-top: 6px;
+}
+
+.property-row .col-75 {
+float: left;
+width: 75%;
+margin-top: 6px;
+}
+
+.property-row:after {
+content: "";
+display: table;
+clear: both;
+}
+
+
+@media screen and (max-width: 600px) {
+.property-row .col-25, .property-row .col-75, .property-row input[type=submit] {
+  width: 100%;
+  margin-top: 0;
+  padding-right: 10px;
+  padding-left: 10px; 
+}
+.property-row label {
+    padding: 12px 12px 12px 0px !important;
+  }
+}
+
+.property-row input[type=text], .property-row select, .property-row textarea {
+width: 100%;
+padding: 12px;
+border: 1px solid #ccc;
+border-radius: 4px;
+resize: vertical;
+}
+
+.property-row label {
+padding: 12px 12px 12px 50px;
+display: inline-block;
+font-weight: bold;
+}
+
+.property-row input[type=submit] {
+float: right;
+width: 150px;
+font-weight: 600;
+font-size: 16px;
+color: #FFFFFF !important;
+}
+.property-row input[type=submit]:hover {
+background: #F64C62;
 }
