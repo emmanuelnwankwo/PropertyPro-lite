@@ -1,0 +1,319 @@
+body {
+  background: #F4F4F4;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  color: #FFFFFF;
+}
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+/*  Dashboard Sidebar   */
+.menu {
+  background: #99738E;
+  height: 100vh;
+  width: 240px;
+  position: fixed;
+  top: 65px;
+  left: 0;
+  z-index: 5;
+  outline: none;
+}
+.menu .avatar {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 2em 0.5em;
+  text-align: center;
+}
+.menu .avatar img {
+  width: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #FFEA92;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+}
+.menu .avatar h2 {
+  font-weight: normal;
+  margin-bottom: 0;
+}
+.menu ul {
+  list-style: none;
+  padding: 0.5em 0;
+  margin: 0;
+}
+.menu ul li {
+  padding: 0.5em 1em 0.5em 3em;
+  font-size: 0.95em;
+  font-weight: 400;
+  background-repeat: no-repeat;
+  background-position: left 15px center;
+  background-size: auto 20px;
+  transition: all 0.15s linear;
+  cursor: pointer;
+}
+.menu ul a {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+.menu ul li.icon-dashboard {
+  background-image: url("http://www.entypo.com/images//gauge.svg");
+}
+.menu ul li.icon-customers {
+  background-image: url("http://www.entypo.com/images//briefcase.svg");
+}
+.menu ul li.icon-users {
+  background-image: url("http://www.entypo.com/images//users.svg");
+}
+.menu ul li.icon-settings {
+  background-image: url("http://www.entypo.com/images//tools.svg");
+}
+.menu ul li.icon-home {
+  background-image: url("../img/home.svg");
+}
+.menu ul li.icon-log-out {
+  background-image: url("../img/log-out.svg");
+}
+.menu ul li.icon-user {
+  background-image: url("../img/user.svg");
+}
+.menu ul li:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.menu ul li:focus {
+  outline: none;
+}
+
+
+.property-container{
+  margin-bottom: 30px;
+  background: #FFFFFF;
+  border: 1px solid #EEEEEE;
+}
+
+.property-image{
+  position: relative;
+  overflow: hidden;
+}
+
+.property-image img{
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+}
+
+.property-status{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: block;
+  width: auto;
+  max-width: 70%;
+  padding: 5px 10px;
+  background: #1B1D2A;
+  font-weight: 400;
+  color: #FFFFFF;
+}
+
+.property-price{
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: auto;
+  max-width: 80%;
+  padding: 8px 16px;
+  background: #F64C72;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 600;
+}
+
+.property-price h4{
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0 0 5px;
+  font-weight: 400;
+}
+
+.property-price small{
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.property-features{
+  display: block;
+  padding: 5px 10px;
+  background: #F64C72;
+  color: #fff;
+}
+
+.property-features span{
+  padding: 2px 5px;
+  font-size: 13px;
+}
+
+.property-content{
+  padding: 10px 15px;
+}
+
+.property-content h3 {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+  text-transform: capitalize!important;
+  color: #F64C72;
+}
+.property-content h3:hover {
+  color: #F64C00;
+}
+.property-content h3 small {
+  display: block;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 400;
+  font-style: italic;
+}
+.property a {
+  text-decoration: none;
+}
+.location::before {
+  content: "";
+  background-image: url("../img/location.svg");
+  padding: 0.5em 1em 0.5em 1.5em;
+    background-repeat: no-repeat;
+    background-position: left 15px center;
+    background-size: auto 20px;
+}
+.location {
+    display: inline-block;
+        font-size: 14px;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.property-col {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+  .property-title {
+    padding-bottom: 60px;
+}
+  .property-title h2 {
+    color: #F64C72 !important;
+    position: relative;
+    display: inline;
+    padding: 12px 20px;
+    font-size: 28px;
+    line-height: 32px;
+    text-transform: uppercase;
+    font-weight: 600;
+    border: 2px solid #898ba2;
+}
+.property-title h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin-top: -7px;
+    margin-left: -6px;
+    background: #898ba2;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    border-radius: 100%;
+}
+.property-title h2::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-top: -16px;
+    margin-left: -15px;
+    background: #f4f4f4;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    border-radius: 100%;
+
+}
+
+.table {
+    border-spacing: 0;
+  border-collapse: collapse;
+  background-color: transparent;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+.table-bordered {
+    border: 1px solid #DDDDDD;
+}
+
+.table > tbody > tr > td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+  border: 1px solid #DDDDDD;
+}
+
+.single-post {
+    background-color: #FFFFFF;
+    padding: 30px;
+    border: 1px solid #DDDDDD;
+  color: #F64C72;
+}
+.single-post h3 {
+    font-size: 22px;
+    line-height: 28px;
+    margin-bottom: 20px;
+}
+.single-post h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: 600;
+}
+#carousel > .active {
+    display: block;
+}
+#carousel .item img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+#carousel > .item > img {
+    line-height: 1;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* Property Carousel  */
+div#carousel > div > img {
+  display: none;
+  /* margin: 0px auto; */
+}
+
+div#carousel > div.visible > img {
+  display: block;
+  width: 100%;
+}
