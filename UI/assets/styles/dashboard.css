@@ -248,24 +248,26 @@ body {
 }
 
 .table {
-    border-spacing: 0;
+  border-spacing: 0;
   border-collapse: collapse;
   background-color: transparent;
   width: 100%;
   max-width: 100%;
   margin-bottom: 20px;
-}
-.table-bordered {
-    border: 1px solid #DDDDDD;
-}
-
-.table > tbody > tr > td {
-    padding: 8px;
-    line-height: 1.42857143;
-    vertical-align: top;
   border: 1px solid #DDDDDD;
 }
 
+.table > tbody > tr > td, .table > tbody > tr > th {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border: 1px solid #DDDDDD;
+}
+
+.table > tbody > tr > th {
+  padding-left: 10px !important;
+  text-align: inherit;
+}
 .single-post {
     background-color: #FFFFFF;
     padding: 30px;
@@ -551,4 +553,7 @@ background: #F64C62;
   .property-specific-type select {
       width: 75vw !important;
   }
+}
+#map {
+  height: 200px;
 }
