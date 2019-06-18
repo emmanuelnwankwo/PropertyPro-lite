@@ -525,3 +525,30 @@ background: #F64C62;
   right: 0px; 
 }
 /*            End         */
+
+.property-specific-type label {
+  color: #F64C72;
+  font-weight: bold;
+}
+.property-specific-type button {
+  font-size: 16px;
+  margin-bottom: 8px;
+  outline: none;
+  padding: 15px 22px;
+}
+.property-specific-type button:active {
+  padding: 14px 22px;
+}
+.property-specific-type button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+@media  (min-width: 421px) and (max-width: 767px){
+  .property-specific-type select {
+      width: 65vw !important;
+  }
+}
+@media  (max-width: 420px){
+  .property-specific-type select {
+      width: 75vw !important;
+  }
+}
