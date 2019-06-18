@@ -46,6 +46,20 @@
                 </h2>
             </div>
             <div class="row">
+                <div class="property-specific-type text-center">
+                    <label for="bedroom">Bedroom </label>
+                    <select name="bedroom" id="search-bedroom">
+                        <option value="1" selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                    <label for="purpose">Purpose</label>
+                    <select name="purpose" id="search-purpose">
+                        <option value="rent" selected>Rent</option>
+                        <option value="sale">Sale</option>
+                    </select>
+                    <button id="search-type-btn" class="btn btn-primary">Search</button>
+                </div>
                 <a href="./property.html">
                     <div class="property-col">
                         <div class="property-container">
@@ -62,6 +76,7 @@
                             </div>
                             <div class="property-features">
                                 <span><i class="location"></i> Lekki, Lagos</span>
+                                <span><i class="location"></i> 1</span>
                             </div>
                             <div class="property-content">
                                 <h3>Twin Duplex for sale at Lekki<small>Near Victoria Island </small>
@@ -249,6 +264,7 @@
             </div>
         
     </div>
+    <script src="./assets/scripts/user.js"></script>
 </body>
 
 </html>
