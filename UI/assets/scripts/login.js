@@ -18,7 +18,7 @@ login.addEventListener('click', (e) => {
 
   if (email.value === '') {
     email.classList.add('has-error');
-    error.innerHTML = 'The Email is required';
+    error.innerHTML = 'Email is required';
     alertError.style.display = 'block';
     email.focus();
     return false;
@@ -26,7 +26,7 @@ login.addEventListener('click', (e) => {
   email.classList.remove('has-error');
   if (!validEmail.test(String(email.value).toLowerCase())) {
     email.classList.add('has-error');
-    error.innerHTML = 'The email must be valid';
+    error.innerHTML = 'Email must be valid';
     alertError.style.display = 'block';
     email.focus();
     return false;
@@ -35,7 +35,7 @@ login.addEventListener('click', (e) => {
 
   if (password.value === '') {
     password.classList.add('has-error');
-    error.innerHTML = 'The password is required';
+    error.innerHTML = 'Password is required';
     alertError.style.display = 'block';
     password.focus();
     return false;

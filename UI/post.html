@@ -58,44 +58,10 @@
             <form action="" class="property-post">
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="property-type">Specific Property Type</label>
-                    </div>
-                    <div class="col-75">
-                        <select id="property-type" name="property-type">
-                            <option value="Apartment">Apartment</option>
-                            <option value="House">House</option>
-                            <option value="Commercial">Commercial</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="property-row">
-                    <div class="col-25">
                         <label for="property-name">Property Name</label>
                     </div>
                     <div class="col-75">
                         <input type="text" id="property-name" name="property-name" placeholder="" required>
-                    </div>
-                </div>
-                <div class="property-row">
-                    <div class="col-25">
-                        <label for="property-purpose">Purpose</label>
-                    </div>
-                    <div class="col-75">
-                        <select id="property-purpose" name="property-purpose">
-                            <option value="rent">Rent</option>
-                            <option value="sale">Sale</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="property-row">
-                    <div class="col-25">
-                        <label for="property-negotiable">Negotiable</label>
-                    </div>
-                    <div class="col-75">
-                        <select id="property-negotiable" name="property-negotiable">
-                            <option value="no">No</option>
-                            <option value="yes">Yes</option>
-                        </select>
                     </div>
                 </div>
                 <div class="property-row">
@@ -108,26 +74,53 @@
                 </div>
                 <div class="property-row">
                     <div class="col-25">
+                        <label for="property-price">Price</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="property-price" name="property-price" placeholder="">
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-status">Status</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="property-status" name="property-status">
+                            <option value="available" selected>Available</option>
+                            <option value="sold">Sold</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-purpose">Purpose</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="property-purpose" name="property-purpose">
+                            <option value="sale" selected>Sale</option>
+                            <option value="rent">Rent</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-type">Type</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="property-type" name="property-type">
+                            <option value="1-bedroom" selected>1 Bedroom</option>
+                            <option value="2-bedroom">2 Bedroom</option>
+                            <option value="3-bedroom">3 Bedroom</option>
+                            <option value="mini-flat">Mini Flat</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
                         <label for="property-owner-phone">Owner Phone</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-owner-phone" name="property-owner-phone" placeholder="">
-                    </div>
-                </div>
-                <div class="property-row">
-                    <div class="col-25">
-                        <label for="property-bedroom">Bedrooms</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="property-bedroom" name="property-bedroom" placeholder="">
-                    </div>
-                </div>
-                <div class="property-row">
-                    <div class="col-25">
-                        <label for="property-bathroom">Bathrooms</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="property-bathroom" name="property-bathroom" placeholder="">
+                        <input type="tel" id="property-owner-phone" name="property-owner-phone" placeholder="">
                     </div>
                 </div>
                 <div class="property-row">
@@ -136,9 +129,7 @@
                     </div>
                     <div class="col-75">
                         <select id="property-state" name="property-state">
-                            <option value="abia">Abia</option>
-                            <option value="lagos">Lagos</option>
-                            <option value="ogun">Ogun</option>
+                            <option value="" disabled>No Selection</option>
                         </select>
                     </div>
                 </div>
@@ -150,41 +141,36 @@
                         <input type="text" id="property-city" name="property-city" placeholder="">
                     </div>
                 </div>
+
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="property-landmark">Nearest Landmark</label>
+                        <label for="property-image1">Featured Image</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-landmark" name="property-landmark" placeholder="">
+                        <input type="file" accept=".jpg, .png, .jpeg" id="property-image1" name="property-image1"
+                            placeholder="">
                     </div>
                 </div>
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="property-price">Price</label>
+                        <label for="property-image2">Featured Image 2</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-price" name="property-price" placeholder="">
+                        <input type="file" accept=".jpg, .png, .jpeg" id="property-image2" name="property-image2"
+                            placeholder="">
                     </div>
                 </div>
                 <div class="property-row">
-                        <div class="col-25">
-                            <label for="property-image1">Featured Image</label>
-                        </div>
-                        <div class="col-75">
-                            <input type="file" accept=".jpg, .png, .jpeg" id="property-image1" name="property-image1" placeholder="">
-                        </div>
+                    <div class="col-25">
+                        <label for="property-date">Created on</label>
                     </div>
-                <div class="property-row">
-                        <div class="col-25">
-                            <label for="property-image2">Featured Image 2</label>
-                        </div>
-                        <div class="col-75">
-                            <input type="file" accept=".jpg, .png, .jpeg" id="property-image2" name="property-image2" placeholder="">
-                        </div>
+                    <div class="col-75">
+                        <input type="date" id="property-date" name="property-date" placeholder="">
                     </div>
+                </div>
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="subject">Address</label>
+                        <label for="property-address">Address</label>
                     </div>
                     <div class="col-75">
                         <textarea id="property-address" name="property-address" placeholder=""></textarea>
@@ -204,6 +190,7 @@
             </form>
         </div>
     </div>
+    <script src="./assets/scripts/state.js"></script>
 </body>
 
 </html>
