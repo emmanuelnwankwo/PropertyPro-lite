@@ -7,7 +7,7 @@ const getFigures = () => {
 const moveForward = () => {
     let pointer = 0;
     let figures = getFigures();
-    for (var i = 0; i < figures.length; i++) {
+    for (let i = 0; i < figures.length; i++) {
         if (figures[i].className == 'visible') {
             figures[i].className = '';
             pointer = i;
@@ -25,3 +25,18 @@ const startPlayback = () => {
 }
 
 startPlayback();
+
+function initMap() {
+    const myLatLng = {lat: 6.4439009, lng: 3.475083600000062};
+
+    const map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: myLatLng
+    });
+
+    const marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: 'Lekki Lagos'
+    });
+  }
