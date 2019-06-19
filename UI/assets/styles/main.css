@@ -133,7 +133,7 @@ footer{
     background-color: #99738E;
     position: relative;
     bottom: 0;
-    min-height: 100px;
+    min-height: 50px;
 }
 
 .form-wrap {
@@ -331,3 +331,7 @@ footer{
     }
     
 } 
+.banner input[type="radio"] {
+    width: 20px;
+    height: 13px;
+}
