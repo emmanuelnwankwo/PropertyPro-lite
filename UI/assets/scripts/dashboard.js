@@ -1,42 +1,40 @@
-/* Carousel Slide for property */
+/* eslint-disable no-unused-vars, no-undef, no-plusplus */
 const slideInterval = 3500;
-const getFigures = () => {
-    return document.getElementById('carousel').getElementsByTagName('div');
-}
+const getFigures = () => document.getElementById('carousel').getElementsByTagName('div');
 
 const moveForward = () => {
-    let pointer = 0;
-    let figures = getFigures();
-    for (let i = 0; i < figures.length; i++) {
-        if (figures[i].className == 'visible') {
-            figures[i].className = '';
-            pointer = i;
-        }
+  let pointer = 0;
+  const figures = getFigures();
+  for (let i = 0; i < figures.length; i++) {
+    if (figures[i].className === 'visible') {
+      figures[i].className = '';
+      pointer = i;
     }
-    if (++pointer == figures.length) {
-        pointer = 0;
-    }
-    figures[pointer].className = 'visible';
-    setTimeout(moveForward, slideInterval);
-}
+  }
+  if (++pointer === figures.length) {
+    pointer = 0;
+  }
+  figures[pointer].className = 'visible';
+  setTimeout(moveForward, slideInterval);
+};
 
 const startPlayback = () => {
-    setTimeout(moveForward, slideInterval);
-}
+  setTimeout(moveForward, slideInterval);
+};
 
 startPlayback();
 
 function initMap() {
-    const myLatLng = {lat: 6.4439009, lng: 3.475083600000062};
+  const myLatLng = { lat: 6.4439009, lng: 3.475083600000062 };
 
-    const map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      center: myLatLng
-    });
+  const map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: myLatLng,
+  });
 
-    const marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Lekki Lagos'
-    });
-  }
+  const marker = new google.maps.Marker({
+    position: myLatLng,
+    map,
+    title: 'Lekki Lagos',
+  });
+}
