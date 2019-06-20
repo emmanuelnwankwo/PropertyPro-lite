@@ -12,8 +12,9 @@
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="./assets/styles/util.css">
-    <link rel="stylesheet" href="./assets/styles/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/styles/style.css">
 </head>
 
 <body>
@@ -31,9 +32,9 @@
 
             </ul>
         </nav>
-        <section class="banner wrapper d-flex flex-col j-c-center a-i-center hv-100">
+        <section class="banner d-flex flex-col j-c-center a-i-center hv-100">
             <div class="form-wrap">
-                <h1 class="text-center mt-4 mb-2">Sign In</h1>
+                <h1 class="text-center mt-64 mb-32">Sign In</h1>
                 <form method="get" action="user.html">
                     <div class="alert" id="alert-error">
                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
@@ -52,20 +53,21 @@
                     </div>
                     <div class="form-group">
                         <label for="password" class="error">Password</label>
-                        <input type="password" name="password" id="password" class="form-control"
-                            placeholder="Password" required>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Password"
+                            required>
                     </div>
                     <div class="form-group">
-                        <input type="submit" class="btn-submit mt-1" id="login" value="Login">
+                        <input type="submit" class="btn-submit mt-16" id="login" value="Login">
                     </div>
                 </form>
-                <div class="text-center mt-1">
-                    <a href="sign-up.html" class="text-center text-white no-a-style">Not Registered? <span class="text-primary-color">Create Account</span></a>
+                <div class="text-center mt-16">
+                    <a href="sign-up.html" class="text-center text-white no-a-style">Not Registered? <span
+                            class="text-primary-color">Create Account</span></a>
                 </div>
             </div>
         </section>
-        <footer id="footer" class="w-100 text-white d-flex flex-col j-c-center a-i-center text-center">
-            <p id="footer-text">&copy;copyright 2019 PropertyPro-Lite all rights reserved</p>
+        <footer class="w-100 text-white d-flex flex-col j-c-center a-i-center text-center">
+            <p>&copy;copyright 2019 PropertyPro-Lite all rights reserved</p>
         </footer>
     </div>
     <script src="./assets/scripts/main.js"></script>
