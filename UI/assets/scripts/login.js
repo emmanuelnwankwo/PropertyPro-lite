@@ -4,12 +4,17 @@ const email = document.querySelector('#email');
 const password = document.querySelector('#password');
 const alertError = document.querySelector('#alert-error');
 const error = document.querySelector('#error');
+const alertSuccess = document.getElementsByClassName('alert-success')[0];
+const spinner = document.getElementsByClassName('spinner')[0];
 
 alertError.style.display = 'none';
+alertSuccess.style.display = 'none';
+spinner.style.display = 'none';
 
 // Credit: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
 const validEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-login.addEventListener('click', () => {
+login.addEventListener('click', (e) => {
+  e.preventDefault();
   if (email.value === '') {
     email.classList.add('has-error');
     error.innerHTML = 'Email is required';
@@ -36,5 +41,6 @@ login.addEventListener('click', () => {
   }
   password.classList.remove('has-error');
   alertError.style.display = 'none';
+  this.document.location.href = 'https://emmanuelnwankwo.github.io/PropertyPro-lite/UI/user.html';
   return true;
 });

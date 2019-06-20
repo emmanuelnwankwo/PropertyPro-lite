@@ -55,12 +55,20 @@
         </div>
         <div class="row">
             <form action="" class="property-post">
+                    <div class="alert" id="alert-error">
+                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                            <p id="error"></p>
+                        </div>
+                        <div class="alert-success">
+                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                            <p id="success"></p>
+                        </div>
                 <div class="property-row">
                     <div class="col-25">
                         <label for="property-name">Property Name</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-name" name="property-name" placeholder="" required>
+                        <input type="text" id="property-name" name="property-name" placeholder="">
                     </div>
                 </div>
                 <div class="property-row">
@@ -76,7 +84,7 @@
                         <label for="property-price">Price</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-price" name="property-price" placeholder="">
+                        <input type="text" id="property-price" name="property-price" placeholder="e.g ₦ 5,500,000">
                     </div>
                 </div>
                 <div class="property-row">
@@ -161,14 +169,6 @@
                 </div>
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="property-date">Created on</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="date" id="property-date" name="property-date" placeholder="">
-                    </div>
-                </div>
-                <div class="property-row">
-                    <div class="col-25">
                         <label for="property-address">Address</label>
                     </div>
                     <div class="col-75">
@@ -184,13 +184,14 @@
                     </div>
                 </div> <br />
                 <div class="property-row">
-                    <input type="submit" class="btn btn-primary" value="Add Property">
+                    <input type="submit" class="btn btn-primary" id="post-property" value="Add Property">
                 </div><br />
             </form>
         </div>
     </div>
     <script src="./assets/scripts/state.js"></script>
-    <script src="./assets/scripts/gapi.js"></script>
+    <script src="./assets/scripts/postProperty.js"></script>
+    <script src="./assets/scripts/googleAPI.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiXGHkAKOXSjxqMpr_7-IVX8BrJ4FaklA&libraries=places&callback=initMap"
         async defer></script>
 </body>

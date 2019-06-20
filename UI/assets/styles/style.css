@@ -244,7 +244,7 @@ input {
 }
 
     input:focus {
-        border: 1px solid #000000 !important;
+        /* border: 1px solid #000000 !important; */
         outline: none;
     }
 
