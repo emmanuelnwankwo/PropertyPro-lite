@@ -1,0 +1,35 @@
+{
+  "name": "propertypro-lite",
+  "version": "1.0.0",
+  "description": "ProperyPro Lite is a platform where people can create and search properties for sale or rent",
+  "main": "./server/server.js",
+  "scripts": {
+    "eslint": "eslint . --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmanuelnwankwo/PropertyPro-lite.git"
+  },
+  "author": "Emmanuel Nwankwo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emmanuelnwankwo/PropertyPro-lite/issues"
+  },
+  "homepage": "https://github.com/emmanuelnwankwo/PropertyPro-lite#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.4.4",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.0.1",
+    "morgan": "^1.9.1"
+  }
+}
