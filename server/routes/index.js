@@ -3,9 +3,7 @@ import Property from '../controllers/dummyController/propertyController';
 
 const router = express.Router();
 
-const {
-   getProperties
-} = Property;
+const { createProperty, getProperties, getProperty } = Property;
 
 router.get('/', (req, res) => {
   res.send('Welcome to PropertyPro-Lite');
@@ -13,7 +11,9 @@ router.get('/', (req, res) => {
 
 /** Property Routes */
 const propertyUrl = '/api/v1/property';
+router.post(`${propertyUrl}`, createProperty);
 router.get(`${propertyUrl}`, getProperties);
+router.get(`${propertyUrl}/:propertyId`, getProperty);
 
 /** End Property Routes */
 
