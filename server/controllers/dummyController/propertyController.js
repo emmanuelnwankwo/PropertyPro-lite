@@ -1,5 +1,5 @@
 import PropertyModel from '../../models/dummyModel/propertyModel';
-
+/* eslint-disable camelcase */
 class PropertyController {
   static createProperty(req, res) {
     const {
@@ -106,6 +106,29 @@ class PropertyController {
     return res.status(200).json({
       status: 'success',
       data: property,
+    });
+  }
+
+  static deleteProperty(req, res) {
+    const { propertyId } = req.params;
+    const property = PropertyModel.find(propert => propert.id === Number(propertyId));
+    const index = PropertyModel.indexOf(property);
+    if (isNaN(propertyId)) {
+      return res.status(404).json({
+        status: 'error',
+        error: `Property ID: ${propertyId} must be an integer`,
+      });
+    }
+    if (!property) {
+      return res.status(404).json({
+        status: 'error',
+        error: `Property ID: ${propertyId} NOT FOUND`,
+      });
+    }
+    PropertyModel.splice(index, 1);
+    return res.status(200).json({
+      status: 'success',
+      data: `property with ID: ${propertyId} deleted`,
     });
   }
 }
