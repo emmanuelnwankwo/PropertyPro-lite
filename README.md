@@ -1,6 +1,7 @@
+[![Build Status](https://travis-ci.org/emmanuelnwankwo/PropertyPro-lite.svg?branch=develop)](https://travis-ci.org/emmanuelnwankwo/PropertyPro-lite) [![Coverage Status](https://coveralls.io/repos/github/emmanuelnwankwo/PropertyPro-lite/badge.svg?branch=develop)](https://coveralls.io/github/emmanuelnwankwo/PropertyPro-lite?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/a9d51b8fa32df9caaa10/maintainability)](https://codeclimate.com/github/emmanuelnwankwo/PropertyPro-lite/maintainability)
+
 # PropertyPro-lite
 ProperyPro Lite is a platform where people can create and search properties for sale or rent
-[![Build Status](https://travis-ci.org/emmanuelnwankwo/PropertyPro-lite.svg?branch=develop)](https://travis-ci.org/emmanuelnwankwo/PropertyPro-lite) [![Coverage Status](https://coveralls.io/repos/github/emmanuelnwankwo/PropertyPro-lite/badge.svg?branch=develop)](https://coveralls.io/github/emmanuelnwankwo/PropertyPro-lite?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/a9d51b8fa32df9caaa10/maintainability)](https://codeclimate.com/github/emmanuelnwankwo/PropertyPro-lite/maintainability)
 
 ## Getting Started
 
