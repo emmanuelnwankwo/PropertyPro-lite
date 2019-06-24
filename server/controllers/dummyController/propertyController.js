@@ -93,5 +93,20 @@ class PropertyController {
       data: PropertyModel,
     });
   }
+
+  static getProperty(req, res) {
+    const { propertyId } = req.params;
+    const property = PropertyModel.find(propert => propert.id === Number(propertyId));
+    if (!property) {
+      return res.status(404).json({
+        status: 'error',
+        error: `Property with ID: ${propertyId} NOT FOUND`,
+      });
+    }
+    return res.status(200).json({
+      status: 'success',
+      data: property,
+    });
+  }
 }
 export default PropertyController;
