@@ -131,5 +131,42 @@ class PropertyController {
       data: `property with ID: ${propertyId} deleted`,
     });
   }
+
+  static updateProperty(req, res) {
+    const { propertyId } = req.params;
+    const property = PropertyModel.find(propert => propert.id === Number(propertyId));
+    const {
+      property_name, status, price, state, city, address, type, image_url, image_url2, map_lat, map_lng, description, purpose,
+    } = req.body;
+    if (isNaN(propertyId)) {
+      return res.status(404).json({
+        status: 'error',
+        error: `Property ID: ${propertyId} must be an integer`,
+      });
+    }
+    if (!property) {
+      return res.status(404).json({
+        status: 'error',
+        error: `property ID: ${propertyId} NOT FOUND`,
+      });
+    }
+    property.property_name = property_name;
+    property.status = status;
+    property.price = price;
+    property.state = state;
+    property.city = city;
+    property.address = address;
+    property.type = type;
+    property.image_url = image_url;
+    property.image_url2 = image_url2;
+    property.map_lat = map_lat;
+    property.map_lng = map_lng;
+    property.description = description;
+    property.purpose = purpose;
+    return res.status(200).json({
+      status: 'success',
+      data: property,
+    });
+  }
 }
 export default PropertyController;
