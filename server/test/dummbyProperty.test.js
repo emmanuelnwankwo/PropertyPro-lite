@@ -402,4 +402,20 @@ describe('Test Property Endpoints', () => {
         });
     });
   });
+  describe('PATCH REQUESTS', () => {
+    it('It should update the property status to SOLD or AVAILABLE', (done) => {
+      const propertyId = 2;
+      const property = {
+        status: 'sold'
+      }
+      chai.request(app)
+      .patch(`${propertyUrl}/${propertyId}`)
+      .send(property)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.data.status).to.eql(property.status);
+        done();
+      });
+    });
+  });
 });
