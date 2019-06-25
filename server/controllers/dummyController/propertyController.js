@@ -168,5 +168,29 @@ class PropertyController {
       data: property,
     });
   }
+  static markProperty(req, res) {
+    const { propertyId } = req.params;
+    const property = PropertyModel.find(propert => propert.id === Number(propertyId));
+    const {
+      status
+    } = req.body;
+    if (isNaN(propertyId)) {
+      return res.status(404).json({
+        status: 'error',
+        error: `Property ID: ${propertyId} must be an integer`,
+      });
+    }
+    if (!property) {
+      return res.status(404).json({
+        status: 'error',
+        error: `property ID: ${propertyId} NOT FOUND`,
+      });
+    }
+    property.status = status;
+    return res.status(200).json({
+      status: 'success',
+      data: property,
+    });
+  }
 }
 export default PropertyController;
