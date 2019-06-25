@@ -168,11 +168,12 @@ class PropertyController {
       data: property,
     });
   }
+
   static markProperty(req, res) {
     const { propertyId } = req.params;
     const property = PropertyModel.find(propert => propert.id === Number(propertyId));
     const {
-      status
+      status,
     } = req.body;
     if (isNaN(propertyId)) {
       return res.status(404).json({
@@ -187,6 +188,21 @@ class PropertyController {
       });
     }
     property.status = status;
+    return res.status(200).json({
+      status: 'success',
+      data: property,
+    });
+  }
+
+  static typeProperty(req, res) {
+    const { propertyType } = req.params;
+    const property = PropertyModel.filter(propert => propert.type === propertyType);
+    if (property.length === 0) {
+      return res.status(404).json({
+        status: 'error',
+        error: `property TYPE: ${propertyType} NOT FOUND`,
+      });
+    }
     return res.status(200).json({
       status: 'success',
       data: property,

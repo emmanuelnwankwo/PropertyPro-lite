@@ -294,11 +294,7 @@ describe('Test Property Endpoints', () => {
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.status).to.eql('success');
-          // expect(res.body.data[0].property_name).to.eql('Test Property');
           expect(res.body.data).to.eql(property);
-          // expect(res.body.data[0].price).to.eql(500.00);
-          // expect(res.body.data[0].state).to.eql('Lagos');
-          // expect(res.body.data[0].city).to.eql('Test city');
           done();
         });
     });
@@ -318,6 +314,16 @@ describe('Test Property Endpoints', () => {
           expect(res.body.data[0].image_url).to.eql('Test.png');
           expect(res.body.data[0].description).to.eql('Test Description');
           expect(res.body.data[0].purpose).to.eql('For Sale');
+          done();
+        });
+    });
+    it('It should return the array of the same property type', (done) => {
+      const propertyType = '1 Bedroom';
+      chai.request(app)
+        .get(`${propertyUrl}/search/${propertyType}`)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.status).to.eql('success');
           done();
         });
     });
@@ -387,10 +393,10 @@ describe('Test Property Endpoints', () => {
         image_url: 'Test.png',
         description: 'Test Description',
         purpose: 'For Sale',
-        image_url2: '', 
+        image_url2: '',
         created_on: new Date().toLocaleString().replace(',', '').replace(/:.. /, ' '),
-        map_lat: 6.43, 
-        map_lng: 21.67
+        map_lat: 6.43,
+        map_lng: 21.67,
       };
       chai.request(app)
         .put(`${propertyUrl}/${propertyId}`)
@@ -406,16 +412,16 @@ describe('Test Property Endpoints', () => {
     it('It should update the property status to SOLD or AVAILABLE', (done) => {
       const propertyId = 2;
       const property = {
-        status: 'sold'
-      }
+        status: 'sold',
+      };
       chai.request(app)
-      .patch(`${propertyUrl}/${propertyId}`)
-      .send(property)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body.data.status).to.eql(property.status);
-        done();
-      });
+        .patch(`${propertyUrl}/${propertyId}`)
+        .send(property)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.data.status).to.eql(property.status);
+          done();
+        });
     });
   });
 });
