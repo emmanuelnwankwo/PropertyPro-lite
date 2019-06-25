@@ -362,4 +362,44 @@ describe('Test Property Endpoints', () => {
         });
     });
   });
+  describe('PUT REQUESTS', () => {
+    it('It should return error if the ID is not an integer', (done) => {
+      const propertyId = 'a';
+      chai.request(app)
+        .put(`${propertyUrl}/${propertyId}`)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.error).to.eql(`Property ID: ${propertyId} must be an integer`);
+          done();
+        });
+    });
+    it('It should update the property with the new name', (done) => {
+      const propertyId = 2;
+      const property = {
+        id: propertyId,
+        property_name: 'Second Test Property Name',
+        status: 'avaliable',
+        price: 500.00,
+        state: 'Lagos',
+        city: 'Test city',
+        address: 'Test address',
+        type: '1 Bedroom',
+        image_url: 'Test.png',
+        description: 'Test Description',
+        purpose: 'For Sale',
+        image_url2: '', 
+        created_on: new Date().toLocaleString().replace(',', '').replace(/:.. /, ' '),
+        map_lat: 6.43, 
+        map_lng: 21.67
+      };
+      chai.request(app)
+        .put(`${propertyUrl}/${propertyId}`)
+        .send(property)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.data).to.eql(property);
+          done();
+        });
+    });
+  });
 });
