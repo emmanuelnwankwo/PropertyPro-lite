@@ -19,6 +19,7 @@ describe('Test User Endpoints', () => {
         password: 'testpass',
         phoneNumber: '070000000',
         address: 'Test Address',
+        userType: 'user',
         isAdmin: false,
       };
       chai
@@ -40,6 +41,7 @@ describe('Test User Endpoints', () => {
         password: 'testpass',
         phoneNumber: '07000000',
         address: 'Test Address',
+        userType: 'user',
         isAdmin: false,
       };
       chai
@@ -62,6 +64,7 @@ describe('Test User Endpoints', () => {
         password: 'testpass',
         phoneNumber: '070000000',
         address: 'Test Address',
+        userType: 'user',
         isAdmin: false,
       };
       chai
@@ -75,49 +78,49 @@ describe('Test User Endpoints', () => {
           done();
         });
     });
-    // it('It should login the User if the account exists', (done) => {
-    //     const user = {
-    //         email: 'test@gmail.com',
-    //         password: 'testpass'
-    //     };
-    //     chai.request(app)
-    //         .post(`${authBaseUrl}/login`)
-    //         .send(user)
-    //         .end((err, res) => {
-    //             expect(res).to.have.status(200);
-    //             expect(res.body.status).to.eql('success');
-    //             done();
-    //         });
-    // });
-    // it('It should return Password NOT FOUND if the password is incorrect', (done) => {
-    //     const user = {
-    //         email: 'test@gmail.com',
-    //         password: 'pass'
-    //     };
-    //     chai.request(app)
-    //         .post(`${authBaseUrl}/login`)
-    //         .send(user)
-    //         .end((err, res) => {
-    //             expect(res).to.have.status(401);
-    //             expect(res.body.status).to.eql('error');
-    //             expect(res.body.error).to.eql('Password is not correct');
-    //             done();
-    //         });
-    // });
-    // it('It should return User NOT FOUND if the User account does not exist', (done) => {
-    //     const user = {
-    //         email: 'test1@gmail.com',
-    //         password: 'testpass'
-    //     };
-    //     chai.request(app)
-    //         .post(`${authBaseUrl}/login`)
-    //         .send(user)
-    //         .end((err, res) => {
-    //             expect(res).to.have.status(404);
-    //             expect(res.body.status).to.eql('error');
-    //             expect(res.body.error).to.eql('User does not exists');
-    //             done();
-    //         });
-    // });
+    it('It should login the User if the account exists', (done) => {
+      const user = {
+        email: 'test@gmail.com',
+        password: 'testpass',
+      };
+      chai.request(app)
+        .post(`${authBaseUrl}/login`)
+        .send(user)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.status).to.eql('success');
+          done();
+        });
+    });
+    it('It should return Password NOT FOUND if the password is incorrect', (done) => {
+      const user = {
+        email: 'test@gmail.com',
+        password: 'pass',
+      };
+      chai.request(app)
+        .post(`${authBaseUrl}/login`)
+        .send(user)
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+          expect(res.body.status).to.eql('error');
+          expect(res.body.error).to.eql('Password is not correct');
+          done();
+        });
+    });
+    it('It should return User NOT FOUND if the User account does not exist', (done) => {
+      const user = {
+        email: 'test1@gmail.com',
+        password: 'testpass',
+      };
+      chai.request(app)
+        .post(`${authBaseUrl}/login`)
+        .send(user)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.status).to.eql('error');
+          expect(res.body.error).to.eql('User does not exists');
+          done();
+        });
+    });
   });
 });

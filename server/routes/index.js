@@ -5,7 +5,7 @@ import AuthValidator from '../middlewares/authValidator';
 
 const router = express.Router();
 
-const { createUser } = User;
+const { createUser, loginUser } = User;
 const {
   createProperty,
   getProperties,
@@ -42,6 +42,6 @@ router.post(
   userExists,
   createUser,
 );
-// router.post(`${authBaseUrl}/login`, loginUser);
+router.post(`${authBaseUrl}/login`, loginUser);
 
 export default router;

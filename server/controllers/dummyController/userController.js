@@ -14,6 +14,7 @@ class UserController {
         password,
         phoneNumber,
         address,
+        userType,
         isAdmin,
       } = req.body;
       const hashedPassword = passwordHash.generate(password);
@@ -25,6 +26,7 @@ class UserController {
         hashedPassword,
         phoneNumber,
         address,
+        userType,
         isAdmin,
       };
       UserModel.push(user);
@@ -32,7 +34,9 @@ class UserController {
       const token = generateToken({ id, isAdmin });
       return res.status(201).json({
         status: 'success',
-        data: [{ token, user }],
+        data: [{
+          token, id, email, firstName, lastName, phoneNumber, address, userType, isAdmin,
+        }],
       });
     } catch (err) {
       const { error } = err;
@@ -46,36 +50,41 @@ class UserController {
     return true;
   }
 
-  // static loginUser(req, res) {
-  //     const { email, password } = req.body;
-  //     const user = UserModel.filter(selectedUser => selectedUser.email === email);
-  //     try {
-  //         if (user && user[0]) {
-  //             if (passwordHash.verify(password, user[0].hashedPassword)) {
-  //                 const { id, isAdmin } = user;
-  //                 const token = generateToken({ id, isAdmin });
-  //                 return res.status(200).json({
-  //                     status: 'success',
-  //                     data: [{ token, user }]
-  //                 });
-  //             }
-  //             return res.status(401).json({
-  //                 status: 'error',
-  //                 error: 'Password is not correct'
-  //             });
-  //         }
-  //         return res.status(404).json({
-  //             status: 'error',
-  //             error: 'User does not exists'
-  //         });
-  //     } catch (error) {
-  //         return res.status(500).json({
-  //             status: 'error',
-  //             error: 'Internal server error'
-  //         });
-  //     }
-
-  // }
+  static loginUser(req, res) {
+    const {
+      email, password,
+    } = req.body;
+    const user = UserModel.filter(selectedUser => selectedUser.email === email);
+    try {
+      if (user && user[0]) {
+        if (passwordHash.verify(password, user[0].hashedPassword)) {
+          const {
+            id, isAdmin, firstName, lastName, phoneNumber, address, userType,
+          } = user[0];
+          const token = generateToken({ id, isAdmin });
+          return res.status(200).json({
+            status: 'success',
+            data: [{
+              token, id, email, firstName, lastName, phoneNumber, address, userType, isAdmin,
+            }],
+          });
+        }
+        return res.status(401).json({
+          status: 'error',
+          error: 'Password is not correct',
+        });
+      }
+      return res.status(404).json({
+        status: 'error',
+        error: 'User does not exists',
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 'error',
+        error: 'Internal server error',
+      });
+    }
+  }
 
   // static getUsers(req, res) {
   //     return res.status(200).json({
