@@ -18,12 +18,21 @@ class Authenticator {
   }
 
   /**
+     * @description Verify the access token
+     * @param {string} token - The access token
+     * @return {object} payload - The verify access token
+     */
+  static verifyToken(token) {
+    return jwt.verify(token, SECRET);
+  }
+
+  /**
      * @description Decodes the access token
      * @param {string} token - The access token
      * @return {object} payload - The decoded access token
      */
-  static verifyToken(token) {
-    return jwt.verify(token, SECRET);
+  static decodeToken(token) {
+    return jwt.decode(token, { complete: true });
   }
 }
 

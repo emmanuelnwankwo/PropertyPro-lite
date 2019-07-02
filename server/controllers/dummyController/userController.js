@@ -31,12 +31,24 @@ class UserController {
       };
       UserModel.push(user);
       const { id } = user;
-      const token = generateToken({ id, isAdmin });
+      const token = generateToken({
+        id, isAdmin, userType, phoneNumber,
+      });
       return res.status(201).json({
         status: 'success',
-        data: [{
-          token, id, email, firstName, lastName, phoneNumber, address, userType, isAdmin,
-        }],
+        data: [
+          {
+            token,
+            id,
+            email,
+            firstName,
+            lastName,
+            phoneNumber,
+            address,
+            userType,
+            isAdmin,
+          },
+        ],
       });
     } catch (err) {
       const { error } = err;
@@ -51,22 +63,39 @@ class UserController {
   }
 
   static loginUser(req, res) {
-    const {
-      email, password,
-    } = req.body;
+    const { email, password } = req.body;
     const user = UserModel.filter(selectedUser => selectedUser.email === email);
     try {
       if (user && user[0]) {
         if (passwordHash.verify(password, user[0].hashedPassword)) {
           const {
-            id, isAdmin, firstName, lastName, phoneNumber, address, userType,
+            id,
+            isAdmin,
+            firstName,
+            lastName,
+            phoneNumber,
+            address,
+            userType,
           } = user[0];
-          const token = generateToken({ id, isAdmin });
+          const token = generateToken({
+            id, isAdmin, userType, phoneNumber,
+          });
           return res.status(200).json({
             status: 'success',
-            data: [{
-              token, id, email, firstName, lastName, phoneNumber, address, userType, isAdmin,
-            }],
+            data: [
+              {
+                token,
+                id,
+                email,
+                firstName,
+                lastName,
+                phoneNumber,
+                address,
+                userType,
+                isAdmin,
+              },
+            ],
+            message: 'Login successful',
           });
         }
         return res.status(401).json({
