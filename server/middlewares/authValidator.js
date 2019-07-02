@@ -1,7 +1,7 @@
-// import Authenticator from '../helper/authenticator';
+import Authenticator from '../helper/authenticator';
 import UserModel from '../models/dummyModel/userModel';
 
-// const { verifyToken } = Authenticator;
+const { verifyToken, decodeToken } = Authenticator;
 
 /**
  * @description Handles validation for all authentication processes
@@ -22,44 +22,44 @@ class AuthValidator {
       phoneNumber,
       address,
     } = req.body;
-    if (email === undefined) {
-      return res.status(409).json({
+    if (!email) {
+      return res.status(400).json({
         status: 'error',
         error: 'Email is required',
       });
     }
-    if (firstName === undefined || firstName === '') {
-      return res.status(409).json({
+    if (!firstName) {
+      return res.status(400).json({
         status: 'error',
         error: 'First Name is required',
       });
     }
-    if (lastName === undefined || lastName === '') {
-      return res.status(409).json({
+    if (!lastName) {
+      return res.status(400).json({
         status: 'error',
         error: 'Last Name is required',
       });
     }
-    if (password === undefined || password === '') {
-      return res.status(409).json({
+    if (!password) {
+      return res.status(400).json({
         status: 'error',
         error: 'Password is required',
       });
     }
-    if (phoneNumber === undefined || phoneNumber === '') {
-      return res.status(409).json({
+    if (!phoneNumber) {
+      return res.status(400).json({
         status: 'error',
         error: 'Phone number is required',
       });
     }
     if (!Number(phoneNumber)) {
-      return res.status(409).json({
+      return res.status(404).json({
         status: 'error',
         error: 'Phone number is not an integer',
       });
     }
-    if (address === undefined) {
-      return res.status(409).json({
+    if (!address) {
+      return res.status(400).json({
         status: 'error',
         error: 'Address is required',
       });
@@ -101,7 +101,58 @@ class AuthValidator {
     if (userPhone) {
       return res.status(409).json({
         status: 'error',
-        error: 'Phone number already exist in the database',
+        error: 'User with the phone number already exists',
+      });
+    }
+    return next();
+  }
+
+  /**
+   * check if the user is login
+   * @param {object} req
+   * @param {object} res
+   * @param {callback} next
+   */
+  static isAuthenticated(req, res, next) {
+    try {
+      const token = req.headers.authorization.split(' ')[1];
+      const verifiedToken = verifyToken(token);
+      if (!verifiedToken) {
+        return res.status(401).json({
+          status: 'error',
+          error: 'Access denied, Token has expired',
+        });
+      }
+      const decoded = decodeToken(token);
+      if (Date.now() >= decoded.payload.exp * 1000) {
+        return res.status(401).json({
+          status: 'error',
+          error: 'Access denied, Token has expired',
+        });
+      }
+    } catch (error) {
+      return res.status(401).json({
+        status: 'error',
+        error: 'Access denied, Authorization required',
+      });
+    }
+    return next();
+  }
+
+  /**
+   * check if the user is an Agent
+   * @param {object} req
+   * @param {object} res
+   * @param {callback} next
+   */
+  static isAgent(req, res, next) {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = decodeToken(token);
+    const accountType = decoded.payload.userType;
+    if (accountType === 'user') {
+      return res.status(403).json({
+        status: 'error',
+        error: 'Only Agent can post an advert',
       });
     }
     return next();

@@ -7,21 +7,22 @@ import app from '../server';
 chai.use(chaiHTTP);
 const { expect } = chai;
 const authBaseUrl = '/api/v1/auth';
+const user = {
+  id: uuid.v4(),
+  email: 'test@gmail.com',
+  firstName: 'First Name',
+  lastName: 'Second Name',
+  password: 'testpass',
+  phoneNumber: '07000000',
+  address: 'Test Address',
+  userType: 'user',
+  passportUrl: 'https://example.com/avatar.png',
+  isAdmin: false,
+};
 
 describe('Test User Endpoints', () => {
   describe('POST REQUESTS', () => {
     it('It should create a User account', (done) => {
-      const user = {
-        id: uuid.v4(),
-        email: 'test@gmail.com',
-        firstName: 'First Name',
-        lastName: 'Second Name',
-        password: 'testpass',
-        phoneNumber: '070000000',
-        address: 'Test Address',
-        userType: 'user',
-        isAdmin: false,
-      };
       chai
         .request(app)
         .post(`${authBaseUrl}/signup`)
@@ -33,17 +34,7 @@ describe('Test User Endpoints', () => {
         });
     });
     it('It should return User already exits in the database', (done) => {
-      const user = {
-        id: uuid.v4(),
-        email: 'test@gmail.com',
-        firstName: 'First Name',
-        lastName: 'Second Name',
-        password: 'testpass',
-        phoneNumber: '07000000',
-        address: 'Test Address',
-        userType: 'user',
-        isAdmin: false,
-      };
+      user.email = 'test@gmail.com';
       chai
         .request(app)
         .post(`${authBaseUrl}/signup`)
@@ -55,18 +46,106 @@ describe('Test User Endpoints', () => {
           done();
         });
     });
+    it('Should throw 400 if email is empty', (done) => {
+      user.email = '';
+      chai
+        .request(app)
+        .post(`${authBaseUrl}/signup`)
+        .send(user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.status).to.eql('error');
+          expect(res.body.error).to.eql('Email is required');
+          done();
+        });
+    });
+    it('Should throw 400 if First Name is empty', (done) => {
+      user.email = 'test@gmail.com';
+      user.firstName = '';
+      chai
+        .request(app)
+        .post(`${authBaseUrl}/signup`)
+        .send(user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.status).to.eql('error');
+          expect(res.body.error).to.eql('First Name is required');
+          done();
+        });
+    });
+    it('Should throw 400 if Last Name is empty', (done) => {
+      user.email = 'test@gmail.com';
+      user.firstName = 'First Name';
+      user.lastName = '';
+      chai
+        .request(app)
+        .post(`${authBaseUrl}/signup`)
+        .send(user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.status).to.eql('error');
+          expect(res.body.error).to.eql('Last Name is required');
+          done();
+        });
+    });
+    it('Should throw 400 if Password is empty', (done) => {
+      user.email = 'test@gmail.com';
+      user.firstName = 'First Name';
+      user.lastName = 'Last Name';
+      user.password = '';
+      chai
+        .request(app)
+        .post(`${authBaseUrl}/signup`)
+        .send(user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.status).to.eql('error');
+          expect(res.body.error).to.eql('Password is required');
+          done();
+        });
+    });
+    it('Should throw 400 if Phone Number is empty', (done) => {
+      user.email = 'test@gmail.com';
+      user.firstName = 'First Name';
+      user.lastName = 'Last Name';
+      user.password = 'testpass';
+      user.phoneNumber = '';
+      chai
+        .request(app)
+        .post(`${authBaseUrl}/signup`)
+        .send(user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.status).to.eql('error');
+          expect(res.body.error).to.eql('Phone number is required');
+          done();
+        });
+    });
+    it('Should throw 400 if Address is empty', (done) => {
+      user.email = 'test@gmail.com';
+      user.firstName = 'First Name';
+      user.lastName = 'Last Name';
+      user.password = 'testpass';
+      user.phoneNumber = '07000000';
+      user.address = '';
+      chai
+        .request(app)
+        .post(`${authBaseUrl}/signup`)
+        .send(user)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.status).to.eql('error');
+          expect(res.body.error).to.eql('Address is required');
+          done();
+        });
+    });
     it('It should return Phone Number already exits in the database', (done) => {
-      const user = {
-        id: uuid.v4(),
-        email: 'test2@gmail.com',
-        firstName: 'First Name',
-        lastName: 'Second Name',
-        password: 'testpass',
-        phoneNumber: '070000000',
-        address: 'Test Address',
-        userType: 'user',
-        isAdmin: false,
-      };
+      user.email = 'test1@gmail.com';
+      user.firstName = 'First Name';
+      user.lastName = 'Last Name';
+      user.password = 'testpass';
+      user.phoneNumber = '07000000';
+      user.address = 'Address';
       chai
         .request(app)
         .post(`${authBaseUrl}/signup`)
@@ -74,29 +153,13 @@ describe('Test User Endpoints', () => {
         .end((err, res) => {
           expect(res).to.have.status(409);
           expect(res.body.status).to.eql('error');
-          expect(res.body.error).to.eql('Phone number already exist in the database');
+          expect(res.body.error).to.eql('User with the phone number already exists');
           done();
         });
     });
-    it('It should login the User if the account exists', (done) => {
-      const user = {
-        email: 'test@gmail.com',
-        password: 'testpass',
-      };
-      chai.request(app)
-        .post(`${authBaseUrl}/login`)
-        .send(user)
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body.status).to.eql('success');
-          done();
-        });
-    });
-    it('It should return Password NOT FOUND if the password is incorrect', (done) => {
-      const user = {
-        email: 'test@gmail.com',
-        password: 'pass',
-      };
+    it('It should return Password is incorrect', (done) => {
+      user.email = 'test@gmail.com';
+      user.password = 'pass';
       chai.request(app)
         .post(`${authBaseUrl}/login`)
         .send(user)
@@ -107,11 +170,9 @@ describe('Test User Endpoints', () => {
           done();
         });
     });
-    it('It should return User NOT FOUND if the User account does not exist', (done) => {
-      const user = {
-        email: 'test1@gmail.com',
-        password: 'testpass',
-      };
+    it('It should return Error, User account does not exist', (done) => {
+      user.email = 'test1@gmail.com';
+      user.password = 'testpass';
       chai.request(app)
         .post(`${authBaseUrl}/login`)
         .send(user)
@@ -119,6 +180,19 @@ describe('Test User Endpoints', () => {
           expect(res).to.have.status(404);
           expect(res.body.status).to.eql('error');
           expect(res.body.error).to.eql('User does not exists');
+          done();
+        });
+    });
+    it('It should login the User', (done) => {
+      user.email = 'test@gmail.com';
+      user.password = 'testpass';
+      chai.request(app)
+        .post(`${authBaseUrl}/login`)
+        .send(user)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.status).to.eql('success');
+          expect(res.body.message).to.eql('Login successful');
           done();
         });
     });
