@@ -3,10 +3,12 @@ import Property from '../controllers/dummyController/propertyController';
 import User from '../controllers/dummyController/userController';
 import AuthValidator from '../middlewares/authValidator';
 import PropertyValidator from '../middlewares/propertyValidator';
+import Cloudinary from '../config/cloudinaryConfig';
 
 const router = express.Router();
 
 const { createUser, loginUser } = User;
+const { imageupload } = Cloudinary;
 const {
   createProperty,
   getProperties,
@@ -44,5 +46,8 @@ router.patch(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSin
 const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, validatePhone, createUser);
 router.post(`${authBaseUrl}/login`, loginUser);
+
+/** Image upload in Cloudinary */
+router.post('/api/v1/upload', imageupload);
 
 export default router;
