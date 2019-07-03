@@ -14,6 +14,7 @@ class UserController {
         password,
         phoneNumber,
         address,
+        passportUrl,
         userType,
         isAdmin,
       } = req.body;
@@ -26,6 +27,7 @@ class UserController {
         hashedPassword,
         phoneNumber,
         address,
+        passportUrl,
         userType,
         isAdmin,
       };
@@ -45,6 +47,7 @@ class UserController {
             lastName,
             phoneNumber,
             address,
+            passportUrl,
             userType,
             isAdmin,
           },
@@ -75,6 +78,7 @@ class UserController {
             lastName,
             phoneNumber,
             address,
+            passportUrl,
             userType,
           } = user[0];
           const token = generateToken({
@@ -91,6 +95,7 @@ class UserController {
                 lastName,
                 phoneNumber,
                 address,
+                passportUrl,
                 userType,
                 isAdmin,
               },
