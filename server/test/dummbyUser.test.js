@@ -12,12 +12,12 @@ const user = {
   email: 'test@gmail.com',
   firstName: 'First Name',
   lastName: 'Second Name',
-  password: 'testpass',
-  phoneNumber: '07000000',
+  password: 'testpass123',
+  phoneNumber: '07000000000',
   address: 'Test Address',
   userType: 'user',
   passportUrl: 'https://example.com/avatar.png',
-  isAdmin: false,
+  isAdmin: 'false',
 };
 
 describe('Test User Endpoints', () => {
@@ -54,8 +54,7 @@ describe('Test User Endpoints', () => {
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.status).to.eql('error');
-          expect(res.body.error).to.eql('Email is required');
+          expect(res.body.email).to.eql('Email is required');
           done();
         });
     });
@@ -68,8 +67,7 @@ describe('Test User Endpoints', () => {
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.status).to.eql('error');
-          expect(res.body.error).to.eql('First Name is required');
+          expect(res.body.firstName).to.eql('First Name is required');
           done();
         });
     });
@@ -83,8 +81,7 @@ describe('Test User Endpoints', () => {
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.status).to.eql('error');
-          expect(res.body.error).to.eql('Last Name is required');
+          expect(res.body.lastName).to.eql('Last Name is required');
           done();
         });
     });
@@ -99,8 +96,7 @@ describe('Test User Endpoints', () => {
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.status).to.eql('error');
-          expect(res.body.error).to.eql('Password is required');
+          expect(res.body.password).to.eql('Password is required');
           done();
         });
     });
@@ -116,26 +112,7 @@ describe('Test User Endpoints', () => {
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.status).to.eql('error');
-          expect(res.body.error).to.eql('Phone number is required');
-          done();
-        });
-    });
-    it('Should throw 400 if Address is empty', (done) => {
-      user.email = 'test@gmail.com';
-      user.firstName = 'First Name';
-      user.lastName = 'Last Name';
-      user.password = 'testpass';
-      user.phoneNumber = '07000000';
-      user.address = '';
-      chai
-        .request(app)
-        .post(`${authBaseUrl}/signup`)
-        .send(user)
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          expect(res.body.status).to.eql('error');
-          expect(res.body.error).to.eql('Address is required');
+          expect(res.body.phoneNumber).to.eql('Phone number is required');
           done();
         });
     });
@@ -143,8 +120,8 @@ describe('Test User Endpoints', () => {
       user.email = 'test1@gmail.com';
       user.firstName = 'First Name';
       user.lastName = 'Last Name';
-      user.password = 'testpass';
-      user.phoneNumber = '07000000';
+      user.password = 'testpass123';
+      user.phoneNumber = '07000000000';
       user.address = 'Address';
       chai
         .request(app)
@@ -159,7 +136,7 @@ describe('Test User Endpoints', () => {
     });
     it('It should return Password is incorrect', (done) => {
       user.email = 'test@gmail.com';
-      user.password = 'pass';
+      user.password = 'pass1234';
       chai.request(app)
         .post(`${authBaseUrl}/login`)
         .send(user)
@@ -172,7 +149,7 @@ describe('Test User Endpoints', () => {
     });
     it('It should return Error, User account does not exist', (done) => {
       user.email = 'test1@gmail.com';
-      user.password = 'testpass';
+      user.password = 'testpass123';
       chai.request(app)
         .post(`${authBaseUrl}/login`)
         .send(user)
@@ -185,7 +162,7 @@ describe('Test User Endpoints', () => {
     });
     it('It should login the User', (done) => {
       user.email = 'test@gmail.com';
-      user.password = 'testpass';
+      user.password = 'testpass123';
       chai.request(app)
         .post(`${authBaseUrl}/login`)
         .send(user)
