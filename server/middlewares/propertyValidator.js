@@ -1,4 +1,5 @@
 import PropertyModel from '../models/dummyModel/propertyModel';
+import checkProperty from './checkProperty';
 
 /**
  * @description Handles validation for property
@@ -11,79 +12,21 @@ class PropertyValidator {
    * @param {callback} next
    */
   static validateProperty(req, res, next) {
-    const {
-      status,
-      price,
-      state,
-      city,
-      address,
-      type,
-      imageUrl,
-      propertyName,
-      description,
-      purpose,
-    } = req.body;
-    if (!propertyName) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'The property name is required',
-      });
+    try {
+      const { errors, isValid } = checkProperty(req.body);
+      if (!isValid) {
+        return res.status(400).json(errors);
+      }
+      return next();
+    } catch (err) {
+      const { error } = err;
+      if (error === undefined) {
+        res.status(500).json({
+          status: 'error',
+          error: 'Invalid data input',
+        });
+      }
     }
-    if (!status) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'The property status is required',
-      });
-    }
-    if (!price) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'The property price is required',
-      });
-    }
-    if (!state) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'The property state is required',
-      });
-    }
-    if (!city) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'The property city is required',
-      });
-    }
-    if (!address) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'The property address is required',
-      });
-    }
-    if (!type) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'The property type is required',
-      });
-    }
-    if (!purpose) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'The property purpose is required',
-      });
-    }
-    if (!imageUrl) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'The property image is required',
-      });
-    }
-    if (!description) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'The property description is required',
-      });
-    }
-    return next();
   }
 
   /**

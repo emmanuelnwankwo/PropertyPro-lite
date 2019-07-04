@@ -9,7 +9,7 @@ const authBaseUrl = '/api/v1/auth';
 const newProperty = {
   propertyName: 'Test Property',
   status: 'avaliable',
-  price: 500.00,
+  price: '500,00',
   state: 'Lagos',
   city: 'Test city',
   address: 'Test address',
@@ -22,12 +22,12 @@ const user = {
   email: 'testt@gmail.com',
   firstName: 'First Name',
   lastName: 'Second Name',
-  password: 'testpass',
-  phoneNumber: '0700000020',
+  password: 'testpass123',
+  phoneNumber: '07000000200',
   address: 'Test Address',
   userType: 'agent',
   passportUrl: 'https://example.com/avatar.png',
-  isAdmin: false,
+  isAdmin: 'false',
 };
 let propertyId = '';
 let token = '';
@@ -52,7 +52,7 @@ describe('Test Property Endpoints', () => {
     });
     it('Should login the User', (done) => {
       user.email = 'testt@gmail.com';
-      user.password = 'testpass';
+      user.password = 'testpass123';
       chai.request(app)
         .post(`${authBaseUrl}/login`)
         .send(user)
@@ -93,7 +93,7 @@ describe('Test Property Endpoints', () => {
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.error).to.eql('The property name is required');
+          expect(res.body.propertyName).to.eql('The property name is required');
           done();
         });
     });
@@ -106,7 +106,7 @@ describe('Test Property Endpoints', () => {
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.error).to.eql('The property status is required');
+          expect(res.body.status).to.eql('The property status is required');
           done();
         });
     });
@@ -120,14 +120,14 @@ describe('Test Property Endpoints', () => {
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.error).to.eql('The property price is required');
+          expect(res.body.price).to.eql('The property price is required');
           done();
         });
     });
     it('It should ensure that property state is not empty', (done) => {
       newProperty.propertyName = 'Test Property';
       newProperty.status = 'avaliable';
-      newProperty.price = 500.0;
+      newProperty.price = '500,0';
       newProperty.state = '';
       chai.request(app)
         .post(propertyUrl)
@@ -135,14 +135,14 @@ describe('Test Property Endpoints', () => {
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.error).to.eql('The property state is required');
+          expect(res.body.state).to.eql('The property state is required');
           done();
         });
     });
     it('It should ensure that property city is not empty', (done) => {
       newProperty.propertyName = 'Test Property';
       newProperty.status = 'avaliable';
-      newProperty.price = 500.0;
+      newProperty.price = '500,0';
       newProperty.state = 'Lagos';
       newProperty.city = '';
       chai.request(app)
@@ -151,14 +151,14 @@ describe('Test Property Endpoints', () => {
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.error).to.eql('The property city is required');
+          expect(res.body.city).to.eql('The property city is required');
           done();
         });
     });
     it('It should ensure that property address is not empty', (done) => {
       newProperty.propertyName = 'Test Property';
       newProperty.status = 'avaliable';
-      newProperty.price = 500.0;
+      newProperty.price = '500,0';
       newProperty.state = 'Lagos';
       newProperty.city = 'Lekki';
       newProperty.address = '';
@@ -168,14 +168,14 @@ describe('Test Property Endpoints', () => {
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.error).to.eql('The property address is required');
+          expect(res.body.address).to.eql('The property address is required');
           done();
         });
     });
     it('It should ensure that property type is not empty', (done) => {
       newProperty.propertyName = 'Test Property';
       newProperty.status = 'avaliable';
-      newProperty.price = 500.0;
+      newProperty.price = '500,0';
       newProperty.state = 'Lagos';
       newProperty.city = 'Lekki';
       newProperty.address = 'Test Address';
@@ -186,14 +186,14 @@ describe('Test Property Endpoints', () => {
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.error).to.eql('The property type is required');
+          expect(res.body.type).to.eql('The property type is required');
           done();
         });
     });
     it('It should ensure that property image is not empty', (done) => {
       newProperty.propertyName = 'Test Property';
       newProperty.status = 'avaliable';
-      newProperty.price = 500.0;
+      newProperty.price = '500,0';
       newProperty.state = 'Lagos';
       newProperty.city = 'Lekki';
       newProperty.address = 'Test Address';
@@ -205,14 +205,14 @@ describe('Test Property Endpoints', () => {
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.error).to.eql('The property image is required');
+          expect(res.body.imageUrl).to.eql('The property image is required');
           done();
         });
     });
     it('It should ensure that property description is not empty', (done) => {
       newProperty.propertyName = 'Test Property';
       newProperty.status = 'avaliable';
-      newProperty.price = 500.0;
+      newProperty.price = '500,0';
       newProperty.state = 'Lagos';
       newProperty.city = 'Lekki';
       newProperty.address = 'Test Address';
@@ -225,7 +225,7 @@ describe('Test Property Endpoints', () => {
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.error).to.eql('The property description is required');
+          expect(res.body.description).to.eql('The property description is required');
           done();
         });
     });

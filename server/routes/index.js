@@ -7,7 +7,7 @@ import Cloudinary from '../config/cloudinaryConfig';
 
 const router = express.Router();
 
-const { createUser, loginUser } = User;
+const { createUser, loginUser, getUsers } = User;
 const { imageupload } = Cloudinary;
 const {
   createProperty,
@@ -24,6 +24,8 @@ const {
   validatePhone,
   isAuthenticated,
   isAgent,
+  validateLogin,
+  isAdmin,
 } = AuthValidator;
 const { validateProperty, validateSingleProperty } = PropertyValidator;
 router.get('/', (req, res) => {
@@ -45,9 +47,16 @@ router.patch(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSin
 /**  authBaseUrl Routes */
 const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, validatePhone, createUser);
-router.post(`${authBaseUrl}/login`, loginUser);
+router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 
+router.get(`${authBaseUrl}/admin`, isAuthenticated, isAdmin, getUsers);
 /** Image upload in Cloudinary */
 router.post('/api/v1/upload', imageupload);
 
+router.get('*', (req, res, next) => {
+  res.status(404).json({
+    message: 'Endpoint Not Found',
+  });
+  return next();
+});
 export default router;
