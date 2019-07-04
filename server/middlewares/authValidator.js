@@ -1,5 +1,8 @@
+import passwordHash from 'password-hash';
 import Authenticator from '../helper/authenticator';
 import UserModel from '../models/dummyModel/userModel';
+import checkLogin from './loginValidator';
+import checkSignup from './signupValidator';
 
 const { verifyToken, decodeToken } = Authenticator;
 
@@ -14,57 +17,21 @@ class AuthValidator {
    * @param {callback} next
    */
   static validateSignUp(req, res, next) {
-    const {
-      email,
-      firstName,
-      lastName,
-      password,
-      phoneNumber,
-      address,
-    } = req.body;
-    if (!email) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'Email is required',
-      });
+    try {
+      const { errors, isValid } = checkSignup(req.body);
+      if (!isValid) {
+        return res.status(400).json(errors);
+      }
+      return next();
+    } catch (err) {
+      const { error } = err;
+      if (error === undefined) {
+        res.status(500).json({
+          status: 'error',
+          error: 'Invalid data input',
+        });
+      }
     }
-    if (!firstName) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'First Name is required',
-      });
-    }
-    if (!lastName) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'Last Name is required',
-      });
-    }
-    if (!password) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'Password is required',
-      });
-    }
-    if (!phoneNumber) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'Phone number is required',
-      });
-    }
-    if (!Number(phoneNumber)) {
-      return res.status(404).json({
-        status: 'error',
-        error: 'Phone number is not an integer',
-      });
-    }
-    if (!address) {
-      return res.status(400).json({
-        status: 'error',
-        error: 'Address is required',
-      });
-    }
-    return next();
   }
 
   /**
@@ -156,6 +123,47 @@ class AuthValidator {
       });
     }
     return next();
+  }
+
+  /**
+   * check if the user is an Admin
+   * @param {object} req
+   * @param {object} res
+   * @param {callback} next
+   */
+  static isAdmin(req, res, next) {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = decodeToken(token);
+    const Admin = JSON.parse(decoded.payload.isAdmin);
+    if (!Admin) {
+      return res.status(403).json({
+        status: 'error',
+        error: 'Access denied, contact Admin',
+      });
+    }
+    return next();
+  }
+
+  static validateLogin(req, res, next) {
+    const { errors, isValid } = checkLogin(req.body);
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+    const { email, password } = req.body;
+    const user = UserModel.filter(selectedUser => selectedUser.email === email);
+    if (user && user[0]) {
+      if (passwordHash.verify(password, user[0].hashedPassword)) {
+        return next();
+      }
+      return res.status(401).json({
+        status: 'error',
+        error: 'Password is not correct',
+      });
+    }
+    return res.status(404).json({
+      status: 'error',
+      error: 'User does not exists',
+    });
   }
 }
 

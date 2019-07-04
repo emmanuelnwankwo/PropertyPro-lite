@@ -6,19 +6,7 @@ const { decodeToken } = Authenticator;
 class PropertyController {
   static createProperty(req, res) {
     const {
-      status,
-      price,
-      state,
-      city,
-      address,
-      type,
-      imageUrl,
-      propertyName,
-      imageUrl2,
-      description,
-      mapLat,
-      mapLng,
-      purpose,
+      status, price, state, city, address, type, imageUrl, propertyName, imageUrl2, description, mapLat, mapLng, purpose,
     } = req.body;
     const token = req.headers.authorization.split(' ')[1];
     const decoded = decodeToken(token);
@@ -29,23 +17,7 @@ class PropertyController {
       .replace(',', '')
       .replace(/:.. /, ' ');
     const property = {
-      id: uuid.v4(),
-      owner,
-      propertyName,
-      status,
-      price,
-      state,
-      city,
-      address,
-      type,
-      createdOn,
-      imageUrl,
-      imageUrl2,
-      description,
-      ownerPhone,
-      purpose,
-      mapLng,
-      mapLat,
+      id: uuid.v4(), owner, propertyName, status, price, state, city, address, type, createdOn, imageUrl, imageUrl2, description, ownerPhone, purpose, mapLng, mapLat,
     };
     PropertyModel.push(property);
     return res.status(201).json({
@@ -91,19 +63,7 @@ class PropertyController {
       propert => propert.id === propertyId,
     );
     const {
-      propertyName,
-      status,
-      price,
-      state,
-      city,
-      address,
-      type,
-      imageUrl,
-      imageUrl2,
-      mapLat,
-      mapLng,
-      description,
-      purpose,
+      propertyName, status, price, state, city, address, type, imageUrl, imageUrl2, mapLat, mapLng, description, purpose,
     } = req.body;
     property.propertyName = propertyName;
     property.status = status;
