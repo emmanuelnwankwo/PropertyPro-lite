@@ -6,7 +6,7 @@
   "scripts": {
     "eslint": "eslint . --fix",
     "test": "mocha babel.config.js ./server/test/**/*.test.js --timeout 20000 --exit",
-    "start": "node babel.config.js",
+    "start": "export NODE_ENV=production && node babel.config.js",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
