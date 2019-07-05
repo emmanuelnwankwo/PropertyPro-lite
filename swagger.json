@@ -1,0 +1,671 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0",
+        "title": "PropertyPro-Lite",
+        "description": "ProperyPro Lite is a platform where people can create and search properties for sale or rent"
+    },
+    "schemes": [
+        "https"
+    ],
+    "host": "propertypro-lit.herokuapp.com",
+    "basePath": "/api/v1",
+    "securityDefinitions": {
+        "Bearer": {
+            "description": "Standard Authorization header using the bearer scheme. Example: \"bearer {token}\"",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Endpoint for Authentication"
+        },
+        {
+            "name": "Users",
+            "description": "Endpoint for Users"
+        },
+        {
+            "name": "Property",
+            "description": "Endpoint for Property"
+        }
+    ],
+    "paths": {
+        "/auth/signup": {
+            "post": {
+                "description": "User can sign up",
+                "summary": "Handles sign up",
+                "tags": [
+                    "Auth"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "security": [],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "description": "This is the request body object containing user information",
+                        "schema": {
+                            "$ref": "#/requestBody/signUpRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account created successfully"
+                    },
+                    "400": {
+                        "description": "Please fill in the fields"
+                    },
+                    "409": {
+                        "description": "User with email/phone already exists"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "description": "User can sign in",
+                "summary": "Handles sign in",
+                "tags": [
+                    "Auth"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "security": [],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "description": "This is the request body object containing user login information",
+                        "schema": {
+                            "$ref": "#/requestBody/loginRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successful"
+                    },
+                    "400": {
+                        "description": "Please fill in the fields"
+                    },
+                    "401": {
+                        "description": "Invalid email or password"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/auth/admin": {
+            "get": {
+                "description": "Get all users",
+                "summary": "Returns the list of users in the system",
+                "tags": [
+                    "Users"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Only an Admin can request for all users"
+                    },
+                    "404": {
+                        "description": "No User Found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/auth/admin/{userId}": {
+            "delete": {
+                "description": "Delete a user",
+                "summary": "Deletes user with the userId",
+                "tags": [
+                    "Users"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "userId",
+                        "required": true,
+                        "description": "The Id of the user to be deleted"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User deleted sucessfully"
+                    },
+                    "401": {
+                        "description": "Only an Admin can delete users"
+                    },
+                    "404": {
+                        "description": "No User Found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/property/": {
+            "post": {
+                "description": "User (agent) can post a property advert",
+                "summary": "Handles Creating/Posting new property",
+                "tags": [
+                    "Property"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "description": "This is the request body object containing user login information",
+                        "schema": {
+                            "$ref": "#/requestBody/propertyRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Some fields are empty or invalid data format"
+                    },
+                    "401": {
+                        "description": "Only an Agent can post/create a property"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/property": {
+            "get": {
+                "description": "User can view all properties",
+                "summary": "Returns the list of properties in the system",
+                "tags": [
+                    "Property"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "No Property Found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/property/{propertyid}": {
+            "get": {
+                "description": "User can view a specific property",
+                "summary": "Returns a single property with the specified ID",
+                "tags": [
+                    "Property"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "propertyid",
+                        "required": true,
+                        "description": "The Id of the property"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Property Not Found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/property/search/{propertyType}": {
+            "get": {
+                "description": "User can view all properties of a specific type - 2 bedroom, 3 bedroom, mini flat etc",
+                "summary": "Returns the list of properties by type in the system",
+                "tags": [
+                    "Property"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "propertyType",
+                        "required": true,
+                        "description": "The type of the property to search for"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "No Property Found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/property/{propertId}": {
+            "delete": {
+                "description": "User (agent) can delete an advert",
+                "summary": "Deletes property with the propertyId",
+                "tags": [
+                    "Property"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "propertId",
+                        "required": true,
+                        "description": "The Id of the property to be deleted"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Property delete successfully"
+                    },
+                    "401": {
+                        "description": "Only an Agent can delete a property post"
+                    },
+                    "404": {
+                        "description": "No Property Found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/property/{propertyId}/": {
+            "put": {
+                "description": "User (agent) can update the details of a property advert",
+                "summary": "Updates a single property with the propertyId",
+                "tags": [
+                    "Property"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "propertyId",
+                        "required": true,
+                        "description": "The Id of the property to be updated"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Only an Agent can update a property post"
+                    },
+                    "404": {
+                        "description": "No Property Found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    },
+                    "schema": {
+                        "$ref": "#/requestBody/putPropertyRequest"
+                    }
+                }
+            }
+        },
+        "/property/{propertyId}": {
+            "patch": {
+                "description": "User (agent) can mark his/her posted advert as sold",
+                "summary": "Marks a single property with the propertyId",
+                "tags": [
+                    "Property"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "propertyId",
+                        "required": true,
+                        "description": "The Id of the property to be marked"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Only an Agent can mark a property SOLD or AVAILABLE"
+                    },
+                    "404": {
+                        "description": "No Property Found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    },
+                    "schema": {
+                        "$ref": "#/requestBody/patchPropertyRequest"
+                    }
+                }
+            }
+        }
+    },
+    "requestBody": {
+        "signUpRequest": {
+            "title": "Signup Request",
+            "type": "object",
+            "properties": {
+                "email": {
+                    "description": "email of the user",
+                    "type": "string"
+                },
+                "firstName": {
+                    "description": "First name of the user",
+                    "type": "string"
+                },
+                "lastName": {
+                    "description": "Last name of the user",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "The Password of the user",
+                    "type": "string"
+                },
+                "phoneNumber": {
+                    "description": "Phone number of the user",
+                    "type": "string"
+                },
+                "address": {
+                    "description": "The address of the user",
+                    "type": "string"
+                },
+                "userType": {
+                    "description": "User type: user or agent",
+                    "type": "string"
+                },
+                "passportUrl": {
+                    "description": "PassportUrl of the user",
+                    "type": "string"
+                },
+                "isAdmin": {
+                    "description": "User is Admin: true or false",
+                    "type": "string"
+                }
+            },
+            "example": {
+                "email": "mike@example.com",
+                "firstName": "Mike",
+                "lastName": "Smith",
+                "password": "password123",
+                "phoneNumber": "07000000000",
+                "address": "",
+                "userType": "agent",
+                "passportUrl": "https://example.com/avatar.png",
+                "isAdmin": "false"
+            },
+            "required": [
+                "phoneNumber, email, firstName, lastName, password, userType"
+            ]
+        },
+        "loginRequest": {
+            "title": "Login Request",
+            "type": "object",
+            "properties": {
+                "email": {
+                    "description": "email address of the user user",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "The Password of the user",
+                    "type": "string"
+                }
+            },
+            "example": {
+                "email": "mike@example.com",
+                "password": "password123"
+            },
+            "required": [
+                "email, password,"
+            ]
+        },
+        "propertyRequest": {
+            "title": "Create Property Request",
+            "type": "object",
+            "properties": {
+                "propertyName": {
+                    "description": "The name of the property",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "The status of the property e.g sold or available",
+                    "type": "string"
+                },
+                "price": {
+                    "description": "The price of the property e.g 200,000",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "The state where the property is located",
+                    "type": "string"
+                },
+                "city": {
+                    "description": "The particular city in the state",
+                    "type": "string"
+                },
+                "address": {
+                    "description": "The direct address of the property",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The type of the property e.g 1 bedroom, 2 bedroom...",
+                    "type": "string"
+                },
+                "imageUrl": {
+                    "description": "The featured image of the property",
+                    "type": "string"
+                },
+                "imageUrl2": {
+                    "description": "The second featured image of the property",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "The property description",
+                    "type": "string"
+                },
+                "purpose": {
+                    "description": "The property purpose e.g for sale or rent",
+                    "type": "string"
+                }
+            },
+            "example": {
+                "propertyName": "New housing",
+                "status": "available",
+                "price": "1,000",
+                "state": "Lagos",
+                "city": "Lekki",
+                "address": "property address example",
+                "type": "1_bedroom",
+                "imageUrl": "https://example.com/property.png",
+                "imageUrl2": "",
+                "description": "property description example",
+                "purpose": "for sale"
+            },
+            "required": [
+                "propertyName, status, price, state, city, address, imageUrl, description, purpose, type"
+            ]
+        },
+        "putPropertyRequest": {
+            "title": "Update Property",
+            "type": "object",
+            "properties": {
+                "propertyName": {
+                    "description": "New property name",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "New property status",
+                    "type": "string"
+                },
+                "price": {
+                    "description": "New property price",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "New property state",
+                    "type": "string"
+                },
+                "city": {
+                    "description": "New property city",
+                    "type": "string"
+                },
+                "address": {
+                    "description": "New property address",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "New property type e.g 1 bedroom, 2 bedroom...",
+                    "type": "string"
+                },
+                "imageUrl": {
+                    "description": "New property featured image",
+                    "type": "string"
+                },
+                "imageUrl2": {
+                    "description": "New property second featured image",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "New property description",
+                    "type": "string"
+                },
+                "purpose": {
+                    "description": "New property purpose e.g for sale or rent",
+                    "type": "string"
+                }
+            },
+            "example": {
+                "propertyName": "Example updated property name ",
+                "status": "Example updated property status ",
+                "price": "Example updated property price ",
+                "state": "Example updated property state ",
+                "city": "Example updated property city",
+                "address": "Example updated property address",
+                "type": "Example updated property type"
+            },
+            "required": [
+                "propertyName, status, price, state, city, address, type"
+            ]
+        },
+        "patchPropertyRequest": {
+            "title": "Mark Property Status",
+            "type": "object",
+            "property": {
+                "status": {
+                    "description": "New property status [sold, available]",
+                    "type": "string"
+                }
+            },
+            "example": {
+                "status": "Sold"
+            },
+            "required": [
+                "status"
+            ]
+        }
+    }
+}
