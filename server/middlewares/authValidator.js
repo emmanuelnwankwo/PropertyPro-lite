@@ -82,7 +82,7 @@ class AuthValidator {
    */
   static isAuthenticated(req, res, next) {
     try {
-      const token = req.headers.authorization.split(' ')[1];
+      const token = req.headers.authorization.split(' ')[1] || req.headers.authorization;
       const verifiedToken = verifyToken(token);
       if (!verifiedToken) {
         return res.status(401).json({
@@ -113,10 +113,10 @@ class AuthValidator {
    * @param {callback} next
    */
   static isAgent(req, res, next) {
-    const token = req.headers.authorization.split(' ')[1];
+    const token = req.headers.authorization.split(' ')[1] || req.headers.authorization;
     const decoded = decodeToken(token);
     const accountType = decoded.payload.userType;
-    if (accountType === 'user') {
+    if (accountType.toUpperCase() === 'USER') {
       return res.status(403).json({
         status: 'error',
         error: 'Only Agent can post an advert',
@@ -132,7 +132,7 @@ class AuthValidator {
    * @param {callback} next
    */
   static isAdmin(req, res, next) {
-    const token = req.headers.authorization.split(' ')[1];
+    const token = req.headers.authorization.split(' ')[1] || req.headers.authorization;
     const decoded = decodeToken(token);
     const Admin = JSON.parse(decoded.payload.isAdmin);
     if (!Admin) {
