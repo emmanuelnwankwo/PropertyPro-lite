@@ -46,10 +46,29 @@ class UserController {
     });
   }
 
-  static getUsers(req, res) {
+  static getAllUsers(req, res) {
+    if (UserModel.length === 0) {
+      return res.status(404).json({
+        status: 'error',
+        error: 'No User Found',
+      });
+    }
     return res.status(200).json({
       status: 'success',
       data: UserModel,
+    });
+  }
+
+  static deleteUser(req, res) {
+    const { userId } = req.params;
+    const user = UserModel.find(
+      selectedUser => selectedUser.id === userId,
+    );
+    const index = UserModel.indexOf(user);
+    UserModel.splice(index, 1);
+    return res.status(200).json({
+      status: 'success',
+      data: `User with ID: ${userId} deleted`,
     });
   }
 }
