@@ -5,6 +5,7 @@ npm-debug.log*
 package-lock.json
 .vs
 .vscode
+.DS_Store
 # packages
 /node_modules
 
