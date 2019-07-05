@@ -17,8 +17,10 @@ const user = {
   address: 'Test Address',
   userType: 'user',
   passportUrl: 'https://example.com/avatar.png',
-  isAdmin: 'false',
+  isAdmin: 'true',
 };
+let userId = '';
+let token = '';
 
 describe('Test User Endpoints', () => {
   describe('POST REQUESTS', () => {
@@ -30,6 +32,10 @@ describe('Test User Endpoints', () => {
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body.status).to.eql('success');
+          userId = res.body.data[0].id;
+          // eslint-disable-next-line prefer-destructuring
+          token = res.body.data[0].token;
+          console.log(userId);
           done();
         });
     });
@@ -170,6 +176,30 @@ describe('Test User Endpoints', () => {
           expect(res).to.have.status(200);
           expect(res.body.status).to.eql('success');
           expect(res.body.message).to.eql('Login successful');
+          done();
+        });
+    });
+  });
+  describe('GET REQUESTS', () => {
+    it('It should return list of all users', (done) => {
+      chai.request(app)
+        .get(`${authBaseUrl}/admin`)
+        .set('authorization', `jwt ${token}`)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.status).to.eql('success');
+          done();
+        });
+    });
+  });
+  describe('DELETE REQUESTS', () => {
+    it('Should delete the user', (done) => {
+      chai.request(app)
+        .delete(`${authBaseUrl}/admin/${userId}`)
+        .set('authorization', `jwt ${token}`)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.status).to.eql('success');
           done();
         });
     });

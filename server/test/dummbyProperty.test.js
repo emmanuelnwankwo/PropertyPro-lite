@@ -273,6 +273,15 @@ describe('Test Property Endpoints', () => {
           done();
         });
     });
+    it('should respond with status code 404 if route is not defined ', (done) => {
+      chai.request(app)
+        .get('/via')
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.message).to.eql('Endpoint Not Found');
+          done();
+        });
+    });
   });
   describe('PUT REQUESTS', () => {
     it('It should update the property with the new name', (done) => {
