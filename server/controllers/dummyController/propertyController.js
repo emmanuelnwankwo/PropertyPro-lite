@@ -8,7 +8,7 @@ class PropertyController {
     const {
       status, price, state, city, address, type, imageUrl, propertyName, imageUrl2, description, mapLat, mapLng, purpose,
     } = req.body;
-    const token = req.headers.authorization.split(' ')[1];
+    const token = req.headers.authorization.split(' ')[1] || req.headers.authorization;
     const decoded = decodeToken(token);
     const owner = decoded.payload.id;
     const ownerPhone = decoded.payload.phoneNumber;
@@ -27,6 +27,12 @@ class PropertyController {
   }
 
   static getProperties(req, res) {
+    if (PropertyModel.length === 0) {
+      return res.status(404).json({
+        status: 'error',
+        error: 'No Property Found',
+      });
+    }
     return res.status(200).json({
       status: 'success',
       data: PropertyModel,
