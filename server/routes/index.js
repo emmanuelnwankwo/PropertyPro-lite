@@ -38,7 +38,7 @@ router.get('/', (req, res) => {
 /** Property Routes */
 const propertyUrl = '/api/v1/property';
 router.post(`${propertyUrl}`, isAuthenticated, isAgent, validateProperty, createProperty);
-// router.get(`${propertyUrl}`, isAuthenticated, getProperties);
+router.get(`${propertyUrl}`, isAuthenticated, getProperties);
 // router.get(`${propertyUrl}/:propertyId`, isAuthenticated, validateSingleProperty, getProperty);
 // router.get(`${propertyUrl}/search/:propertyType`, isAuthenticated, typeProperty);
 // router.delete(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSingleProperty, deleteProperty);

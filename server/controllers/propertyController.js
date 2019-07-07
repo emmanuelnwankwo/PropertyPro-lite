@@ -13,7 +13,6 @@ let property;
  * @class PropertyController
  */
 class PropertyController {
-
   /**
      * Creates a property
      * @static
@@ -46,6 +45,29 @@ class PropertyController {
       await client.release();
     }
     return null;
+  }
+
+  /**
+     * Get all properties
+     * @static
+     * @param {object} req - request
+     * @param {object} res - response
+     * @returns
+     * @memberof PropertyController
+     */
+  static async getProperties(req, res) {
+    const sqlQuery = `SELECT id, owner, propertyname, status, type, state, city, address, price, imageurl, imageurl2, imageurl3, owneremail, ownerphone, purpose, description, maplat, maplng, createdon
+                    FROM properties ORDER BY createdon ASC`;
+    let properties;
+    const client = await pool.connect();
+    try {
+      properties = await client.query(sqlQuery);
+      return res.status(200).json({ status: 'success', data: properties.rows });
+    } catch (err) {
+      return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+    } finally {
+      await client.release();
+    }
   }
 }
 
