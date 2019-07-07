@@ -13,7 +13,7 @@ const user = {
   firstName: 'First Name',
   lastName: 'Second Name',
   password: 'testpass123',
-  phoneNumber: '07000000000',
+  phoneNumber: '07020000000',
   address: 'Test Address',
   userType: 'user',
   passportUrl: 'https://example.com/avatar.png',
@@ -35,7 +35,6 @@ describe('Test User Endpoints', () => {
           userId = res.body.data[0].id;
           // eslint-disable-next-line prefer-destructuring
           token = res.body.data[0].token;
-          console.log(userId);
           done();
         });
     });
