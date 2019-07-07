@@ -1,6 +1,6 @@
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
-import Property from '../controllers/dummyController/propertyController';
+import Property from '../controllers/propertyController';
 import User from '../controllers/userController';
 import AuthValidator from '../middlewares/authValidator';
 import PropertyValidator from '../middlewares/propertyValidator';
@@ -38,12 +38,12 @@ router.get('/', (req, res) => {
 /** Property Routes */
 const propertyUrl = '/api/v1/property';
 router.post(`${propertyUrl}`, isAuthenticated, isAgent, validateProperty, createProperty);
-router.get(`${propertyUrl}`, isAuthenticated, getProperties);
-router.get(`${propertyUrl}/:propertyId`, isAuthenticated, validateSingleProperty, getProperty);
-router.get(`${propertyUrl}/search/:propertyType`, isAuthenticated, typeProperty);
-router.delete(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSingleProperty, deleteProperty);
-router.put(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSingleProperty, updateProperty);
-router.patch(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSingleProperty, markProperty);
+// router.get(`${propertyUrl}`, isAuthenticated, getProperties);
+// router.get(`${propertyUrl}/:propertyId`, isAuthenticated, validateSingleProperty, getProperty);
+// router.get(`${propertyUrl}/search/:propertyType`, isAuthenticated, typeProperty);
+// router.delete(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSingleProperty, deleteProperty);
+// router.put(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSingleProperty, updateProperty);
+// router.patch(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSingleProperty, markProperty);
 
 /** End Property Routes */
 

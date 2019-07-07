@@ -9,6 +9,9 @@ const debugy = debug('migration');
   try {
     debugy('migrating users..');
     await client.query(tables.users);
+    
+    debugy('migrating properties..');
+    await client.query(tables.properties);
   } catch (err) {
     debugy(err);
   } finally {

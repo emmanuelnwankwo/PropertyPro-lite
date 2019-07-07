@@ -8,6 +8,7 @@ const debugy = debug('migrate:reset');
   try {
     debugy('rolling back migrations...');
     await client.query('DROP TABLE IF EXISTS users CASCADE');
+    await client.query('DROP TABLE IF EXISTS properties CASCADE');
   } catch (err) {
     debugy(err);
     return;
