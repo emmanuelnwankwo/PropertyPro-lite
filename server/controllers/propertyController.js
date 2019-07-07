@@ -69,6 +69,32 @@ class PropertyController {
       await client.release();
     }
   }
+
+  /**
+     * Get a specific property
+     * @static
+     * @param {object} req - request
+     * @param {object} res - response
+     * @returns
+     * @memberof PropertyController
+     */
+  static async getProperty(req, res) {
+    const { propertyId } = req.params;
+    const client = await pool.connect();
+    try {
+      const sqlQuery = 'SELECT * FROM properties WHERE id = $1 LIMIT 1';
+      const values = [propertyId];
+      property = await client.query({ text: sqlQuery, values });
+      if (property.rowCount) {
+        return res.status(200).json({ status: 'Success', data: property.rows[0] });
+      }
+      return res.status(404).json({ status: 'error', error: `Property with ID: ${propertyId} NOT FOUND` });
+    } catch (err) {
+      return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+    } finally {
+      await client.release();
+    }
+  }
 }
 
 export default PropertyController;

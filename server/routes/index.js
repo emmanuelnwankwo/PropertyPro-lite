@@ -30,7 +30,7 @@ const {
   validateLogin,
   isAdmin,
 } = AuthValidator;
-const { validateProperty, validateSingleProperty } = PropertyValidator;
+const { validateProperty } = PropertyValidator;
 router.get('/', (req, res) => {
   res.send(Helper.indexTemplate());
 });
@@ -39,7 +39,7 @@ router.get('/', (req, res) => {
 const propertyUrl = '/api/v1/property';
 router.post(`${propertyUrl}`, isAuthenticated, isAgent, validateProperty, createProperty);
 router.get(`${propertyUrl}`, isAuthenticated, getProperties);
-// router.get(`${propertyUrl}/:propertyId`, isAuthenticated, validateSingleProperty, getProperty);
+router.get(`${propertyUrl}/:propertyId`, isAuthenticated, getProperty);
 // router.get(`${propertyUrl}/search/:propertyType`, isAuthenticated, typeProperty);
 // router.delete(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSingleProperty, deleteProperty);
 // router.put(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSingleProperty, updateProperty);
