@@ -50,7 +50,7 @@ router.patch(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSin
 /**  authBaseUrl Routes */
 const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, validatePhone, createUser);
-// router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
+router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 
 // router.get(`${authBaseUrl}/admin`, isAuthenticated, isAdmin, getAllUsers);
 // router.delete(`${authBaseUrl}/admin/:userId`, isAuthenticated, isAdmin, deleteUser);

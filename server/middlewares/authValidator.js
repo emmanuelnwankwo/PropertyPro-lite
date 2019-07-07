@@ -169,21 +169,22 @@ class AuthValidator {
     if (!isValid) {
       return res.status(400).json(errors);
     }
-    const { email, password } = req.body;
-    const user = UserModel.filter(selectedUser => selectedUser.email === email);
-    if (user && user[0]) {
-      if (passwordHash.verify(password, user[0].hashedPassword)) {
-        return next();
-      }
-      return res.status(401).json({
-        status: 'error',
-        error: 'Password is not correct',
-      });
-    }
-    return res.status(404).json({
-      status: 'error',
-      error: 'User does not exists',
-    });
+    return next();
+    // const { email, password } = req.body;
+    // const user = UserModel.filter(selectedUser => selectedUser.email === email);
+    // if (user && user[0]) {
+    //   if (passwordHash.verify(password, user[0].hashedPassword)) {
+    //     return next();
+    //   }
+    //   return res.status(401).json({
+    //     status: 'error',
+    //     error: 'Password is not correct',
+    //   });
+    // }
+    // return res.status(404).json({
+    //   status: 'error',
+    //   error: 'User does not exists',
+    // });
   }
 }
 
