@@ -3,6 +3,7 @@ import Authenticator from '../helper/authenticator';
 import UserModel from '../models/dummyModel/userModel';
 import checkLogin from './loginValidator';
 import checkSignup from './signupValidator';
+import pool from '../config/connection';
 
 const { verifyToken, decodeToken } = Authenticator;
 
@@ -22,7 +23,6 @@ class AuthValidator {
       if (!isValid) {
         return res.status(400).json(errors);
       }
-      return next();
     } catch (err) {
       const { error } = err;
       if (error === undefined) {
@@ -32,6 +32,7 @@ class AuthValidator {
         });
       }
     }
+    return next();
   }
 
   /**
@@ -40,16 +41,27 @@ class AuthValidator {
    * @param {object} res
    * @param {callback} next
    */
-  static userExists(req, res, next) {
+  static async userExists(req, res, next) {
     const { email } = req.body;
-    const userEmail = UserModel.find(
-      selectedUser => selectedUser.email === email,
-    );
-    if (userEmail) {
-      return res.status(409).json({
+    const sqlQuery = 'SELECT * FROM users WHERE email = $1';
+    const values = [email];
+    let user;
+    const client = await pool.connect();
+    try {
+      user = await client.query({ text: sqlQuery, values });
+      if (user.rows && user.rowCount) {
+        return res.status(409).json({
+          status: 'error',
+          data: `User with email ${email} already exists`,
+        });
+      }
+    } catch (err) {
+      return res.status(500).json({
         status: 'error',
-        error: 'User already exist',
+        error: 'Internal Server error',
       });
+    } finally {
+      client.release();
     }
     return next();
   }
@@ -60,16 +72,24 @@ class AuthValidator {
    * @param {object} res
    * @param {callback} next
    */
-  static validatePhone(req, res, next) {
+  static async validatePhone(req, res, next) {
     const { phoneNumber } = req.body;
-    const userPhone = UserModel.find(
-      selectedUser => selectedUser.phoneNumber === phoneNumber,
-    );
-    if (userPhone) {
-      return res.status(409).json({
+    const sqlQuery = 'SELECT * FROM users WHERE phoneNumber = $1';
+    const values = [phoneNumber];
+    let user;
+    const client = await pool.connect();
+    try {
+      user = await client.query({ text: sqlQuery, values });
+      if (user.rows && user.rowCount) {
+        return res.status(409).json({ status: 'error', error: `User with phone number ${phoneNumber} already exists` });
+      }
+    } catch (err) {
+      return res.status(500).json({
         status: 'error',
-        error: 'User with the phone number already exists',
+        error: 'Internal Server error',
       });
+    } finally {
+      client.release();
     }
     return next();
   }
