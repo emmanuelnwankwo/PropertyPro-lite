@@ -2,9 +2,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import fileupload from 'express-fileupload';
+import debug from 'debug';
 import router from './routes';
 
 const app = express();
+const debugy = debug('server');
 const port = process.env.PORT || 3000;
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
@@ -15,7 +17,7 @@ app.use(fileupload({
 app.use(router);
 
 app.listen(port, () => {
-  console.log(`Server started at port ${port}`);
+  debugy(`started at port ${port}`);
 });
 
 export default app;

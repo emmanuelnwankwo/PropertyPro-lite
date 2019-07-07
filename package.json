@@ -2,11 +2,14 @@
   "name": "propertypro-lite",
   "version": "1.0.0",
   "description": "ProperyPro Lite is a platform where people can create and search properties for sale or rent",
-  "main": "babel.config.js",
+  "main": "./server/server.js",
   "scripts": {
     "eslint": "eslint . --fix",
-    "test": "mocha babel.config.js ./server/test/**/*.test.js --timeout 20000 --exit",
-    "start": "export NODE_ENV=production && node babel.config.js",
+    "test": "mocha --require @babel/register ./server/test/**/*.test.js --timeout 20000 --exit",
+    "migrate": "set DEBUG=migration && babel-node ./server/database/migrations/index.js",
+    "migrate:reset": "set DEBUG=migrate:reset && babel-node ./server/database/migrations/migrateReset.js",
+    "start": "export NODE_ENV=production && babel-node ./server/server.js",
+    "start:dev": "set DEBUG=server && nodemon --exec babel-node ./server/server.js",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -21,6 +24,7 @@
   },
   "homepage": "https://github.com/emmanuelnwankwo/PropertyPro-lite#readme",
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.5.0",
     "chai-http": "^4.3.0",
     "coveralls": "^3.0.4",
     "eslint": "^5.16.0",
@@ -32,10 +36,11 @@
     "nyc": "^14.1.1"
   },
   "dependencies": {
-    
     "@babel/core": "^7.4.5",
+    "@babel/node": "^7.5.0",
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
+    "@babel/runtime": "^7.5.1",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "cloudinary": "^1.14.0",
@@ -46,6 +51,7 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "password-hash": "^1.2.2",
+    "pg": "^7.11.0",
     "swagger-ui-express": "^4.0.7",
     "uuid": "^3.3.2",
     "validator": "^11.0.0"
