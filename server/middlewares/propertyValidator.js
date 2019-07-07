@@ -30,25 +30,6 @@ class PropertyValidator {
     return next();
   }
 
-  /**
-   * validates single property ID
-   * @param {object} req
-   * @param {object} res
-   * @param {callback} next
-   */
-  static validateSingleProperty(req, res, next) {
-    const { propertyId } = req.params;
-    const property = PropertyModel.find(
-      propert => propert.id === propertyId,
-    );
-    if (!property) {
-      return res.status(404).json({
-        status: 'error',
-        error: `Property with ID: ${propertyId} NOT FOUND`,
-      });
-    }
-    return next();
-  }
 }
 
 export default PropertyValidator;
