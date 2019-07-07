@@ -1,11 +1,9 @@
-import passwordHash from 'password-hash';
 import Authenticator from '../helper/authenticator';
-import UserModel from '../models/dummyModel/userModel';
-import checkLogin from './loginValidator';
-import checkSignup from './signupValidator';
+import validator from './validator';
 import pool from '../config/connection';
 
 const { verifyToken, decodeToken } = Authenticator;
+const { checkSignup, checkLogin } = validator;
 
 /**
  * @description Handles validation for all authentication processes
@@ -28,7 +26,7 @@ class AuthValidator {
       if (error === undefined) {
         res.status(500).json({
           status: 'error',
-          error: 'Invalid data input',
+          error: 'Invalid Data Input',
         });
       }
     }
@@ -86,7 +84,7 @@ class AuthValidator {
     } catch (err) {
       return res.status(500).json({
         status: 'error',
-        error: 'Internal Server error',
+        error: 'Internal Server Error',
       });
     } finally {
       client.release();
@@ -170,21 +168,6 @@ class AuthValidator {
       return res.status(400).json(errors);
     }
     return next();
-    // const { email, password } = req.body;
-    // const user = UserModel.filter(selectedUser => selectedUser.email === email);
-    // if (user && user[0]) {
-    //   if (passwordHash.verify(password, user[0].hashedPassword)) {
-    //     return next();
-    //   }
-    //   return res.status(401).json({
-    //     status: 'error',
-    //     error: 'Password is not correct',
-    //   });
-    // }
-    // return res.status(404).json({
-    //   status: 'error',
-    //   error: 'User does not exists',
-    // });
   }
 }
 

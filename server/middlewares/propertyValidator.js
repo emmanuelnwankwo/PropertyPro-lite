@@ -1,6 +1,7 @@
 import PropertyModel from '../models/dummyModel/propertyModel';
-import checkProperty from './checkProperty';
+import validator from './validator';
 
+const { checkProperty } = validator;
 /**
  * @description Handles validation for property
  */
@@ -17,16 +18,16 @@ class PropertyValidator {
       if (!isValid) {
         return res.status(400).json(errors);
       }
-      return next();
     } catch (err) {
       const { error } = err;
       if (error === undefined) {
         res.status(500).json({
           status: 'error',
-          error: 'Invalid data input',
+          error: 'Invalid Data Input',
         });
       }
     }
+    return next();
   }
 
   /**
