@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import Authenticator from '../helper/authenticator';
 import pool from '../config/connection';
 
@@ -23,17 +24,17 @@ class PropertyController {
      */
   static async createProperty(req, res) {
     const owner = header(req).id;
-    const ownerPhone = header(req).phoneNumber;
-    const ownerEmail = header(req).email;
+    const owner_phone = header(req).phone_number;
+    const owner_email = header(req).email;
     const client = await pool.connect();
     try {
       const {
-        status, price, state, city, address, type, imageUrl, propertyName, imageUrl2, imageUrl3, description, mapLat, mapLng, purpose,
+        status, price, state, city, address, type, image_url, property_name, image_url_2, image_url_3, description, map_lat, map_lng, purpose,
       } = req.body;
-      const sqlQuery = `INSERT INTO properties(owner, propertyName, status, type, state, city, address, price, imageUrl, imageUrl2, imageUrl3, ownerEmail, ownerPhone, purpose, description, mapLat, mapLng)
+      const sqlQuery = `INSERT INTO properties(owner, property_name, status, type, state, city, address, price, image_url, image_url_2, image_url_3, owner_email, owner_phone, purpose, description, map_lat, map_lng)
                     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
                     RETURNING *`;
-      const values = [owner, propertyName, status, type, state, city, address, price, imageUrl, imageUrl2, imageUrl3, ownerEmail, ownerPhone, purpose, description, mapLat, mapLng];
+      const values = [owner, property_name, status, type, state, city, address, price, image_url, image_url_2, image_url_3, owner_email, owner_phone, purpose, description, map_lat, map_lng];
       property = await client.query({ text: sqlQuery, values });
       if (property.rows && property.rowCount) {
         property = property.rows;
@@ -56,13 +57,12 @@ class PropertyController {
      * @memberof PropertyController
      */
   static async getProperties(req, res) {
-    const sqlQuery = `SELECT id, owner, propertyname, status, type, state, city, address, price, imageurl, imageurl2, imageurl3, owneremail, ownerphone, purpose, description, maplat, maplng, createdon
-                    FROM properties ORDER BY createdon ASC`;
-    let properties;
+    const sqlQuery = `SELECT id, owner, property_name, status, type, state, city, address, price, image_url, image_url_2, image_url_3, owner_email, owner_phone, purpose, description, map_lat, map_lng, created_on
+                    FROM properties ORDER BY created_on ASC`;
     const client = await pool.connect();
     try {
-      properties = await client.query(sqlQuery);
-      return res.status(200).json({ status: 'success', data: properties.rows });
+      property = await client.query(sqlQuery);
+      return res.status(200).json({ status: 'success', data: property.rows });
     } catch (err) {
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
     } finally {
@@ -93,6 +93,51 @@ class PropertyController {
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
     } finally {
       await client.release();
+    }
+  }
+
+  /**
+     * Update a property
+     * @static
+     * @param {object} req - request
+     * @param {object} res - response
+     * @returns
+     * @memberof PropertyController
+     */
+  static async updateProperty(req, res) {
+    const { propertyId } = req.params;
+    const ownerId = header(req).id;
+    const client = await pool.connect();
+    const findOneQuery = 'SELECT * from properties WHERE id = $1 AND owner = $2';
+    const sqlQuery = `UPDATE properties SET property_name = $1, status = $2, type = $3, state = $4, city = $5, address = $6, price = $7, imageurl = $8, imageurl2 = $9, imageurl3 = $10, purpose = $11, description = $12, maplat = $13, maplng = $14
+                      WHERE id = $15 AND owner = $16 RETURNING *`;
+    try {
+      property = await client.query(findOneQuery, [propertyId, ownerId]);
+      if (!property.rows[0]) {
+        return res.status(404).json({ status: 'error', error: 'Property Not Found' });
+      }
+      const values = [
+        req.body.property_name || property.rows[0].property_name,
+        req.body.status || property.rows[0].status,
+        req.body.type || property.rows[0].type,
+        req.body.state || property.rows[0].state,
+        req.body.city || property.rows[0].city,
+        req.body.address || property.rows[0].address,
+        req.body.price || property.rows[0].price,
+        req.body.image_url || property.rows[0].image_url,
+        req.body.image_url_2 || property.rows[0].image_url_2,
+        req.body.image_url_3 || property.rows[0].image_url_3,
+        req.body.purpose || property.rows[0].purpose,
+        req.body.description || property.rows[0].description,
+        req.body.map_lat || property.rows[0].map_lat,
+        req.body.map_lng || property.rows[0].map_lng,
+        propertyId,
+        ownerId
+      ];
+      const response = await client.query(sqlQuery, values);
+      return res.status(200).json({ status: 'success', data: response.rows[0] });
+    } catch (err) {
+      console.log(err);
     }
   }
 }

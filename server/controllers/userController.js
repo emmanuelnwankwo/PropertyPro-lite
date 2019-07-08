@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import passwordHash from 'password-hash';
 import Authenticator from '../helper/authenticator';
 import pool from '../config/connection';
@@ -19,23 +20,23 @@ class UserController {
      * @memberof UserController
      */
   static async createUser(req, res) {
-    const passportUrl = req.body.passportUrl || defaultImage;
+    const passport_url = req.body.passport_url || defaultImage;
     const client = await pool.connect();
     try {
       const {
-        email, firstName, lastName, password, phoneNumber, address, userType, isAdmin,
+        email, first_name, last_name, password, phone_number, address, user_type, is_admin,
       } = req.body;
       const hashedPassword = passwordHash.generate(password);
-      const text = `INSERT INTO users(email, firstName, lastName, password, phoneNumber, address, passportUrl, userType, isAdmin)
+      const text = `INSERT INTO users(email, first_name, last_name, password, phone_number, address, passport_url, user_type, is_admin)
                               VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
-                              RETURNING id, email, firstName, lastName, phoneNumber, address, passportUrl, userType, isAdmin`;
-      const values = [email, firstName, lastName, hashedPassword, phoneNumber, address, passportUrl, userType, isAdmin];
+                              RETURNING id, email, first_name, last_name, phone_number, address, passport_url, user_type, is_admin`;
+      const values = [email, first_name, last_name, hashedPassword, phone_number, address, passport_url, user_type, is_admin];
       user = await client.query({ text, values });
       if (user.rowCount) {
         user = user.rows[0];
         const { id } = user;
         const token = await generateToken({
-          id, isAdmin, userType, phoneNumber, email,
+          id, is_admin, user_type, phone_number, email,
         });
         return res.status(201).json({ status: 'success', data: [{ token, user }] });
       }
@@ -68,8 +69,8 @@ class UserController {
       if (user.rows && user.rowCount) {
         user = user.rows[0];
         if (passwordHash.verify(password, user.password)) {
-          const { id, isAdmin, userType, phoneNumber } = user;
-          const token = await generateToken({ id, isAdmin, userType, phoneNumber, email });
+          const { id, is_admin, user_type, phone_number } = user;
+          const token = await generateToken({ id, is_admin, user_type, phone_number, email });
           return res.status(200).json({ status: 'Login successful', data: [{ token, user }] });
         }
         return res.status(401).json({ status: 'error', error: 'Password is not correct' });
