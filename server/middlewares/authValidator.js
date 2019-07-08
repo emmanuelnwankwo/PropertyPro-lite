@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import Authenticator from '../helper/authenticator';
 import validator from './validator';
 import pool from '../config/connection';
@@ -71,15 +72,15 @@ class AuthValidator {
    * @param {callback} next
    */
   static async validatePhone(req, res, next) {
-    const { phoneNumber } = req.body;
-    const sqlQuery = 'SELECT * FROM users WHERE phoneNumber = $1';
-    const values = [phoneNumber];
+    const { phone_number } = req.body;
+    const sqlQuery = 'SELECT * FROM users WHERE phone_number = $1';
+    const values = [phone_number];
     let user;
     const client = await pool.connect();
     try {
       user = await client.query({ text: sqlQuery, values });
       if (user.rows && user.rowCount) {
-        return res.status(409).json({ status: 'error', error: `User with phone number ${phoneNumber} already exists` });
+        return res.status(409).json({ status: 'error', error: `User with phone number ${phone_number} already exists` });
       }
     } catch (err) {
       return res.status(500).json({
@@ -133,7 +134,8 @@ class AuthValidator {
   static isAgent(req, res, next) {
     const token = req.headers.authorization.split(' ')[1] || req.headers.authorization;
     const decoded = decodeToken(token);
-    const accountType = decoded.payload.userType;
+    const accountType = decoded.payload.user_type;
+    console.log(accountType);
     if (accountType.toUpperCase() === 'USER') {
       return res.status(403).json({
         status: 'error',
@@ -152,7 +154,7 @@ class AuthValidator {
   static isAdmin(req, res, next) {
     const token = req.headers.authorization.split(' ')[1] || req.headers.authorization;
     const decoded = decodeToken(token);
-    const Admin = JSON.parse(decoded.payload.isAdmin);
+    const Admin = JSON.parse(decoded.payload.is_admin);
     if (!Admin) {
       return res.status(403).json({
         status: 'error',

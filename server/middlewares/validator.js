@@ -8,11 +8,11 @@ const checkSignup = (data) => {
   const errors = {};
   data.email = !isEmpty(data.email) ? data.email : '';
   data.password = !isEmpty(data.password) ? data.password : '';
-  data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
-  data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
-  data.phoneNumber = !isEmpty(data.phoneNumber) ? data.phoneNumber : '';
-  data.userType = !isEmpty(data.userType) ? data.userType : '';
-  data.isAdmin = !isEmpty(data.isAdmin) ? data.isAdmin : '';
+  data.first_name = !isEmpty(data.first_name) ? data.first_name : '';
+  data.last_name = !isEmpty(data.last_name) ? data.last_name : '';
+  data.phone_number = !isEmpty(data.phone_number) ? data.phone_number : '';
+  data.user_type = !isEmpty(data.user_type) ? data.user_type : '';
+  data.is_admin = !isEmpty(data.is_admin) ? data.is_admin : '';
   if (!Validator.isEmail(data.email)) {
     errors.email = 'Email is not valid. Enter a valid email';
   }
@@ -28,26 +28,26 @@ const checkSignup = (data) => {
   if (Validator.isEmpty(data.password)) {
     errors.password = 'Password is required';
   }
-  if (Validator.isEmpty(data.firstName)) {
-    errors.firstName = 'First Name is required';
+  if (Validator.isEmpty(data.first_name)) {
+    errors.first_name = 'First Name is required';
   }
-  if (Validator.isEmpty(data.lastName)) {
-    errors.lastName = 'Last Name is required';
+  if (Validator.isEmpty(data.last_name)) {
+    errors.last_name = 'Last Name is required';
   }
-  if (!Validator.isLength(data.phoneNumber, { min: 11 })) {
-    errors.phoneNumber = 'Your Phone number must be up to 11 digits';
+  if (!Validator.isLength(data.phone_number, { min: 11 })) {
+    errors.phone_number = 'Your Phone number must be up to 11 digits';
   }
-  if (!Validator.isNumeric(data.phoneNumber)) {
-    errors.phoneNumber = 'Phone number is not valid';
+  if (!Validator.isNumeric(data.phone_number)) {
+    errors.phone_number = 'Phone number is not valid';
   }
-  if (Validator.isEmpty(data.phoneNumber)) {
-    errors.phoneNumber = 'Phone number is required';
+  if (Validator.isEmpty(data.phone_number)) {
+    errors.phone_number = 'Phone number is required';
   }
-  if (Validator.isEmpty(data.userType)) {
-    errors.userType = 'UserType is required';
+  if (Validator.isEmpty(data.user_type)) {
+    errors.user_type = 'UserType is required';
   }
-  if (!Validator.isBoolean(data.isAdmin)) {
-    errors.isAdmin = 'IsAdmin must be a Boolean';
+  if (!Validator.isBoolean(data.is_admin)) {
+    errors.is_admin = 'IsAdmin must be a Boolean';
   }
   return {
     errors,
@@ -82,7 +82,7 @@ const checkLogin = (data) => {
 
 const checkProperty = (data) => {
   const errors = {};
-  data.propertyName = !isEmpty(data.propertyName) ? data.propertyName : '';
+  data.property_name = !isEmpty(data.property_name) ? data.property_name : '';
   data.status = !isEmpty(data.status) ? data.status : '';
   data.price = !isEmpty(data.price) ? data.price : '';
   data.state = !isEmpty(data.state) ? data.state : '';
@@ -90,10 +90,10 @@ const checkProperty = (data) => {
   data.address = !isEmpty(data.address) ? data.address : '';
   data.type = !isEmpty(data.type) ? data.type : '';
   data.purpose = !isEmpty(data.purpose) ? data.purpose : '';
-  data.imageUrl = !isEmpty(data.imageUrl) ? data.imageUrl : '';
+  data.image_url = !isEmpty(data.image_url) ? data.image_url : '';
   data.description = !isEmpty(data.description) ? data.description : '';
-  if (Validator.isEmpty(data.propertyName)) {
-    errors.propertyName = 'The property name is required';
+  if (Validator.isEmpty(data.property_name)) {
+    errors.property_name = 'The property name is required';
   }
   if (Validator.isEmpty(data.status)) {
     errors.status = 'The property status is required';
@@ -119,8 +119,8 @@ const checkProperty = (data) => {
   if (Validator.isEmpty(data.purpose)) {
     errors.purpose = 'The property purpose is required';
   }
-  if (Validator.isEmpty(data.imageUrl)) {
-    errors.imageUrl = 'The property image is required';
+  if (Validator.isEmpty(data.image_url)) {
+    errors.image_url = 'The property image is required';
   }
   if (Validator.isEmpty(data.description)) {
     errors.description = 'The property description is required';
