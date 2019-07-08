@@ -7,27 +7,27 @@ const { expect } = chai;
 const propertyUrl = '/api/v1/property';
 const authBaseUrl = '/api/v1/auth';
 const newProperty = {
-  propertyName: 'Test Property',
+  property_name: 'Test Property',
   status: 'avaliable',
-  price: '500,00',
+  price: '500.00',
   state: 'Lagos',
   city: 'Test city',
   address: 'Test address',
   type: '1_Bedroom',
-  imageUrl: 'Test.png',
+  image_url: 'Test.png',
   description: 'Test Description',
   purpose: 'For Sale',
 };
 const user = {
   email: 'testt@gmail.com',
-  firstName: 'First Name',
-  lastName: 'Second Name',
+  first_name: 'First Name',
+  last_name: 'Second Name',
   password: 'testpass123',
-  phoneNumber: '07000000200',
+  phone_number: '07000000200',
   address: 'Test Address',
-  userType: 'agent',
-  passportUrl: 'https://example.com/avatar.png',
-  isAdmin: 'false',
+  user_type: 'agent',
+  passport_url: 'https://example.com/avatar.png',
+  is_admin: 'false',
 };
 let propertyId = '';
 let token = '';
@@ -50,19 +50,6 @@ describe('Test Property Endpoints', () => {
           done();
         });
     });
-    it('Should login the User', (done) => {
-      user.email = 'testt@gmail.com';
-      user.password = 'testpass123';
-      chai.request(app)
-        .post(`${authBaseUrl}/login`)
-        .send(user)
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body.status).to.eql('success');
-          expect(res.body.message).to.eql('Login successful');
-          done();
-        });
-    });
     it('It should create a new property', (done) => {
       chai.request(app)
         .post(propertyUrl)
@@ -71,14 +58,14 @@ describe('Test Property Endpoints', () => {
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body.status).to.eql('success');
-          expect(res.body.data.propertyName).to.eql(newProperty.propertyName);
+          expect(res.body.data.property_name).to.eql(newProperty.property_name);
           expect(res.body.data.status).to.eql(newProperty.status);
           expect(res.body.data.price).to.eql(newProperty.price);
           expect(res.body.data.state).to.eql(newProperty.state);
           expect(res.body.data.city).to.eql(newProperty.city);
           expect(res.body.data.address).to.eql(newProperty.address);
           expect(res.body.data.type).to.eql(newProperty.type);
-          expect(res.body.data.imageUrl).to.eql(newProperty.imageUrl);
+          expect(res.body.data.image_url).to.eql(newProperty.image_url);
           expect(res.body.data.description).to.eql(newProperty.description);
           expect(res.body.data.purpose).to.eql(newProperty.purpose);
           propertyId = res.body.data.id;
@@ -86,19 +73,19 @@ describe('Test Property Endpoints', () => {
         });
     });
     it('It should ensure that property name is not empty', (done) => {
-      newProperty.propertyName = '';
+      newProperty.property_name = '';
       chai.request(app)
         .post(propertyUrl)
         .set('authorization', `jwt ${token}`)
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.propertyName).to.eql('The property name is required');
+          expect(res.body.property_name).to.eql('The property name is required');
           done();
         });
     });
     it('It should ensure that property status is not empty', (done) => {
-      newProperty.propertyName = 'Test Property';
+      newProperty.property_name = 'Test Property';
       newProperty.status = '';
       chai.request(app)
         .post(propertyUrl)
@@ -111,7 +98,7 @@ describe('Test Property Endpoints', () => {
         });
     });
     it('It should ensure that property price is not empty', (done) => {
-      newProperty.propertyName = 'Test Property';
+      newProperty.property_name = 'Test Property';
       newProperty.status = 'avaliable';
       newProperty.price = '';
       chai.request(app)
@@ -125,9 +112,9 @@ describe('Test Property Endpoints', () => {
         });
     });
     it('It should ensure that property state is not empty', (done) => {
-      newProperty.propertyName = 'Test Property';
+      newProperty.property_name = 'Test Property';
       newProperty.status = 'avaliable';
-      newProperty.price = '500,0';
+      newProperty.price = '5000';
       newProperty.state = '';
       chai.request(app)
         .post(propertyUrl)
@@ -140,9 +127,9 @@ describe('Test Property Endpoints', () => {
         });
     });
     it('It should ensure that property city is not empty', (done) => {
-      newProperty.propertyName = 'Test Property';
+      newProperty.property_name = 'Test Property';
       newProperty.status = 'avaliable';
-      newProperty.price = '500,0';
+      newProperty.price = '5000';
       newProperty.state = 'Lagos';
       newProperty.city = '';
       chai.request(app)
@@ -156,9 +143,9 @@ describe('Test Property Endpoints', () => {
         });
     });
     it('It should ensure that property address is not empty', (done) => {
-      newProperty.propertyName = 'Test Property';
+      newProperty.property_name = 'Test Property';
       newProperty.status = 'avaliable';
-      newProperty.price = '500,0';
+      newProperty.price = '5000';
       newProperty.state = 'Lagos';
       newProperty.city = 'Lekki';
       newProperty.address = '';
@@ -173,9 +160,9 @@ describe('Test Property Endpoints', () => {
         });
     });
     it('It should ensure that property type is not empty', (done) => {
-      newProperty.propertyName = 'Test Property';
+      newProperty.property_name = 'Test Property';
       newProperty.status = 'avaliable';
-      newProperty.price = '500,0';
+      newProperty.price = '5000';
       newProperty.state = 'Lagos';
       newProperty.city = 'Lekki';
       newProperty.address = 'Test Address';
@@ -191,33 +178,33 @@ describe('Test Property Endpoints', () => {
         });
     });
     it('It should ensure that property image is not empty', (done) => {
-      newProperty.propertyName = 'Test Property';
+      newProperty.property_name = 'Test Property';
       newProperty.status = 'avaliable';
-      newProperty.price = '500,0';
+      newProperty.price = '5000';
       newProperty.state = 'Lagos';
       newProperty.city = 'Lekki';
       newProperty.address = 'Test Address';
       newProperty.type = '1_bedroom';
-      newProperty.imageUrl = '';
+      newProperty.image_url = '';
       chai.request(app)
         .post(propertyUrl)
         .set('authorization', `jwt ${token}`)
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.imageUrl).to.eql('The property image is required');
+          expect(res.body.image_url).to.eql('The property image is required');
           done();
         });
     });
     it('It should ensure that property description is not empty', (done) => {
-      newProperty.propertyName = 'Test Property';
+      newProperty.property_name = 'Test Property';
       newProperty.status = 'avaliable';
-      newProperty.price = '500,0';
+      newProperty.price = '5000';
       newProperty.state = 'Lagos';
       newProperty.city = 'Lekki';
       newProperty.address = 'Test Address';
       newProperty.type = '1_bedroom';
-      newProperty.imageUrl = 'Test.png';
+      newProperty.image_url = 'Test.png';
       newProperty.description = '';
       chai.request(app)
         .post(propertyUrl)
@@ -287,19 +274,19 @@ describe('Test Property Endpoints', () => {
     it('It should update the property with the new name', (done) => {
       const property = {
         id: propertyId,
-        propertyName: 'Second Test Property Name',
+        property_name: 'Second Test Property Name',
         status: 'avaliable',
-        price: 500.00,
+        price: '500.00',
         state: 'Lagos',
         city: 'Test city',
         address: 'Test address',
         type: '1 Bedroom',
-        imageUrl: 'Test.png',
+        image_url: 'Test.png',
         description: 'Test Description',
         purpose: 'For Sale',
-        imageUrl2: '',
-        mapLat: 6.43,
-        mapLng: 21.67,
+        image_url_2: '',
+        map_lat: '6.43',
+        map_lng: '21.67',
       };
       chai.request(app)
         .put(`${propertyUrl}/${propertyId}`)
@@ -328,7 +315,7 @@ describe('Test Property Endpoints', () => {
   });
   describe('DELETE REQUESTS', () => {
     it('It should throw NOT FOUND if the property does not exist', (done) => {
-      const propertId = 20;
+      const propertId = 200;
       chai.request(app)
         .delete(`${propertyUrl}/${propertId}`)
         .set('authorization', `jwt ${token}`)

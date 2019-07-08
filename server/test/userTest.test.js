@@ -10,14 +10,14 @@ const authBaseUrl = '/api/v1/auth';
 const user = {
   id: uuid.v4(),
   email: 'test@gmail.com',
-  firstName: 'First Name',
-  lastName: 'Second Name',
+  first_name: 'First Name',
+  last_name: 'Second Name',
   password: 'testpass123',
-  phoneNumber: '07020000000',
+  phone_number: '07020000000',
   address: 'Test Address',
-  userType: 'user',
-  passportUrl: 'https://example.com/avatar.png',
-  isAdmin: 'true',
+  user_type: 'user',
+  passport_url: 'https://example.com/avatar.png',
+  is_admin: 'true',
 };
 let userId = '';
 let token = '';
@@ -65,35 +65,35 @@ describe('Test User Endpoints', () => {
     });
     it('Should throw 400 if First Name is empty', (done) => {
       user.email = 'test@gmail.com';
-      user.firstName = '';
+      user.first_name = '';
       chai
         .request(app)
         .post(`${authBaseUrl}/signup`)
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.firstName).to.eql('First Name is required');
+          expect(res.body.first_name).to.eql('First Name is required');
           done();
         });
     });
     it('Should throw 400 if Last Name is empty', (done) => {
       user.email = 'test@gmail.com';
-      user.firstName = 'First Name';
-      user.lastName = '';
+      user.first_name = 'First Name';
+      user.last_name = '';
       chai
         .request(app)
         .post(`${authBaseUrl}/signup`)
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.lastName).to.eql('Last Name is required');
+          expect(res.body.last_name).to.eql('Last Name is required');
           done();
         });
     });
     it('Should throw 400 if Password is empty', (done) => {
       user.email = 'test@gmail.com';
-      user.firstName = 'First Name';
-      user.lastName = 'Last Name';
+      user.first_name = 'First Name';
+      user.last_name = 'Last Name';
       user.password = '';
       chai
         .request(app)
@@ -107,26 +107,26 @@ describe('Test User Endpoints', () => {
     });
     it('Should throw 400 if Phone Number is empty', (done) => {
       user.email = 'test@gmail.com';
-      user.firstName = 'First Name';
-      user.lastName = 'Last Name';
+      user.first_name = 'First Name';
+      user.last_name = 'Last Name';
       user.password = 'testpass';
-      user.phoneNumber = '';
+      user.phone_number = '';
       chai
         .request(app)
         .post(`${authBaseUrl}/signup`)
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.phoneNumber).to.eql('Phone number is required');
+          expect(res.body.phone_number).to.eql('Phone number is required');
           done();
         });
     });
     it('It should return Phone Number already exits in the database', (done) => {
       user.email = 'test1@gmail.com';
-      user.firstName = 'First Name';
-      user.lastName = 'Last Name';
+      user.first_name = 'First Name';
+      user.last_name = 'Last Name';
       user.password = 'testpass123';
-      user.phoneNumber = '07000000000';
+      user.phone_number = '07000000000';
       user.address = 'Address';
       chai
         .request(app)
@@ -173,8 +173,7 @@ describe('Test User Endpoints', () => {
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.status).to.eql('success');
-          expect(res.body.message).to.eql('Login successful');
+          expect(res.body.status).to.eql('Login successful');
           done();
         });
     });
