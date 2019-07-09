@@ -5,7 +5,8 @@
   "main": "./server/server.js",
   "scripts": {
     "eslint": "eslint . --fix",
-    "test": "mocha --require @babel/register ./server/test/**/*.test.js --timeout 20000 --exit",
+    "pretest": "export NODE_ENV=test && npm run migrate:reset && npm run migrate",
+    "test": "export NODE_ENV=test && mocha --require @babel/register ./server/test/**/*.test.js --timeout 20000 --exit",
     "migrate": "set DEBUG=migration && babel-node ./server/database/migrations/index.js",
     "migrate:reset": "set DEBUG=migrate:reset && babel-node ./server/database/migrations/migrateReset.js",
     "start": "export NODE_ENV=production && babel-node ./server/server.js",

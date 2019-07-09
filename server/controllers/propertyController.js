@@ -88,7 +88,7 @@ class PropertyController {
       if (property.rowCount) {
         return res.status(200).json({ status: 'Success', data: property.rows[0] });
       }
-      return res.status(404).json({ status: 'error', error: `Property with ID: ${propertyId} Not Found` });
+      return res.status(404).json({ status: 'error', error: 'Property Not Found' });
     } catch (err) {
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
     } finally {
@@ -109,7 +109,7 @@ class PropertyController {
     const ownerId = header(req).id;
     const client = await pool.connect();
     const findOneQuery = 'SELECT * from properties WHERE id = $1 AND owner = $2';
-    const sqlQuery = `UPDATE properties SET property_name = $1, status = $2, type = $3, state = $4, city = $5, address = $6, price = $7, imageurl = $8, imageurl2 = $9, imageurl3 = $10, purpose = $11, description = $12, maplat = $13, maplng = $14
+    const sqlQuery = `UPDATE properties SET property_name = $1, status = $2, type = $3, state = $4, city = $5, address = $6, price = $7, image_url = $8, image_url_2 = $9, image_url_3 = $10, purpose = $11, description = $12, map_lat = $13, map_lng = $14
                       WHERE id = $15 AND owner = $16 RETURNING *`;
     try {
       property = await client.query(findOneQuery, [propertyId, ownerId]);
@@ -134,8 +134,8 @@ class PropertyController {
         propertyId,
         ownerId,
       ];
-      const response = await client.query(sqlQuery, values);
-      return res.status(200).json({ status: 'success', data: response.rows[0] });
+      property = await client.query(sqlQuery, values);
+      return res.status(200).json({ status: 'success', data: property.rows[0] });
     } catch (err) {
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
     }
@@ -160,6 +160,33 @@ class PropertyController {
         return res.status(404).json({ status: 'error', error: 'Property Not Found' });
       }
       return res.status(200).json({ status: 'success', data: `Property with ID: ${propertyId} deleted` });
+    } catch (err) {
+      return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+    }
+  }
+
+  /**
+     * Mark a property sold/available
+     * @static
+     * @param {object} req - request
+     * @param {object} res - response
+     * @returns
+     * @memberof PropertyController
+     */
+  static async markProperty(req, res) {
+    const { propertyId } = req.params;
+    const ownerId = header(req).id;
+    const findOneQuery = 'SELECT * from properties WHERE id = $1 AND owner = $2';
+    const sqlQuery = 'UPDATE properties SET status = $1 WHERE id = $2 AND owner = $3 RETURNING *';
+    const client = await pool.connect();
+    try {
+      property = await client.query(findOneQuery, [propertyId, ownerId]);
+      if (!property.rows[0]) {
+        return res.status(404).json({ status: 'error', error: 'Property Not Found' });
+      }
+      const values = [req.body.status || property.rows[0].status, propertyId, ownerId];
+      property = await client.query(sqlQuery, values);
+      return res.status(200).json({ status: 'success', data: property.rows[0] });
     } catch (err) {
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
     }

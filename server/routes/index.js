@@ -42,8 +42,8 @@ router.get(`${propertyUrl}`, isAuthenticated, getProperties);
 router.get(`${propertyUrl}/:propertyId`, isAuthenticated, getProperty);
 // router.get(`${propertyUrl}/search/:propertyType`, isAuthenticated, typeProperty);
 router.delete(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, deleteProperty);
-router.put(`${propertyUrl}/:propertyId`, isAuthenticated, updateProperty);
-// router.patch(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSingleProperty, markProperty);
+router.patch(`${propertyUrl}/:propertyId`, isAuthenticated, updateProperty);
+router.patch(`${propertyUrl}/:propertyId/sold`, isAuthenticated, isAgent, markProperty);
 
 /** End Property Routes */
 
