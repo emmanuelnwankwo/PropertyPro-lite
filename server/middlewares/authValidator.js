@@ -6,6 +6,11 @@ import pool from '../config/connection';
 const { verifyToken, decodeToken } = Authenticator;
 const { checkSignup, checkLogin } = validator;
 
+const header = (req) => {
+  const token = req.headers.authorization.split(' ')[1] || req.headers.authorization;
+  const decoded = decodeToken(token);
+  return decoded.payload;
+};
 /**
  * @description Handles validation for all authentication processes
  */
@@ -132,13 +137,11 @@ class AuthValidator {
    * @param {callback} next
    */
   static isAgent(req, res, next) {
-    const token = req.headers.authorization.split(' ')[1] || req.headers.authorization;
-    const decoded = decodeToken(token);
-    const accountType = decoded.payload.user_type;
+    const accountType = header(req).user_type;
     if (accountType.toUpperCase() === 'USER') {
       return res.status(403).json({
         status: 'error',
-        error: 'Only Agent can post an advert',
+        error: 'Access denied, Only Agent can perform this action',
       });
     }
     return next();
@@ -151,9 +154,7 @@ class AuthValidator {
    * @param {callback} next
    */
   static isAdmin(req, res, next) {
-    const token = req.headers.authorization.split(' ')[1] || req.headers.authorization;
-    const decoded = decodeToken(token);
-    const Admin = JSON.parse(decoded.payload.is_admin);
+    const Admin = JSON.parse(header(req).is_admin);
     if (!Admin) {
       return res.status(403).json({
         status: 'error',

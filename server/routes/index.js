@@ -10,7 +10,9 @@ import Helper from '../helper/helper';
 const router = express.Router();
 const swaggerDocument = require('../../swagger.json');
 
-const { createUser, loginUser, getAllUsers, deleteUser } = User;
+const {
+  createUser, loginUser, getAllUsers, deleteUser,
+} = User;
 const { imageupload } = Cloudinary;
 const {
   createProperty,
@@ -32,7 +34,8 @@ const {
 } = AuthValidator;
 const { validateProperty } = PropertyValidator;
 router.get('/', (req, res) => {
-  res.send(Helper.indexTemplate());
+  // res.send(Helper.indexTemplate());
+  res.redirect('https://propertypro-lit.herokuapp.com/api/docs');
 });
 
 /** Property Routes */
@@ -52,8 +55,8 @@ const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, validatePhone, createUser);
 router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 
-// router.get(`${authBaseUrl}/admin`, isAuthenticated, isAdmin, getAllUsers);
-// router.delete(`${authBaseUrl}/admin/:userId`, isAuthenticated, isAdmin, deleteUser);
+router.get('/api/v1/admin', isAuthenticated, isAdmin, getAllUsers);
+router.delete('/api/v1/admin/:userId', isAuthenticated, isAdmin, deleteUser);
 /** Image upload in Cloudinary */
 router.post('/api/v1/upload', imageupload);
 
