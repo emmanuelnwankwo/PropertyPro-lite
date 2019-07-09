@@ -19,7 +19,7 @@ const {
   deleteProperty,
   updateProperty,
   markProperty,
-  typeProperty,
+  searchByType,
 } = Property;
 const {
   validateSignUp,
@@ -40,9 +40,9 @@ const propertyUrl = '/api/v1/property';
 router.post(`${propertyUrl}`, isAuthenticated, isAgent, validateProperty, createProperty);
 router.get(`${propertyUrl}`, isAuthenticated, getProperties);
 router.get(`${propertyUrl}/:propertyId`, isAuthenticated, getProperty);
-// router.get(`${propertyUrl}/search/:propertyType`, isAuthenticated, typeProperty);
+router.get(`${propertyUrl}/search/:propertyType`, isAuthenticated, searchByType);
 router.delete(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, deleteProperty);
-router.patch(`${propertyUrl}/:propertyId`, isAuthenticated, updateProperty);
+router.patch(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, updateProperty);
 router.patch(`${propertyUrl}/:propertyId/sold`, isAuthenticated, isAgent, markProperty);
 
 /** End Property Routes */

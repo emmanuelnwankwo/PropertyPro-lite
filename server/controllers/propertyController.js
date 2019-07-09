@@ -86,7 +86,7 @@ class PropertyController {
       const values = [propertyId];
       property = await client.query({ text: sqlQuery, values });
       if (property.rowCount) {
-        return res.status(200).json({ status: 'Success', data: property.rows[0] });
+        return res.status(200).json({ status: 'success', data: property.rows[0] });
       }
       return res.status(404).json({ status: 'error', error: 'Property Not Found' });
     } catch (err) {
@@ -189,6 +189,33 @@ class PropertyController {
       return res.status(200).json({ status: 'success', data: property.rows[0] });
     } catch (err) {
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+    }
+  }
+
+  /**
+     * Search properties by type
+     * @static
+     * @param {object} req - request
+     * @param {object} res - response
+     * @returns
+     * @memberof PropertyController
+     */
+  static async searchByType(req, res) {
+    const { propertyType } = req.params;
+    console.log(propertyType);
+    const client = await pool.connect();
+    try {
+      const sqlQuery = 'SELECT * FROM properties WHERE type = $1 ORDER BY created_on DESC';
+      const values = [propertyType];
+      property = await client.query(sqlQuery, values);
+      if (property.rowCount) {
+        return res.status(200).json({ status: 'success', data: property.rows });
+      }
+      return res.status(404).json({ status: 'error', error: 'Property Not Found' });
+    } catch (err) {
+      return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+    } finally {
+      await client.release();
     }
   }
 }
