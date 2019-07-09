@@ -4,7 +4,10 @@ node_js:
 install: npm install
 services:
   - postgresql
+env:
+  - DB_USERNAME=propertypro DB_PASSWORD=password DB_NAME=propertypro_test
 before_script:
   - psql -c 'create database propertypro_test;' -U postgres
+  - psql -c "CREATE USER propertypro WITH PASSWORD 'password';" -U postgres
 scritp: npm test
 after_success: npm run coveralls

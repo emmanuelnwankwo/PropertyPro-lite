@@ -1,4 +1,3 @@
-import PropertyModel from '../models/dummyModel/propertyModel';
 import validator from './validator';
 
 const { checkProperty } = validator;

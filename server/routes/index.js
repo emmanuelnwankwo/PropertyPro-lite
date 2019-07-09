@@ -41,7 +41,7 @@ router.post(`${propertyUrl}`, isAuthenticated, isAgent, validateProperty, create
 router.get(`${propertyUrl}`, isAuthenticated, getProperties);
 router.get(`${propertyUrl}/:propertyId`, isAuthenticated, getProperty);
 // router.get(`${propertyUrl}/search/:propertyType`, isAuthenticated, typeProperty);
-// router.delete(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSingleProperty, deleteProperty);
+router.delete(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, deleteProperty);
 router.put(`${propertyUrl}/:propertyId`, isAuthenticated, updateProperty);
 // router.patch(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, validateSingleProperty, markProperty);
 

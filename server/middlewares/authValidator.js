@@ -135,7 +135,6 @@ class AuthValidator {
     const token = req.headers.authorization.split(' ')[1] || req.headers.authorization;
     const decoded = decodeToken(token);
     const accountType = decoded.payload.user_type;
-    console.log(accountType);
     if (accountType.toUpperCase() === 'USER') {
       return res.status(403).json({
         status: 'error',
