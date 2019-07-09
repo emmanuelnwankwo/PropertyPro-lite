@@ -53,7 +53,7 @@ describe('Test Property Endpoints', () => {
     it('It should create a new property', (done) => {
       chai.request(app)
         .post(propertyUrl)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(201);
@@ -68,7 +68,7 @@ describe('Test Property Endpoints', () => {
           expect(res.body.data[0].image_url).to.eql(newProperty.image_url);
           expect(res.body.data[0].description).to.eql(newProperty.description);
           expect(res.body.data[0].purpose).to.eql(newProperty.purpose);
-          propertyId = res.body.data.id;
+          propertyId = res.body.data[0].id;
           done();
         });
     });
@@ -76,7 +76,7 @@ describe('Test Property Endpoints', () => {
       newProperty.property_name = '';
       chai.request(app)
         .post(propertyUrl)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -89,7 +89,7 @@ describe('Test Property Endpoints', () => {
       newProperty.status = '';
       chai.request(app)
         .post(propertyUrl)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -103,7 +103,7 @@ describe('Test Property Endpoints', () => {
       newProperty.price = '';
       chai.request(app)
         .post(propertyUrl)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -118,7 +118,7 @@ describe('Test Property Endpoints', () => {
       newProperty.state = '';
       chai.request(app)
         .post(propertyUrl)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -134,7 +134,7 @@ describe('Test Property Endpoints', () => {
       newProperty.city = '';
       chai.request(app)
         .post(propertyUrl)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -151,7 +151,7 @@ describe('Test Property Endpoints', () => {
       newProperty.address = '';
       chai.request(app)
         .post(propertyUrl)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -169,7 +169,7 @@ describe('Test Property Endpoints', () => {
       newProperty.type = '';
       chai.request(app)
         .post(propertyUrl)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -188,7 +188,7 @@ describe('Test Property Endpoints', () => {
       newProperty.image_url = '';
       chai.request(app)
         .post(propertyUrl)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -208,7 +208,7 @@ describe('Test Property Endpoints', () => {
       newProperty.description = '';
       chai.request(app)
         .post(propertyUrl)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -222,17 +222,17 @@ describe('Test Property Endpoints', () => {
       const propertId = 20;
       chai.request(app)
         .get(`${propertyUrl}/${propertId}`)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(404);
           expect(res.body.error).to.eql('Property Not Found');
           done();
         });
     });
-    it('It should return the property details if it exists', (done) => {
+    it('It should return a specific property details in the database', (done) => {
       chai.request(app)
         .get(`${propertyUrl}/${propertyId}`)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.status).to.eql('success');
@@ -242,7 +242,7 @@ describe('Test Property Endpoints', () => {
     it('It should return the array of all properties', (done) => {
       chai.request(app)
         .get(propertyUrl)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.status).to.eql('success');
@@ -253,7 +253,7 @@ describe('Test Property Endpoints', () => {
       const propertyType = '1_Bedroom';
       chai.request(app)
         .get(`${propertyUrl}/search/${propertyType}`)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.status).to.eql('success');
@@ -289,7 +289,7 @@ describe('Test Property Endpoints', () => {
       };
       chai.request(app)
         .patch(`${propertyUrl}/${propertyId}`)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .send(property)
         .end((err, res) => {
           expect(res).to.have.status(200);
@@ -301,7 +301,7 @@ describe('Test Property Endpoints', () => {
       newProperty.status = 'sold';
       chai.request(app)
         .patch(`${propertyUrl}/${propertyId}/sold`)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(200);
@@ -315,7 +315,7 @@ describe('Test Property Endpoints', () => {
       const propertId = 200;
       chai.request(app)
         .delete(`${propertyUrl}/${propertId}`)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(404);
           expect(res.body.error).to.eql('Property Not Found');
@@ -325,7 +325,7 @@ describe('Test Property Endpoints', () => {
     it('Should delete the property', (done) => {
       chai.request(app)
         .delete(`${propertyUrl}/${propertyId}`)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.status).to.eql('success');
@@ -335,7 +335,7 @@ describe('Test Property Endpoints', () => {
     it('It should throw 404 if the URL is incorrect', (done) => {
       chai.request(app)
         .delete(`${propertyUrl}`)
-        .set('authorization', `jwt ${token}`)
+        .set('authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(404);
           done();

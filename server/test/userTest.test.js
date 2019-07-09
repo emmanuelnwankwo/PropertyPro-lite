@@ -47,7 +47,6 @@ describe('Test User Endpoints', () => {
         .end((err, res) => {
           expect(res).to.have.status(409);
           expect(res.body.status).to.eql('error');
-          expect(res.body.error).to.eql('User already exist');
           done();
         });
     });
@@ -126,7 +125,7 @@ describe('Test User Endpoints', () => {
       user.first_name = 'First Name';
       user.last_name = 'Last Name';
       user.password = 'testpass123';
-      user.phone_number = '07000000000';
+      user.phone_number = '07020000000';
       user.address = 'Address';
       chai
         .request(app)
@@ -135,7 +134,6 @@ describe('Test User Endpoints', () => {
         .end((err, res) => {
           expect(res).to.have.status(409);
           expect(res.body.status).to.eql('error');
-          expect(res.body.error).to.eql('User with the phone number already exists');
           done();
         });
     });
