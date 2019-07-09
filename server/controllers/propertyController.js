@@ -138,6 +138,8 @@ class PropertyController {
       return res.status(200).json({ status: 'success', data: property.rows[0] });
     } catch (err) {
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+    } finally {
+      await client.release();
     }
   }
 
@@ -162,6 +164,8 @@ class PropertyController {
       return res.status(200).json({ status: 'success', data: `Property with ID: ${propertyId} deleted` });
     } catch (err) {
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+    } finally {
+      await client.release();
     }
   }
 
@@ -189,6 +193,8 @@ class PropertyController {
       return res.status(200).json({ status: 'success', data: property.rows[0] });
     } catch (err) {
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+    } finally {
+      await client.release();
     }
   }
 
@@ -202,7 +208,6 @@ class PropertyController {
      */
   static async searchByType(req, res) {
     const { propertyType } = req.params;
-    console.log(propertyType);
     const client = await pool.connect();
     try {
       const sqlQuery = 'SELECT * FROM properties WHERE type = $1 ORDER BY created_on DESC';
