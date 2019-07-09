@@ -32,7 +32,7 @@ describe('Test User Endpoints', () => {
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body.status).to.eql('success');
-          userId = res.body.data[0].id;
+          userId = res.body.data[0].user.id;
           // eslint-disable-next-line prefer-destructuring
           token = res.body.data[0].token;
           done();
@@ -179,8 +179,8 @@ describe('Test User Endpoints', () => {
   describe('GET REQUESTS', () => {
     it('It should return list of all users', (done) => {
       chai.request(app)
-        .get(`${authBaseUrl}/admin`)
-        .set('authorization', `jwt ${token}`)
+        .get('/api/v1/admin')
+        .set('authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.status).to.eql('success');
@@ -191,8 +191,8 @@ describe('Test User Endpoints', () => {
   describe('DELETE REQUESTS', () => {
     it('Should delete the user', (done) => {
       chai.request(app)
-        .delete(`${authBaseUrl}/admin/${userId}`)
-        .set('authorization', `jwt ${token}`)
+        .delete(`/api/v1/admin/${userId}`)
+        .set('authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.status).to.eql('success');
