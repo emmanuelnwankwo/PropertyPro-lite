@@ -9,7 +9,7 @@ const authBaseUrl = '/api/v1/auth';
 const newProperty = {
   property_name: 'Test Property',
   status: 'avaliable',
-  price: '500.00',
+  price: '500',
   state: 'Lagos',
   city: 'Test city',
   address: 'Test address',
@@ -58,16 +58,16 @@ describe('Test Property Endpoints', () => {
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body.status).to.eql('success');
-          expect(res.body.data.property_name).to.eql(newProperty.property_name);
-          expect(res.body.data.status).to.eql(newProperty.status);
-          expect(res.body.data.price).to.eql(newProperty.price);
-          expect(res.body.data.state).to.eql(newProperty.state);
-          expect(res.body.data.city).to.eql(newProperty.city);
-          expect(res.body.data.address).to.eql(newProperty.address);
-          expect(res.body.data.type).to.eql(newProperty.type);
-          expect(res.body.data.image_url).to.eql(newProperty.image_url);
-          expect(res.body.data.description).to.eql(newProperty.description);
-          expect(res.body.data.purpose).to.eql(newProperty.purpose);
+          expect(res.body.data[0].property_name).to.eql(newProperty.property_name);
+          expect(res.body.data[0].status).to.eql(newProperty.status);
+          expect(res.body.data[0].price).to.eql(500);
+          expect(res.body.data[0].state).to.eql(newProperty.state);
+          expect(res.body.data[0].city).to.eql(newProperty.city);
+          expect(res.body.data[0].address).to.eql(newProperty.address);
+          expect(res.body.data[0].type).to.eql(newProperty.type);
+          expect(res.body.data[0].image_url).to.eql(newProperty.image_url);
+          expect(res.body.data[0].description).to.eql(newProperty.description);
+          expect(res.body.data[0].purpose).to.eql(newProperty.purpose);
           propertyId = res.body.data.id;
           done();
         });
@@ -225,7 +225,7 @@ describe('Test Property Endpoints', () => {
         .set('authorization', `jwt ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(404);
-          expect(res.body.error).to.eql(`Property with ID: ${propertId} NOT FOUND`);
+          expect(res.body.error).to.eql('Property Not Found');
           done();
         });
     });
@@ -270,10 +270,9 @@ describe('Test Property Endpoints', () => {
         });
     });
   });
-  describe('PUT REQUESTS', () => {
+  describe('PATCH REQUESTS', () => {
     it('It should update the property with the new name', (done) => {
       const property = {
-        id: propertyId,
         property_name: 'Second Test Property Name',
         status: 'avaliable',
         price: '500.00',
@@ -289,7 +288,7 @@ describe('Test Property Endpoints', () => {
         map_lng: '21.67',
       };
       chai.request(app)
-        .put(`${propertyUrl}/${propertyId}`)
+        .patch(`${propertyUrl}/${propertyId}`)
         .set('authorization', `jwt ${token}`)
         .send(property)
         .end((err, res) => {
@@ -298,12 +297,10 @@ describe('Test Property Endpoints', () => {
           done();
         });
     });
-  });
-  describe('PATCH REQUESTS', () => {
     it('It should update the property status to SOLD or AVAILABLE', (done) => {
       newProperty.status = 'sold';
       chai.request(app)
-        .patch(`${propertyUrl}/${propertyId}`)
+        .patch(`${propertyUrl}/${propertyId}/sold`)
         .set('authorization', `jwt ${token}`)
         .send(newProperty)
         .end((err, res) => {
@@ -321,7 +318,7 @@ describe('Test Property Endpoints', () => {
         .set('authorization', `jwt ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(404);
-          expect(res.body.error).to.eql(`Property with ID: ${propertId} NOT FOUND`);
+          expect(res.body.error).to.eql('Property Not Found');
           done();
         });
     });
