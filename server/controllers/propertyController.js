@@ -57,12 +57,19 @@ class PropertyController {
      * @memberof PropertyController
      */
   static async getProperties(req, res) {
-    const sqlQuery = `SELECT id, owner, property_name, status, type, state, city, address, price, image_url, image_url_2, image_url_3, owner_email, owner_phone, purpose, description, map_lat, map_lng, created_on
-                    FROM properties ORDER BY created_on ASC`;
+    const { type } = req.query;
+    const sqlQuery = 'SELECT * FROM properties ORDER BY created_on ASC';
+    const sqlQueryType = 'SELECT * FROM properties WHERE type = $1 ORDER BY created_on DESC';
     const client = await pool.connect();
     try {
       property = await client.query(sqlQuery);
-      return res.status(200).json({ status: 'success', data: property.rows });
+      if (type) {
+        property = await client.query(sqlQueryType, [type]);
+      }
+      if (property.rowCount) {
+        return res.status(200).json({ status: 'success', data: property.rows });
+      }
+      return res.status(404).json({ status: 'error', error: 'Property Not Found' });
     } catch (err) {
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
     } finally {
@@ -199,20 +206,19 @@ class PropertyController {
   }
 
   /**
-     * Search properties by type
+     * Get properties under an Agent
      * @static
      * @param {object} req - request
      * @param {object} res - response
      * @returns
      * @memberof PropertyController
      */
-  static async searchByType(req, res) {
-    const { propertyType } = req.params;
+  static async getPropertiesByAgent(req, res) {
+    const ownerId = header(req).id;
+    const sqlQuery = 'SELECT * FROM properties WHERE owner = $1 ORDER BY created_on ASC';
     const client = await pool.connect();
     try {
-      const sqlQuery = 'SELECT * FROM properties WHERE type = $1 ORDER BY created_on DESC';
-      const values = [propertyType];
-      property = await client.query(sqlQuery, values);
+      property = await client.query(sqlQuery, [ownerId]);
       if (property.rowCount) {
         return res.status(200).json({ status: 'success', data: property.rows });
       }
