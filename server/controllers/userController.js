@@ -27,10 +27,10 @@ class UserController {
         email, first_name, last_name, password, phone_number, address, user_type, is_admin,
       } = req.body;
       const hashedPassword = passwordHash.generate(password);
-      const text = `INSERT INTO users(email, first_name, last_name, password, phone_number, address, passport_url, user_type, is_admin)
-                              VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      const text = `INSERT INTO users(email, first_name, last_name, password, phone_number, address, passport_url, user_type)
+                              VALUES($1, $2, $3, $4, $5, $6, $7, $8)
                               RETURNING id, email, first_name, last_name, phone_number, address, passport_url, user_type, is_admin`;
-      const values = [email, first_name, last_name, hashedPassword, phone_number, address, passport_url, user_type, is_admin];
+      const values = [email, first_name, last_name, hashedPassword, phone_number, address, passport_url, user_type];
       user = await client.query({ text, values });
       if (user.rowCount) {
         user = user.rows[0];
@@ -75,7 +75,7 @@ class UserController {
           const token = await generateToken({
             id, is_admin, user_type, phone_number, email,
           });
-          return res.status(200).json({ status: 'Login successful', data: [{ token, user }] });
+          return res.status(200).json({ status: 'Login successful', data: { token, user } });
         }
         return res.status(401).json({ status: 'error', error: 'Password is not correct' });
       }

@@ -1,6 +1,398 @@
 
 class Helper {
 
+  static passwordResetTemplate(url) {
+    return `
+    <html>
+    <head>
+    <title>PropertyPro-Lite</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap" rel="stylesheet">
+    <style type="text/css">
+        /* FONTS */
+        @media screen {
+            @font-face {
+              font-family: 'Lato';
+              font-style: normal;
+              font-weight: 400;
+              src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+            }
+            
+            @font-face {
+              font-family: 'Lato';
+              font-style: normal;
+              font-weight: 700;
+              src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+            }
+            
+            @font-face {
+              font-family: 'Lato';
+              font-style: italic;
+              font-weight: 400;
+              src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v11/RYyZNoeFgb0l7W3Vu1aSWOvvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+            }
+            
+            @font-face {
+              font-family: 'Lato';
+              font-style: italic;
+              font-weight: 700;
+              src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v11/HkF_qI1x_noxlxhrhMQYELO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+            }
+        }
+        
+        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+        img { -ms-interpolation-mode: bicubic; }
+    
+        img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+        table { border-collapse: collapse !important; }
+        body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+    
+        a[x-apple-data-detectors] {
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+    
+        div[style*="margin: 16px 0;"] { margin: 0 !important; }
+        .logo {
+            font-family: 'Quicksand', sans-serif !important;
+            display: inline-block;
+            font-size: 24px;
+            margin-top: 10px;
+            margin-left: 20px;
+            font-weight: 700 !important;
+            padding: 10px;
+            color: #F64C72 !important;
+        }
+        
+        .logo-small {
+            font-weight: 300 !important;
+        }
+        
+        .logo {
+            text-decoration: none;
+            line-height: 24px;
+        }
+    </style>
+    </head>
+    <body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td bgcolor="#7c72dc" align="center">
+                <table border="0" cellpadding="0" cellspacing="0" width="480" >
+                    <tr>
+                        <td align="center" valign="top" style="padding: 40px 10px 40px 10px;">
+                            <a href="https://emmanuelnwankwo.github.io/PropertyPro-lite/UI/" class="logo">
+                                PropertyPro-<span class="logo-small">Lite</span>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#7c72dc" align="center" style="padding: 0px 10px 0px 10px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="480" >
+                    <tr>
+                        <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
+                          <h1 style="font-size: 32px; font-weight: 400; margin: 0;">Trouble signing in?</h1>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="480" >
+                  <tr>
+                    <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                      <p style="margin: 0;">Resetting your password is easy. Just click the button below and follow the instructions. We'll have you up and running in no time. </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td bgcolor="#ffffff" align="left">
+                      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                  <td align="center" style="border-radius: 3px;" bgcolor="#7c72dc"><a href="${url}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #7c72dc; display: inline-block;">Reset Password</a></td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+            </td>
+        </tr>  
+    </table>
+    
+    </body>
+    </html>
+    
+        `;
+  }
+
+  static resetTemplate(email = '', error = '') {
+    return `
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PropertyPro-Lite</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100vh;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        input {
+            outline: none;
+            padding: 0.8rem;
+            margin: 0.5rem auto;
+            width: 250px;
+        }
+
+        .container {
+            height: 100vh;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        input[type="submit"] {
+            background: #F64C72;
+            border: none;
+            outline: none;
+            color: #FFFFFF;
+            font-size: 0.8rem;
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        input[type="submit"]:hover {
+            opacity: 1;
+        }
+
+        fieldset {
+            padding: 10px;
+            border: 1px solid #6784C7;
+        }
+
+        .alert {
+            padding: 10px;
+            text-align: center;
+            width: 250px;
+            background: red;
+            color: #FFFFFF;
+            font-style: bold;
+            overflow-wrap: break-word;
+        }
+
+        @media screen and (min-width: 768px) {
+
+            input,
+            .alert {
+                width: 350px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form action="/password/reset" method="post">
+            <div class="form-container">
+                <fieldset>
+                    <legend>Password Reset</legend>
+                    ${error}
+                    <div class="form-group">
+                        <label>New Password:</label>
+                        <input name="password" type="password">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input name="passwordConfirmation" type="password">
+                    </div>
+                    <input type="hidden" name="email" value="${email}">
+                    <input type="submit" value="Reset">
+                </fieldset>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
+    `;
+  }
+
+  static successTemplate(success, url = '') {
+    return `
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PropertyPro-Lite</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100vh;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .success {
+            width: 250px;
+            overflow-wrap: break-word;
+            background: green;
+            color: #FFFFFF;
+            font-size: 18px;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        a {
+            background: #F64C72;
+            border: none;
+            outline: none;
+            color: #FFFFFF;
+            font-size: 0.8rem;
+            cursor: pointer;
+            opacity: 0.8;
+            padding: 0.8rem;
+            width: 10rem;
+            text-align: center;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            opacity: 1;
+        }
+
+        @media screen and (min-width: 768px) {
+            .success {
+                width: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="success">${success}</div>
+        ${url}
+    </div>
+</body>
+
+</html>
+    `;
+  }
+
+  static errorTemplate(error) {
+    return `
+      <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>PropertyPro-Lite</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100vh;
+      }
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      .container {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .error {
+        width: 250px;
+        overflow-wrap: break-word;
+        background: red;
+        color: #ffffff;
+        font-size: 18px;
+        text-align: center;
+        padding: 20px 0;
+      }
+      @media screen and (min-width: 768px) {
+        .error {
+          width: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="error">${error}</div>
+    </div>
+  </body>
+</html>
+
+      `;
+  }
+
   static indexTemplate() {
     return `
     <!DOCTYPE html>
