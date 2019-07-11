@@ -12,7 +12,8 @@
     "start": "export NODE_ENV=production && babel-node ./server/server.js",
     "start:dev": "set DEBUG=server && nodemon --exec babel-node ./server/server.js",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=false"
   },
   "repository": {
     "type": "git",
