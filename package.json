@@ -9,12 +9,10 @@
     "test": "export NODE_ENV=test && mocha --require @babel/register ./server/test/**/*.test.js --timeout 20000 --exit",
     "migrate": "set DEBUG=migration && babel-node ./server/database/migrations/index.js",
     "migrate:reset": "set DEBUG=migrate:reset && babel-node ./server/database/migrations/migrateReset.js",
-    "start": "export NODE_ENV=development && babel-node ./server/server.js",
+    "start": "export NODE_ENV=production && babel-node ./server/server.js",
     "start:dev": "set DEBUG=server && nodemon --exec babel-node ./server/server.js",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development npm install --only=dev --dev",
-    "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production;"
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -34,7 +32,6 @@
   },
   "homepage": "https://github.com/emmanuelnwankwo/PropertyPro-lite#readme",
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.5.0",
     "chai-http": "^4.3.0",
     "coveralls": "^3.0.4",
     "eslint": "^5.16.0",
@@ -51,6 +48,7 @@
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
     "@babel/runtime": "^7.5.1",
+    "@babel/plugin-transform-runtime": "^7.5.0",
     "body-parser": "^1.19.0",
     "babel-polyfill": "^6.26.0",
     "chai": "^4.2.0",
