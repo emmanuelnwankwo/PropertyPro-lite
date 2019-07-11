@@ -18,6 +18,13 @@
     "type": "git",
     "url": "git+https://github.com/emmanuelnwankwo/PropertyPro-lite.git"
   },
+  "keywords": [
+    "Nodejs",
+    "Javascript",
+    "Cloudinary",
+    "Express",
+    "Postgresql"
+  ],
   "author": "Emmanuel Nwankwo",
   "license": "ISC",
   "bugs": {
@@ -43,6 +50,7 @@
     "@babel/register": "^7.4.4",
     "@babel/runtime": "^7.5.1",
     "body-parser": "^1.19.0",
+    "babel-polyfill": "^6.26.0",
     "chai": "^4.2.0",
     "cloudinary": "^1.14.0",
     "cors": "^2.8.5",
