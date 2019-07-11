@@ -80,6 +80,21 @@ const checkLogin = (data) => {
   };
 };
 
+const checkEmail = (data) => {
+  const errors = {};
+  data.email = !isEmpty(data.email) ? data.email : '';
+  if (!Validator.isEmail(data.email)) {
+    errors.email = 'Email is not valid. Enter a valid email';
+  }
+  if (Validator.isEmpty(data.email)) {
+    errors.email = 'Email is required';
+  }
+  return {
+    errors,
+    isValid: isEmpty(errors),
+  };
+};
+
 const checkProperty = (data) => {
   const errors = {};
   data.property_name = !isEmpty(data.property_name) ? data.property_name : '';
@@ -132,4 +147,6 @@ const checkProperty = (data) => {
 };
 
 
-export default { checkSignup, checkLogin, checkProperty };
+export default {
+  checkSignup, checkLogin, checkProperty, checkEmail,
+};

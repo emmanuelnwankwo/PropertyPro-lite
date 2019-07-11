@@ -252,7 +252,7 @@ describe('Test Property Endpoints', () => {
     it('It should return the array of the same property type', (done) => {
       const propertyType = '1_Bedroom';
       chai.request(app)
-        .get(`${propertyUrl}/search/${propertyType}`)
+        .get(`${propertyUrl}?type=${propertyType}`)
         .set('authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(200);

@@ -1,12 +1,12 @@
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
+import 'babel-polyfill';
 import Property from '../controllers/propertyController';
 import User from '../controllers/userController';
 import AuthValidator from '../middlewares/authValidator';
 import PropertyValidator from '../middlewares/propertyValidator';
 import Cloudinary from '../config/cloudinaryConfig';
 import PasswordResetController from '../controllers/passwordResetController';
-import Helper from '../helper/helper';
 
 const router = express.Router();
 const swaggerDocument = require('../../swagger.json');
@@ -14,7 +14,6 @@ const swaggerDocument = require('../../swagger.json');
 const {
   createUser, loginUser, getAllUsers, deleteUser,
 } = User;
-// const { imageupload } = Cloudinary;
 const { upload } = Cloudinary;
 const {
   createProperty,
@@ -38,13 +37,12 @@ const {
 const { validateProperty } = PropertyValidator;
 const { resetPassword, passwordReset, resetPasswordForm } = PasswordResetController;
 router.get('/', (req, res) => {
-  // res.send(Helper.indexTemplate());
   res.redirect('https://propertypro-lit.herokuapp.com/api/docs');
 });
 
 /** Property Routes */
 const propertyUrl = '/api/v1/property';
-router.post(`${propertyUrl}`, isAuthenticated, isAgent, validateProperty, upload, createProperty);
+router.post(`${propertyUrl}`, isAuthenticated, isAgent, validateProperty, createProperty);
 router.get(`${propertyUrl}`, isAuthenticated, getProperties);
 router.get(`${propertyUrl}/:propertyId`, isAuthenticated, getProperty);
 router.get(`${propertyUrl}?type=propertyType`, isAuthenticated, getProperties);
