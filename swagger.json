@@ -35,8 +35,8 @@
     "paths": {
         "/auth/signup": {
             "post": {
-                "description": "User can sign up",
-                "summary": "Handles sign up",
+                "description": "Handles sign up",
+                "summary": "User can sign up",
                 "tags": [
                     "Auth"
                 ],
@@ -66,15 +66,15 @@
                         "description": "User with email/phone already exists"
                     },
                     "500": {
-                        "description": "Internal server error"
+                        "description": "Internal Server Error"
                     }
                 }
             }
         },
         "/auth/login": {
             "post": {
-                "description": "User can sign in",
-                "summary": "Handles sign in",
+                "description": "Handles sign in",
+                "summary": "User can sign in",
                 "tags": [
                     "Auth"
                 ],
@@ -98,21 +98,18 @@
                         "description": "Login successful"
                     },
                     "400": {
-                        "description": "Please fill in the fields"
-                    },
-                    "401": {
                         "description": "Invalid email or password"
                     },
                     "500": {
-                        "description": "Internal server error"
+                        "description": "Internal Server Error"
                     }
                 }
             }
         },
-        "/auth/admin": {
+        "/admin": {
             "get": {
-                "description": "Get all users",
-                "summary": "Returns the list of users in the system",
+                "description": "Returns the list of users in the system",
+                "summary": "Get all users",
                 "tags": [
                     "Users"
                 ],
@@ -129,21 +126,24 @@
                         "description": "Success"
                     },
                     "401": {
+                        "description": "Authorization required"
+                    },
+                    "403": {
                         "description": "Only an Admin can request for all users"
                     },
                     "404": {
                         "description": "No User Found"
                     },
                     "500": {
-                        "description": "Internal server error"
+                        "description": "Internal Server Error"
                     }
                 }
             }
         },
-        "/auth/admin/{userId}": {
+        "/admin/{userId}": {
             "delete": {
-                "description": "Delete a user",
-                "summary": "Deletes user with the userId",
+                "description": "Deletes user with the userId",
+                "summary": "Delete a user",
                 "tags": [
                     "Users"
                 ],
@@ -168,21 +168,96 @@
                         "description": "User deleted sucessfully"
                     },
                     "401": {
+                        "description": "Authorization required"
+                    },
+                    "403": {
                         "description": "Only an Admin can delete users"
                     },
                     "404": {
                         "description": "No User Found"
                     },
                     "500": {
-                        "description": "Internal server error"
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/agent": {
+            "get": {
+                "description": "Returns the list of properties by the agent",
+                "summary": "Get all properties posted by a particular Agent",
+                "tags": [
+                    "Users"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Authorization required"
+                    },
+                    "403": {
+                        "description": "Only an Agent can request for his posted property details"
+                    },
+                    "404": {
+                        "description": "Property Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/auth/reset": {
+            "post": {
+                "description": "Handles password reset",
+                "summary": "User can reset password",
+                "tags": [
+                    "Auth"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "security": [],
+                "parameters": [
+                    {
+                      "in": "body",
+                      "name": "body",
+                      "required": true,
+                      "description": "This is the request body object containing user email for password reset",
+                      "schema": {
+                        "$ref": "#/requestBody/passwordResetRequest"
+                      }
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Check your email for password reset link"
+                    },
+                    "400": {
+                      "description": "Email is required || Email must be valid"
+                    },
+                    "404": {
+                        "description": "User with email does not exist"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
                     }
                 }
             }
         },
         "/property/": {
             "post": {
-                "description": "User (agent) can post a property advert",
-                "summary": "Handles Creating/Posting new property",
+                "description": "Handles Creating/Posting new property",
+                "summary": "User (agent) can post a property advert",
                 "tags": [
                     "Property"
                 ],
@@ -216,15 +291,15 @@
                         "description": "Only an Agent can post/create a property"
                     },
                     "500": {
-                        "description": "Internal server error"
+                        "description": "Internal Server Error"
                     }
                 }
             }
         },
         "/property": {
             "get": {
-                "description": "User can view all properties",
-                "summary": "Returns the list of properties in the system",
+                "description": "Returns the list of properties in the system",
+                "summary": "User can view all properties",
                 "tags": [
                     "Property"
                 ],
@@ -240,19 +315,22 @@
                     "200": {
                         "description": "Success"
                     },
+                    "401": {
+                        "description": "Authorization required"
+                    },
                     "404": {
-                        "description": "No Property Found"
+                        "description": "Property Not Found"
                     },
                     "500": {
-                        "description": "Internal server error"
+                        "description": "Internal Server Error"
                     }
                 }
             }
         },
         "/property/{propertyid}": {
             "get": {
-                "description": "User can view a specific property",
-                "summary": "Returns a single property with the specified ID",
+                "description": "Returns a single property with the specified ID",
+                "summary": "User can view a specific property",
                 "tags": [
                     "Property"
                 ],
@@ -276,19 +354,22 @@
                     "200": {
                         "description": "Success"
                     },
+                    "401": {
+                        "description": "Authorization required"
+                    },
                     "404": {
                         "description": "Property Not Found"
                     },
                     "500": {
-                        "description": "Internal server error"
+                        "description": "Internal Server Error"
                     }
                 }
             }
         },
-        "/property/search/{propertyType}": {
+        "/property?type={propertyType}": {
             "get": {
-                "description": "User can view all properties of a specific type - 2 bedroom, 3 bedroom, mini flat etc",
-                "summary": "Returns the list of properties by type in the system",
+                "description": "Returns the list of properties by type in the system",
+                "summary": "User can view all properties of a specific type - 2 bedroom, 3 bedroom, mini flat etc",
                 "tags": [
                     "Property"
                 ],
@@ -312,19 +393,22 @@
                     "200": {
                         "description": "Success"
                     },
+                    "401": {
+                        "description": "Authorization required"
+                    },
                     "404": {
-                        "description": "No Property Found"
+                        "description": "Property Not Found"
                     },
                     "500": {
-                        "description": "Internal server error"
+                        "description": "Internal Server Error"
                     }
                 }
             }
         },
         "/property/{propertId}": {
             "delete": {
-                "description": "User (agent) can delete an advert",
-                "summary": "Deletes property with the propertyId",
+                "description": "Deletes property with the propertyId",
+                "summary": "User (agent) can delete an advert",
                 "tags": [
                     "Property"
                 ],
@@ -349,21 +433,24 @@
                         "description": "Property delete successfully"
                     },
                     "401": {
+                        "description": "Authorization required"
+                    },
+                    "403": {
                         "description": "Only an Agent can delete a property post"
                     },
                     "404": {
-                        "description": "No Property Found"
+                        "description": "Property Not Found"
                     },
                     "500": {
-                        "description": "Internal server error"
+                        "description": "Internal Server Error"
                     }
                 }
             }
         },
-        "/property/{propertyId}/": {
-            "put": {
-                "description": "User (agent) can update the details of a property advert",
-                "summary": "Updates a single property with the propertyId",
+        "/property/{propertyId}": {
+            "patch": {
+                "description": "Updates a single property with the propertyId",
+                "summary": "User (agent) can update the details of a property advert",
                 "tags": [
                     "Property"
                 ],
@@ -381,6 +468,15 @@
                         "name": "propertyId",
                         "required": true,
                         "description": "The Id of the property to be updated"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "description": "This is the request body object containing property update",
+                        "schema": {
+                            "$ref": "#/requestBody/patchPropertyRequest"
+                        }
                     }
                 ],
                 "responses": {
@@ -388,13 +484,16 @@
                         "description": "Success"
                     },
                     "401": {
+                        "description": "Authorization required"
+                    },
+                    "403": {
                         "description": "Only an Agent can update a property post"
                     },
                     "404": {
-                        "description": "No Property Found"
+                        "description": "Property Not Found"
                     },
                     "500": {
-                        "description": "Internal server error"
+                        "description": "Internal Server Error"
                     },
                     "schema": {
                         "$ref": "#/requestBody/putPropertyRequest"
@@ -402,10 +501,10 @@
                 }
             }
         },
-        "/property/{propertyId}": {
+        "/property/{propertyId}/sold": {
             "patch": {
-                "description": "User (agent) can mark his/her posted advert as sold",
-                "summary": "Marks a single property with the propertyId",
+                "description": "Marks a single property with the propertyId",
+                "summary": "User (agent) can mark his/her posted advert as sold",
                 "tags": [
                     "Property"
                 ],
@@ -423,6 +522,15 @@
                         "name": "propertyId",
                         "required": true,
                         "description": "The Id of the property to be marked"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "description": "This is the request body object containing new property status update",
+                        "schema": {
+                            "$ref": "#/requestBody/patchPropertyRequestSold"
+                        }
                     }
                 ],
                 "responses": {
@@ -430,13 +538,16 @@
                         "description": "Success"
                     },
                     "401": {
+                        "description": "Authorization required"
+                    },
+                    "403": {
                         "description": "Only an Agent can mark a property SOLD or AVAILABLE"
                     },
                     "404": {
-                        "description": "No Property Found"
+                        "description": "Property Not Found"
                     },
                     "500": {
-                        "description": "Internal server error"
+                        "description": "Internal Server Error"
                     },
                     "schema": {
                         "$ref": "#/requestBody/patchPropertyRequest"
@@ -454,11 +565,11 @@
                     "description": "email of the user",
                     "type": "string"
                 },
-                "firstName": {
+                "first_name": {
                     "description": "First name of the user",
                     "type": "string"
                 },
-                "lastName": {
+                "last_name": {
                     "description": "Last name of the user",
                     "type": "string"
                 },
@@ -466,7 +577,7 @@
                     "description": "The Password of the user",
                     "type": "string"
                 },
-                "phoneNumber": {
+                "phone_number": {
                     "description": "Phone number of the user",
                     "type": "string"
                 },
@@ -474,32 +585,32 @@
                     "description": "The address of the user",
                     "type": "string"
                 },
-                "userType": {
+                "user_type": {
                     "description": "User type: user or agent",
                     "type": "string"
                 },
-                "passportUrl": {
+                "passport_url": {
                     "description": "PassportUrl of the user",
                     "type": "string"
                 },
-                "isAdmin": {
+                "is_admin": {
                     "description": "User is Admin: true or false",
                     "type": "string"
                 }
             },
             "example": {
                 "email": "mike@example.com",
-                "firstName": "Mike",
-                "lastName": "Smith",
+                "first_name": "Mike",
+                "last_name": "Smith",
                 "password": "password123",
-                "phoneNumber": "07000000000",
+                "phone_number": "07000000000",
                 "address": "",
-                "userType": "agent",
-                "passportUrl": "https://example.com/avatar.png",
-                "isAdmin": "false"
+                "user_type": "user",
+                "passport_url": "https://example.com/avatar.png",
+                "is_admin": "false"
             },
             "required": [
-                "phoneNumber, email, firstName, lastName, password, userType"
+                "phone_number, email, first_name, last_name, password, user_type"
             ]
         },
         "loginRequest": {
@@ -507,7 +618,7 @@
             "type": "object",
             "properties": {
                 "email": {
-                    "description": "email address of the user user",
+                    "description": "Email address of the user user",
                     "type": "string"
                 },
                 "password": {
@@ -523,11 +634,27 @@
                 "email, password,"
             ]
         },
+        "passwordResetRequest": {
+            "title": "Password Reset Request",
+            "type": "object",
+            "properties": {
+              "email": {
+                "description": "Email address of the user user",
+                "type": "string"
+              }
+            },
+            "example": {
+              "email": "mike@example.com"
+            },
+            "required": [
+              "email"
+            ]
+          },
         "propertyRequest": {
             "title": "Create Property Request",
             "type": "object",
             "properties": {
-                "propertyName": {
+                "property_name": {
                     "description": "The name of the property",
                     "type": "string"
                 },
@@ -555,12 +682,16 @@
                     "description": "The type of the property e.g 1 bedroom, 2 bedroom...",
                     "type": "string"
                 },
-                "imageUrl": {
+                "image_url": {
                     "description": "The featured image of the property",
                     "type": "string"
                 },
-                "imageUrl2": {
+                "image_url_2": {
                     "description": "The second featured image of the property",
+                    "type": "string"
+                },
+                "image_url_3": {
+                    "description": "The third featured image of the property",
                     "type": "string"
                 },
                 "description": {
@@ -573,27 +704,28 @@
                 }
             },
             "example": {
-                "propertyName": "New housing",
+                "property_name": "New housing",
                 "status": "available",
-                "price": "1,000",
+                "price": "1000",
                 "state": "Lagos",
                 "city": "Lekki",
                 "address": "property address example",
-                "type": "1_bedroom",
-                "imageUrl": "https://example.com/property.png",
-                "imageUrl2": "",
+                "type": "4 bedroom",
+                "image_url": "https://example.com/property.png",
+                "image_url_2": "",
+                "image_url_3": "",
                 "description": "property description example",
                 "purpose": "for sale"
             },
             "required": [
-                "propertyName, status, price, state, city, address, imageUrl, description, purpose, type"
+                "property_name, status, price, state, city, address, image_url, description, purpose, type"
             ]
         },
-        "putPropertyRequest": {
+        "patchPropertyRequest": {
             "title": "Update Property",
             "type": "object",
             "properties": {
-                "propertyName": {
+                "property_name": {
                     "description": "New property name",
                     "type": "string"
                 },
@@ -621,12 +753,16 @@
                     "description": "New property type e.g 1 bedroom, 2 bedroom...",
                     "type": "string"
                 },
-                "imageUrl": {
+                "image_url": {
                     "description": "New property featured image",
                     "type": "string"
                 },
-                "imageUrl2": {
+                "image_url_2": {
                     "description": "New property second featured image",
+                    "type": "string"
+                },
+                "image_url_3": {
+                    "description": "New property third featured image",
                     "type": "string"
                 },
                 "description": {
@@ -639,19 +775,21 @@
                 }
             },
             "example": {
-                "propertyName": "Example updated property name ",
-                "status": "Example updated property status ",
-                "price": "Example updated property price ",
-                "state": "Example updated property state ",
-                "city": "Example updated property city",
+                "property_name": "Example updated property name ",
+                "status": "sold",
+                "price": "000",
+                "state": "Example state ",
+                "city": "Example city",
                 "address": "Example updated property address",
-                "type": "Example updated property type"
-            },
-            "required": [
-                "propertyName, status, price, state, city, address, type"
-            ]
+                "type": "Example type",
+                "image_url": "",
+                "image_url_2": "",
+                "image_url_3": "",
+                "description": "",
+                "purpose": ""
+            }
         },
-        "patchPropertyRequest": {
+        "patchPropertyRequestSold": {
             "title": "Mark Property Status",
             "type": "object",
             "property": {
