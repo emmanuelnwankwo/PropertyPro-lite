@@ -9,7 +9,7 @@
     "test": "export NODE_ENV=test && mocha --require @babel/register ./server/test/**/*.test.js --timeout 20000 --exit",
     "migrate": "set DEBUG=migration && babel-node ./server/database/migrations/index.js",
     "migrate:reset": "set DEBUG=migrate:reset && babel-node ./server/database/migrations/migrateReset.js",
-    "start": "export NODE_ENV=production && babel-node ./server/server.js",
+    "start": "babel-node ./server/server.js",
     "start:dev": "set DEBUG=server && nodemon --exec babel-node ./server/server.js",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
