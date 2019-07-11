@@ -1,6 +1,5 @@
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
-import 'babel-polyfill';
 import Property from '../controllers/propertyController';
 import User from '../controllers/userController';
 import AuthValidator from '../middlewares/authValidator';
