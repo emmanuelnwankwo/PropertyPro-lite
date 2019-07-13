@@ -39,7 +39,7 @@ class UserController {
         const token = await generateToken({
           id, is_admin, user_type, phone_number, email,
         });
-        return res.status(201).json({ status: 'success', data: token, user });
+        return res.status(201).json({ status: 'success', data: { token, user } });
       }
     } catch (err) {
       const { constraint } = err;
@@ -76,7 +76,7 @@ class UserController {
           const token = await generateToken({
             id, is_admin, user_type, phone_number, email,
           });
-          return res.status(200).json({ status: 'Login successful', data: token, user });
+          return res.status(200).json({ status: 'Login successful', data: { token, user } });
         }
         return res.status(401).json({ status: 'error', error: 'Password is not correct' });
       }
