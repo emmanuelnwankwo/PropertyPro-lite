@@ -46,6 +46,7 @@ class UserController {
       if (constraint === 'users_email_key') {
         return res.status(409).json({ status: 'error', error: 'User already exists' });
       }
+      console.log(err);
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
     } finally {
       await client.release();

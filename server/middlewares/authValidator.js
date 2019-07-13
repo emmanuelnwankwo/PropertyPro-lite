@@ -25,7 +25,7 @@ class AuthValidator {
     try {
       const { errors, isValid } = checkSignup(req.body);
       if (!isValid) {
-        return res.status(400).json(errors);
+        return res.status(400).json({ status: 'error', error: errors });
       }
     } catch (err) {
       const { error } = err;
@@ -88,6 +88,7 @@ class AuthValidator {
         return res.status(409).json({ status: 'error', error: `User with phone number ${phone_number} already exists` });
       }
     } catch (err) {
+      console.log(err);
       return res.status(500).json({
         status: 'error',
         error: 'Internal Server Error',
@@ -167,7 +168,7 @@ class AuthValidator {
   static validateLogin(req, res, next) {
     const { errors, isValid } = checkLogin(req.body);
     if (!isValid) {
-      return res.status(400).json(errors);
+      return res.status(400).json({ status: 'error', error: errors });
     }
     return next();
   }
@@ -184,7 +185,7 @@ class AuthValidator {
   static async validatePasswordReset(req, res, next) {
     const { errors, isValid } = checkEmail(req.body);
     if (!isValid) {
-      return res.status(400).json(errors);
+      return res.status(400).json({ status: 'error', error: errors });
     }
     const { email } = req.body;
     const sqlQuery = { text: 'SELECT email FROM users WHERE email = $1', values: [email] };
