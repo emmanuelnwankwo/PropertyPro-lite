@@ -71,7 +71,7 @@
                 }
             }
         },
-        "/auth/login": {
+        "/auth/signin": {
             "post": {
                 "description": "Handles sign in",
                 "summary": "User can sign in",
