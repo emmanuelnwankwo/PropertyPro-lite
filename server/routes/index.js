@@ -13,7 +13,7 @@ const swaggerDocument = require('../../swagger.json');
 const {
   createUser, loginUser, getAllUsers, deleteUser,
 } = User;
-const { upload } = Cloudinary;
+const { imageupload } = Cloudinary;
 const {
   createProperty,
   getProperties,
@@ -41,7 +41,7 @@ router.get('/', (req, res) => {
 
 /** Property Routes */
 const propertyUrl = '/api/v1/property';
-router.post(`${propertyUrl}`, isAuthenticated, isAgent, validateProperty, createProperty);
+router.post(`${propertyUrl}`, isAuthenticated, isAgent, validateProperty, imageupload, createProperty);
 router.get(`${propertyUrl}`, isAuthenticated, getProperties);
 router.get(`${propertyUrl}/:propertyId`, isAuthenticated, getProperty);
 router.get(`${propertyUrl}?type=propertyType`, isAuthenticated, getProperties);
@@ -54,7 +54,7 @@ router.patch(`${propertyUrl}/:propertyId/sold`, isAuthenticated, isAgent, markPr
 /**  authBaseUrl Routes */
 const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, validatePhone, createUser);
-router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
+router.post(`${authBaseUrl}/signin`, validateLogin, loginUser);
 router.post(`${authBaseUrl}/reset`, validatePasswordReset, passwordReset);
 router.get('/password/reset/:token', resetPasswordForm);
 router.post('/password/reset', resetPassword);
@@ -63,12 +63,12 @@ router.get('/api/v1/admin', isAuthenticated, isAdmin, getAllUsers);
 router.delete('/api/v1/admin/:userId', isAuthenticated, isAdmin, deleteUser);
 router.get('/api/v1/agent', isAuthenticated, isAgent, getPropertiesByAgent);
 /** Image upload in Cloudinary */
-// router.post('/api/v1/upload', upload);
-router.post('/api/v1/upload', upload, (req, res) => {
-  console.log(req.files);
-  // console.log(req);
-  console.log(res);
-});
+router.post('/api/v1/upload', imageupload);
+// router.post('/api/v1/upload', upload, (req, res) => {
+//   console.log(req.files);
+//   // console.log(req);
+//   console.log(res);
+// });
 
 /** Documentation */
 router.use('/api/docs', swaggerUi.serve);

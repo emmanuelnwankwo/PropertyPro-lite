@@ -16,6 +16,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileupload({
   useTempFiles: true,
+  tempFileDir: '/property/',
+  limits: {
+    fileSize: 50 * 1024 * 1024,
+  }
 }));
 app.use(router);
 
