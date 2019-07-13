@@ -30,7 +30,7 @@ class AuthValidator {
     } catch (err) {
       const { error } = err;
       if (error === undefined) {
-        res.status(500).json({
+        return res.status(500).json({
           status: 'error',
           error: 'Invalid Data Input',
         });
