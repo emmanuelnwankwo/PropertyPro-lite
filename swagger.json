@@ -405,7 +405,7 @@
                 }
             }
         },
-        "/property/{propertId}": {
+        "/property/{propertyId}/": {
             "delete": {
                 "description": "Deletes property with the propertyId",
                 "summary": "User (agent) can delete an advert",
@@ -423,7 +423,7 @@
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "propertId",
+                        "name": "propertyId",
                         "required": true,
                         "description": "The Id of the property to be deleted"
                     }
@@ -530,6 +530,60 @@
                         "description": "This is the request body object containing new property status update",
                         "schema": {
                             "$ref": "#/requestBody/patchPropertyRequestSold"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Authorization required"
+                    },
+                    "403": {
+                        "description": "Only an Agent can mark a property SOLD or AVAILABLE"
+                    },
+                    "404": {
+                        "description": "Property Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "schema": {
+                        "$ref": "#/requestBody/patchPropertyRequest"
+                    }
+                }
+            }
+        },
+        "/property/{propertyId}/price": {
+            "patch": {
+                "description": "Edit a single property with the propertyId",
+                "summary": "User (agent) can edit his/her posted advert price",
+                "tags": [
+                    "Property"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "propertyId",
+                        "required": true,
+                        "description": "The Id of the property to be edited"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "description": "This is the request body object containing new property status update",
+                        "schema": {
+                            "$ref": "#/requestBody/patchPropertyRequestPrice"
                         }
                     }
                 ],
@@ -803,6 +857,22 @@
             },
             "required": [
                 "status"
+            ]
+        },
+        "patchPropertyRequestPrice": {
+            "title": "Edit Property Price",
+            "type": "object",
+            "property": {
+                "price": {
+                    "description": "New property price",
+                    "type": "string"
+                }
+            },
+            "example": {
+                "price": "20000"
+            },
+            "required": [
+                "price"
             ]
         }
     }
