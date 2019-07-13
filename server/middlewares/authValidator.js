@@ -7,7 +7,7 @@ const { verifyToken, decodeToken } = Authenticator;
 const { checkSignup, checkLogin, checkEmail } = validator;
 
 const header = (req) => {
-  const token = req.headers.authorization.split(' ')[1] || req.headers.authorization;
+  const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
   const decoded = decodeToken(token);
   return decoded.payload;
 };
@@ -106,7 +106,7 @@ class AuthValidator {
    */
   static isAuthenticated(req, res, next) {
     try {
-      const token = req.headers.authorization.split(' ')[1] || req.headers.authorization;
+      const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
       const verifiedToken = verifyToken(token);
       if (!verifiedToken) {
         return res.status(401).json({

@@ -22,6 +22,7 @@ const {
   updateProperty,
   markProperty,
   getPropertiesByAgent,
+  editPropertyPrice,
 } = Property;
 const {
   validateSignUp,
@@ -48,6 +49,7 @@ router.get(`${propertyUrl}?type=propertyType`, isAuthenticated, getProperties);
 router.delete(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, deleteProperty);
 router.patch(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, updateProperty);
 router.patch(`${propertyUrl}/:propertyId/sold`, isAuthenticated, isAgent, markProperty);
+router.patch(`${propertyUrl}/:propertyId/price`, isAuthenticated, isAgent, editPropertyPrice);
 
 /** End Property Routes */
 
