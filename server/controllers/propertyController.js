@@ -39,7 +39,7 @@ class PropertyController {
       if (property.rows && property.rowCount) {
         property = property.rows;
         const token = await generateToken({ owner, owner_phone, owner_email });
-        return res.status(201).json({ status: 'success', data: [token, property] });
+        return res.status(201).json({ status: 'success', data: { token, property } });
       }
     } catch (err) {
       return res.status(404).json({ status: 'error', error: 'User ID does not exists in database' });
