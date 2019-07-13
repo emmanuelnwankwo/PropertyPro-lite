@@ -88,7 +88,6 @@ class AuthValidator {
         return res.status(409).json({ status: 'error', error: `User with phone number ${phone_number} already exists` });
       }
     } catch (err) {
-      console.log(err);
       return res.status(500).json({
         status: 'error',
         error: 'Internal Server Error',

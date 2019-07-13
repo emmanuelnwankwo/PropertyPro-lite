@@ -37,7 +37,7 @@ const {
 const { validateProperty } = PropertyValidator;
 const { resetPassword, passwordReset, resetPasswordForm } = PasswordResetController;
 router.get('/', (req, res) => {
-  res.redirect('https://propertypro-lit.herokuapp.com/api/docs');
+  return res.redirect('https://propertypro-lit.herokuapp.com/api/docs');
 });
 
 /** Property Routes */
