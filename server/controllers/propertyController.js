@@ -36,17 +36,17 @@ class PropertyController {
                     RETURNING *`;
       const values = [type, state, city, address, price, image_url];
       property = await client.query({ text: sqlQuery, values });
-      if (property.rows && property.rowCount) {
+      // if (property.rows && property.rowCount) {
         property = property.rows;
         const token = await generateToken({ owner, owner_phone, owner_email });
         return res.status(201).json({ status: 'success', data: { token, property } });
-      }
+      // }
     } catch (err) {
       return res.status(404).json({ status: 'error', error: 'User ID does not exists in database' });
     } finally {
       await client.release();
     }
-    return null;
+    // return null;
   }
 
   /**
@@ -72,7 +72,7 @@ class PropertyController {
       if (property.rowCount) {
         const token = await generateToken({ owner, owner_phone, owner_email });
         const properties = property.rows;
-        return res.status(200).json({ status: 'success', data: { token, owner_email } });
+        return res.status(200).json({ status: 'success', data: { token, owner_email, properties } });
       }
       return res.status(404).json({ status: 'error', error: 'Property Not Found' });
     } catch (err) {

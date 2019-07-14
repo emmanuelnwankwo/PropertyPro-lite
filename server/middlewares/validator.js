@@ -97,16 +97,16 @@ const checkEmail = (data) => {
 
 const checkProperty = (data) => {
   const errors = {};
-  data.property_name = !isEmpty(data.property_name) ? data.property_name : '';
-  data.status = !isEmpty(data.status) ? data.status : '';
+  // data.property_name = !isEmpty(data.property_name) ? data.property_name : '';
+  // data.status = !isEmpty(data.status) ? data.status : '';
   data.price = !isEmpty(data.price) ? data.price : '';
   data.state = !isEmpty(data.state) ? data.state : '';
   data.city = !isEmpty(data.city) ? data.city : '';
   data.address = !isEmpty(data.address) ? data.address : '';
   data.type = !isEmpty(data.type) ? data.type : '';
-  data.purpose = !isEmpty(data.purpose) ? data.purpose : '';
+  // data.purpose = !isEmpty(data.purpose) ? data.purpose : '';
   data.image_url = !isEmpty(data.image_url) ? data.image_url : '';
-  data.description = !isEmpty(data.description) ? data.description : '';
+  // data.description = !isEmpty(data.description) ? data.description : '';
   // if (Validator.isEmpty(data.property_name)) {
   //   errors.property_name = 'The property name is required';
   // }
