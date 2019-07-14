@@ -26,10 +26,10 @@ class PropertyController {
     // const owner = header(req).id;
     // const owner_phone = header(req).phone_number;
     // const owner_email = header(req).email;
-    const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
-  const decoded = decodeToken(token);
-  const owner = decoded.payload.id; const owner_phone = decoded.payload.phone_number;
-    const owner_email = decoded.payload.email;
+    const token = req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
+  // const decoded = decodeToken(token);
+  // const owner = decoded.payload.id; const owner_phone = decoded.payload.phone_number;
+  //   const owner_email = decoded.payload.email;
     const client = await pool.connect();
     try {
       const {
@@ -64,9 +64,9 @@ class PropertyController {
   static async getProperties(req, res) {
     // const owner = header(req).id; const owner_phone = header(req).phone_number;
     // const owner_email = header(req).email;
-    const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
+    const token = req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
   const decoded = decodeToken(token);
-  const owner = decoded.payload.id; const owner_phone = decoded.payload.phone_number;
+  // const owner = decoded.payload.id; const owner_phone = decoded.payload.phone_number;
     const owner_email = decoded.payload.email;
     const { type } = req.query;
     const sqlQuery = 'SELECT * FROM properties ORDER BY created_on ASC';
