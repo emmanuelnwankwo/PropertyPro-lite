@@ -79,9 +79,9 @@ class PropertyController {
       }
       if (property.rowCount) {
         // const token = await generateToken(122);
-        const properties = property.rows;
+        property = property.rows[0];
         const { owner_email } = req.body;
-        return res.status(200).json({ status: 'success', data: { token, owner_email, properties } });
+        return res.status(200).json({ status: 'success', data: { token, owner_email, status: property.status, type: property.type, state: property.state, city: property.city, address: property.address, price: property.price, image_url: property.image_url } });
       }
       return res.status(404).json({ status: 'error', error: 'Property Not Found' });
     } catch (err) {
