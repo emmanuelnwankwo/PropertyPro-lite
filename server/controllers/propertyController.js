@@ -4,7 +4,7 @@ import pool from '../config/connection';
 
 const { decodeToken, generateToken } = Authenticator;
 const header = (req) => {
-  const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
+  const token = req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
   const decoded = decodeToken(token);
   return decoded.payload;
 };
