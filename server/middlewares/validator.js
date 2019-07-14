@@ -110,9 +110,9 @@ const checkProperty = (data) => {
   // if (Validator.isEmpty(data.property_name)) {
   //   errors.property_name = 'The property name is required';
   // }
-  if (Validator.isEmpty(data.status)) {
-    errors.status = 'The property status is required';
-  }
+  // if (Validator.isEmpty(data.status)) {
+  //   errors.status = 'The property status is required';
+  // }
   // if (!Validator.isFloat(data.price)) {
   //   errors.price = 'The property price must be a float';
   // }
@@ -125,9 +125,9 @@ const checkProperty = (data) => {
   if (Validator.isEmpty(data.city)) {
     errors.city = 'The property city is required';
   }
-  // if (Validator.isEmpty(data.address)) {
-  //   errors.address = 'The property address is required';
-  // }
+  if (Validator.isEmpty(data.address)) {
+    errors.address = 'The property address is required';
+  }
   if (Validator.isEmpty(data.type)) {
     errors.type = 'The property type is required';
   }

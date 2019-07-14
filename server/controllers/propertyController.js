@@ -31,10 +31,10 @@ class PropertyController {
       const {
         status, price, state, city, address, type, image_url, property_name, image_url_2, image_url_3, description, map_lat, map_lng, purpose,
       } = req.body;
-      const sqlQuery = `INSERT INTO properties(owner, property_name, status, type, state, city, address, price, image_url, image_url_2, image_url_3, owner_email, owner_phone, purpose, description, map_lat, map_lng)
-                    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
+      const sqlQuery = `INSERT INTO properties(type, state, city, address, price, image_url)
+                    VALUES($1, $2, $3, $4, $5, $6)
                     RETURNING *`;
-      const values = [owner, property_name, status, type, state, city, address, price, image_url, image_url_2, image_url_3, owner_email, owner_phone, purpose, description, map_lat, map_lng];
+      const values = [type, state, city, address, price, image_url];
       property = await client.query({ text: sqlQuery, values });
       if (property.rows && property.rowCount) {
         property = property.rows;
