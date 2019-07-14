@@ -26,6 +26,10 @@ class PropertyController {
     // const owner = header(req).id;
     // const owner_phone = header(req).phone_number;
     // const owner_email = header(req).email;
+    const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
+  const decoded = decodeToken(token);
+  const owner = decoded.payload.id; const owner_phone = decoded.payload.phone_number;
+    const owner_email = decoded.payload.email;
     const client = await pool.connect();
     try {
       const {
@@ -38,7 +42,7 @@ class PropertyController {
       property = await client.query({ text: sqlQuery, values });
       // if (property.rows && property.rowCount) {
         property = property.rows;
-        const token = await generateToken(122);
+        // const token = await generateToken(122);
         return res.status(201).json({ status: 'success', data: { token, property } });
       // }
     } catch (err) {
@@ -60,6 +64,10 @@ class PropertyController {
   static async getProperties(req, res) {
     // const owner = header(req).id; const owner_phone = header(req).phone_number;
     // const owner_email = header(req).email;
+    const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
+  const decoded = decodeToken(token);
+  const owner = decoded.payload.id; const owner_phone = decoded.payload.phone_number;
+    const owner_email = decoded.payload.email;
     const { type } = req.query;
     const sqlQuery = 'SELECT * FROM properties ORDER BY created_on ASC';
     const sqlQueryType = 'SELECT * FROM properties WHERE type = $1 ORDER BY created_on DESC';
@@ -70,9 +78,9 @@ class PropertyController {
         property = await client.query(sqlQueryType, [type]);
       }
       if (property.rowCount) {
-        const token = await generateToken(122);
+        // const token = await generateToken(122);
         const properties = property.rows;
-        const { owner_email } = req.body;
+        // const { owner_email } = req.body;
         return res.status(200).json({ status: 'success', data: { token, owner_email, properties } });
       }
       return res.status(404).json({ status: 'error', error: 'Property Not Found' });
