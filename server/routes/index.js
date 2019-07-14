@@ -46,9 +46,9 @@ router.post(`${propertyUrl}`, validateProperty, createProperty);
 router.get(`${propertyUrl}`, isAuthenticated, getProperties);
 router.get(`${propertyUrl}/:propertyId`, isAuthenticated, getProperty);
 router.get(`${propertyUrl}?type=propertyType`, isAuthenticated, getProperties);
-router.delete(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, deleteProperty);
-router.patch(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, updateProperty);
-router.patch(`${propertyUrl}/:propertyId/sold`, isAuthenticated, isAgent, markProperty);
+router.delete(`${propertyUrl}/:propertyId`, deleteProperty);
+router.patch(`${propertyUrl}/:propertyId`, updateProperty);
+router.patch(`${propertyUrl}/:propertyId/sold`, markProperty);
 router.patch(`${propertyUrl}/:propertyId/price`, isAuthenticated, isAgent, editPropertyPrice);
 
 /** End Property Routes */
