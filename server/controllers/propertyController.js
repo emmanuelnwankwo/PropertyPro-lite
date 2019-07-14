@@ -87,7 +87,7 @@ class PropertyController {
         // const token = await generateToken(122);
         property = property.rows;
         // const { owner_email } = req.body;
-        return res.status(200).json({ status: 'success', data: { token, property } });
+        return res.status(200).json({ status: 'success', data: property, token });
       }
       return res.status(404).json({ status: 'error', error: 'Property Not Found' });
     } catch (err) {
