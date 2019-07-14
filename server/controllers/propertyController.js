@@ -85,9 +85,9 @@ class PropertyController {
       }
       if (property.rowCount) {
         // const token = await generateToken(122);
-        property = property.rows[0];
+        property = property.rows;
         // const { owner_email } = req.body;
-        return res.status(200).json({ status: 'success', data: { token, status: property.status, type: property.type, state: property.state, city: property.city, address: property.address, price: property.price, image_url: property.image_url } });
+        return res.status(200).json({ status: 'success', data: token, property });
       }
       return res.status(404).json({ status: 'error', error: 'Property Not Found' });
     } catch (err) {
@@ -220,7 +220,8 @@ class PropertyController {
   static async markProperty(req, res) {
     // const owner_phone = header(req).phone_number;
     // const owner_email = header(req).email;
-    const token = req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
+    // const token = req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
+    const { token } = header(req);
     const { propertyId } = req.params;
     // const ownerId = header(req).id;
     const findOneQuery = 'SELECT * from properties WHERE id = $1';
@@ -233,9 +234,9 @@ class PropertyController {
       }
       const values = [req.body.status || property.rows[0].status, propertyId];
       property = await client.query(sqlQuery, values);
-      property = property.rows[0];
+      const propert = property.rows[0];
       // const token = await generateToken(122);
-      return res.status(200).json({ status: 'success', data: token, created_on: property.created_on });
+      return res.status(200).json({ status: 'success', data: { token, created_on: propert.created_on } });
     } catch (err) {
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
     } finally {
