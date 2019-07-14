@@ -71,7 +71,8 @@ class PropertyController {
       }
       if (property.rowCount) {
         const token = await generateToken({ owner, owner_phone, owner_email });
-        return res.status(200).json({ status: 'success', data: [token, property.rows] });
+        const properties = property.rows;
+        return res.status(200).json({ status: 'success', data: { token, owner_email, properties } });
       }
       return res.status(404).json({ status: 'error', error: 'Property Not Found' });
     } catch (err) {

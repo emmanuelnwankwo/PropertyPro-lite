@@ -107,15 +107,15 @@ const checkProperty = (data) => {
   data.purpose = !isEmpty(data.purpose) ? data.purpose : '';
   data.image_url = !isEmpty(data.image_url) ? data.image_url : '';
   data.description = !isEmpty(data.description) ? data.description : '';
-  if (Validator.isEmpty(data.property_name)) {
-    errors.property_name = 'The property name is required';
-  }
+  // if (Validator.isEmpty(data.property_name)) {
+  //   errors.property_name = 'The property name is required';
+  // }
   if (Validator.isEmpty(data.status)) {
     errors.status = 'The property status is required';
   }
-  if (!Validator.isFloat(data.price)) {
-    errors.price = 'The property price must be a float';
-  }
+  // if (!Validator.isFloat(data.price)) {
+  //   errors.price = 'The property price must be a float';
+  // }
   if (Validator.isEmpty(data.price)) {
     errors.price = 'The property price is required';
   }
@@ -125,21 +125,21 @@ const checkProperty = (data) => {
   if (Validator.isEmpty(data.city)) {
     errors.city = 'The property city is required';
   }
-  if (Validator.isEmpty(data.address)) {
-    errors.address = 'The property address is required';
-  }
+  // if (Validator.isEmpty(data.address)) {
+  //   errors.address = 'The property address is required';
+  // }
   if (Validator.isEmpty(data.type)) {
     errors.type = 'The property type is required';
   }
-  if (Validator.isEmpty(data.purpose)) {
-    errors.purpose = 'The property purpose is required';
-  }
+  // if (Validator.isEmpty(data.purpose)) {
+  //   errors.purpose = 'The property purpose is required';
+  // }
   if (Validator.isEmpty(data.image_url)) {
     errors.image_url = 'The property image is required';
   }
-  if (Validator.isEmpty(data.description)) {
-    errors.description = 'The property description is required';
-  }
+  // if (Validator.isEmpty(data.description)) {
+  //   errors.description = 'The property description is required';
+  // }
   return {
     errors,
     isValid: isEmpty(errors),
