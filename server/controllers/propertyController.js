@@ -40,11 +40,11 @@ class PropertyController {
                     RETURNING *`;
       const values = [type, state, city, address, price, image_url];
       property = await client.query({ text: sqlQuery, values });
-      // if (property.rows && property.rowCount) {
+      if (property.rows && property.rowCount) {
         property = property.rows;
         // const token = await generateToken(122);
         return res.status(201).json({ status: 'success', data: { token, property } });
-      // }
+      }
     } catch (err) {
       return res.status(404).json({ status: 'error', error: 'User ID does not exists in database' });
     } finally {
