@@ -41,7 +41,7 @@ class PropertyController {
       const values = [type, state, city, address, price, image_url];
       property = await client.query({ text: sqlQuery, values });
       if (property.rows && property.rowCount) {
-        property = property.rows;
+        property = property.rows[0];
         // const token = await generateToken(122);
         return res.status(201).json({ status: 'success', data: { token, property } });
       }
