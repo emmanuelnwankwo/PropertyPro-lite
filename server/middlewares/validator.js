@@ -105,7 +105,7 @@ const checkProperty = (data) => {
   data.address = !isEmpty(data.address) ? data.address : '';
   data.type = !isEmpty(data.type) ? data.type : '';
   // data.purpose = !isEmpty(data.purpose) ? data.purpose : '';
-  data.image_url = !isEmpty(data.image_url) ? data.image_url : '';
+  // data.image_url = !isEmpty(data.image_url) ? data.image_url : '';
   // data.description = !isEmpty(data.description) ? data.description : '';
   // if (Validator.isEmpty(data.property_name)) {
   //   errors.property_name = 'The property name is required';
@@ -134,9 +134,9 @@ const checkProperty = (data) => {
   // if (Validator.isEmpty(data.purpose)) {
   //   errors.purpose = 'The property purpose is required';
   // }
-  if (Validator.isEmpty(data.image_url)) {
-    errors.image_url = 'The property image is required';
-  }
+  // if (Validator.isEmpty(data.image_url)) {
+  //   errors.image_url = 'The property image is required';
+  // }
   // if (Validator.isEmpty(data.description)) {
   //   errors.description = 'The property description is required';
   // }
