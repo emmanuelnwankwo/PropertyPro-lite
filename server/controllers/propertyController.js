@@ -3,15 +3,16 @@ import Authenticator from '../helper/authenticator';
 import pool from '../config/connection';
 
 const { decodeToken, generateToken } = Authenticator;
-// const header = (req) => {
-//   const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
-//   const decoded = decodeToken(token);
-//   return decoded.payload;
-// };
 const header = (req) => {
-  const token = req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
-  return token;
+  const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
+  const decoded = decodeToken(token);
+  return decoded;
 };
+// const header = (req) => {
+//   const token = req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
+//   const decoded = decodeToken(token);
+//   return decoded;
+// };
 let property;
 /**
  * Defines methods for properties
@@ -31,10 +32,11 @@ class PropertyController {
     // const owner_phone = header(req).phone_number;
     // const owner_email = header(req).email;
     // const token = req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
-    const { token } = header(req);
+    const { payload } = header(req);
   // const decoded = decodeToken(token);
   // const owner = decoded.payload.id; const owner_phone = decoded.payload.phone_number;
-  //   const owner_email = decoded.payload.email;
+    const owner_email = payload.email;
+    console.log(owner_email);
     const client = await pool.connect();
     try {
       const {
@@ -48,7 +50,7 @@ class PropertyController {
       if (property.rows && property.rowCount) {
         property = property.rows[0];
         // const token = await generateToken(122);
-        return res.status(201).json({ status: 'success', data: { token, id: property.id, status: property.status, type: property.type, state: property.state, city: property.city, address: property.address, price: property.price, image_url: property.image_url } });
+        return res.status(201).json({ status: 'success', data: { id: property.id, status: property.status, type: property.type, state: property.state, city: property.city, address: property.address, price: property.price, image_url: property.image_url } });
       }
     } catch (err) {
       return res.status(404).json({ status: 'error', error: 'User ID does not exists in database' });
