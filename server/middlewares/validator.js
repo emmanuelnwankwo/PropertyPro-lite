@@ -19,12 +19,12 @@ const checkSignup = (data) => {
   if (Validator.isEmpty(data.email)) {
     errors.email = 'Email is required';
   }
-  if (!regex.test(data.password)) {
-    errors.password = 'Your Password must contain atleast 2 numbers and letter';
-  }
-  if (!Validator.isLength(data.password, { min: 8 })) {
-    errors.password = 'Your Password must be up to 8 digits';
-  }
+  // if (!regex.test(data.password)) {
+  //   errors.password = 'Your Password must contain atleast 2 numbers and letter';
+  // }
+  // if (!Validator.isLength(data.password, { min: 8 })) {
+  //   errors.password = 'Your Password must be up to 8 digits';
+  // }
   if (Validator.isEmpty(data.password)) {
     errors.password = 'Password is required';
   }
@@ -43,9 +43,9 @@ const checkSignup = (data) => {
   if (Validator.isEmpty(data.phone_number)) {
     errors.phone_number = 'Phone number is required';
   }
-  if (Validator.isEmpty(data.user_type)) {
-    errors.user_type = 'UserType is required';
-  }
+  // if (Validator.isEmpty(data.user_type)) {
+  //   errors.user_type = 'UserType is required';
+  // }
   if (!Validator.isBoolean(data.is_admin)) {
     errors.is_admin = 'IsAdmin must be a Boolean';
   }
@@ -65,12 +65,12 @@ const checkLogin = (data) => {
   if (Validator.isEmpty(data.email)) {
     errors.email = 'Email is required';
   }
-  if (!regex.test(data.password)) {
-    errors.password = 'Your Password must contain atleast 2 numbers and letter';
-  }
-  if (!Validator.isLength(data.password, { min: 8 })) {
-    errors.password = 'Your Password must be up to 8 digits';
-  }
+  // if (!regex.test(data.password)) {
+  //   errors.password = 'Your Password must contain atleast 2 numbers and letter';
+  // }
+  // if (!Validator.isLength(data.password, { min: 8 })) {
+  //   errors.password = 'Your Password must be up to 8 digits';
+  // }
   if (Validator.isEmpty(data.password)) {
     errors.password = 'Password is required';
   }
@@ -113,9 +113,9 @@ const checkProperty = (data) => {
   // if (Validator.isEmpty(data.status)) {
   //   errors.status = 'The property status is required';
   // }
-  // if (!Validator.isFloat(data.price)) {
-  //   errors.price = 'The property price must be a float';
-  // }
+  if (!Validator.isFloat(data.price)) {
+    errors.price = 'The property price must be a float';
+  }
   if (Validator.isEmpty(data.price)) {
     errors.price = 'The property price is required';
   }

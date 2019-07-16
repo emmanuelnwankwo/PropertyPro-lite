@@ -185,19 +185,19 @@ class AuthValidator {
  * @memberof AuthValidator
  */
   static async validatePasswordReset(req, res, next) {
-    const { errors, isValid } = checkEmail(req.body);
-    if (!isValid) {
-      return res.status(400).json({ status: 'error', error: errors });
-    }
-    const { email } = req.body;
-    const sqlQuery = { text: 'SELECT email FROM users WHERE email = $1', values: [email] };
+    // const { errors, isValid } = checkEmail(req.body);
+    // if (!isValid) {
+    //   return res.status(400).json({ status: 'error', error: errors });
+    // }
+    const { userEmail } = req.params;
+    const sqlQuery = { text: 'SELECT email FROM users WHERE email = $1', values: [userEmail] };
     const client = await pool.connect();
     try {
       const user = await client.query(sqlQuery);
       if (!user.rowCount) {
-        return res.status(404).json({ status: 'error', error: `User with email ${email} does not exist` });
+        return res.status(404).json({ status: 'error', error: `User with email ${userEmail} does not exist` });
       }
-    } catch (err) { return res.status(500).json({ status: 'error', error: 'Internal server error' }); } finally { await client.release(); }
+    } catch (err) {  return res.status(500).json({ status: 'error', error: 'Internal server error' }); } finally { await client.release(); }
     return next();
   }
 }
