@@ -22,7 +22,6 @@ const {
   updateProperty,
   markProperty,
   getPropertiesByAgent,
-  editPropertyPrice,
 } = Property;
 const { AuthValidator } = authValidator;
 const {
@@ -43,14 +42,13 @@ router.get('/', (req, res) => {
 
 /** Property Routes */
 const propertyUrl = '/api/v1/property';
-router.post(`${propertyUrl}`, isAuthenticated, validateProperty, createProperty);
+router.post(`${propertyUrl}`, isAuthenticated, isAgent, validateProperty, createProperty);
 router.get(`${propertyUrl}`, isAuthenticated, getProperties);
 router.get(`${propertyUrl}/:propertyId`, isAuthenticated, getProperty);
 router.get(`${propertyUrl}?type=propertyType`, isAuthenticated, getProperties);
 router.delete(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, deleteProperty);
 router.patch(`${propertyUrl}/:propertyId`, isAuthenticated, isAgent, updateProperty);
 router.patch(`${propertyUrl}/:propertyId/sold`, isAuthenticated, isAgent, markProperty);
-router.patch(`${propertyUrl}/:propertyId/price`, isAuthenticated, isAgent, editPropertyPrice);
 
 /** End Property Routes */
 
