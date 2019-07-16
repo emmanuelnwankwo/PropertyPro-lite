@@ -28,7 +28,7 @@ class PropertyController {
     const client = await pool.connect();
     try {
       const {
-        status, price, state, city, address, type, image_url, property_name, image_url_2, image_url_3, description, map_lat, map_lng, purpose,
+         price, state, city, address, type, image_url, property_name, image_url_2, image_url_3, description, map_lat, map_lng, purpose,
       } = req.body;
       const sqlQuery = `INSERT INTO properties(owner, property_name, type, state, city, address, price, image_url, image_url_2, image_url_3, owner_email, owner_phone, purpose, description, map_lat, map_lng)
                     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
@@ -37,7 +37,6 @@ class PropertyController {
       property = await client.query({ text: sqlQuery, values });
       if (property.rows && property.rowCount) {
         property = property.rows[0];
-        // return res.status(201).json({ status: 'success', data: { id: property.id, status: property.status, type: property.type, state: property.state, city: property.city, address: property.address, price: property.price, image_url: property.image_url } });
         return res.status(201).json({ status: 'success', data: property });
       }
     } catch (err) {
@@ -45,7 +44,7 @@ class PropertyController {
     } finally {
       await client.release();
     }
-    // return null;
+    return null;
   }
 
   /**

@@ -54,9 +54,9 @@ router.patch(`${propertyUrl}/:propertyId/sold`, isAuthenticated, isAgent, markPr
 
 /**  authBaseUrl Routes */
 const authBaseUrl = '/api/v1/auth';
-router.post(`${authBaseUrl}/signup`, userExists, createUser);
-router.post(`${authBaseUrl}/signin`, loginUser);
-router.post(`${authBaseUrl}/reset`, validatePasswordReset, passwordReset);
+router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createUser);
+router.post(`${authBaseUrl}/signin`, validateLogin, loginUser);
+router.post(`${authBaseUrl}/:userEmail/reset_password`, validatePasswordReset, passwordReset);
 router.get('/password/reset/:token', resetPasswordForm);
 router.post('/password/reset', resetPassword);
 
