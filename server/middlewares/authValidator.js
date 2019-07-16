@@ -8,8 +8,8 @@ const { checkSignup, checkLogin, checkEmail } = validator;
 
 const header = (req) => {
   const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
-  const decoded = decodeToken(token);
-  return decoded.payload;
+  // const decoded = decodeToken(token);
+  return token;
 };
 /**
  * @description Handles validation for all authentication processes
@@ -106,7 +106,8 @@ class AuthValidator {
    */
   static isAuthenticated(req, res, next) {
     try {
-      const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
+      // const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
+      const token = header(req);
       const verifiedToken = verifyToken(token);
       if (!verifiedToken) {
         return res.status(401).json({
@@ -124,7 +125,7 @@ class AuthValidator {
     } catch (error) {
       return res.status(401).json({
         status: 'error',
-        error: 'Access denied, Authorization required',
+        error: 'Access denied, Token not valid',
       });
     }
     return next();
@@ -199,4 +200,4 @@ class AuthValidator {
   }
 }
 
-export default AuthValidator;
+export default { AuthValidator, header };

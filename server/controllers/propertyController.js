@@ -1,13 +1,15 @@
 /* eslint-disable camelcase */
 import Authenticator from '../helper/authenticator';
 import pool from '../config/connection';
+import AuthValidator from '../middlewares/authValidator';
 
 const { decodeToken, generateToken } = Authenticator;
-const header = (req) => {
-  const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
-  const decoded = decodeToken(token);
-  return decoded;
-};
+const { header } = AuthValidator;
+// const header = (req) => {
+//   const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
+//   const decoded = decodeToken(token);
+//   return decoded;
+// };
 // const header = (req) => {
 //   const token = req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
 //   const decoded = decodeToken(token);
@@ -32,25 +34,29 @@ class PropertyController {
     // const owner_phone = header(req).phone_number;
     // const owner_email = header(req).email;
     // const token = req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
-    const { payload } = header(req);
+    // const { payload } = header(req);
   // const decoded = decodeToken(token);
   // const owner = decoded.payload.id; const owner_phone = decoded.payload.phone_number;
-    const owner_email = payload.email;
-    console.log(owner_email);
+  // console.log(owner_email);
+  const token = header(req);
+  // console.log(token);
+  const decoded = decodeToken(token);
+  const owner_email = decoded.payload.email;
     const client = await pool.connect();
     try {
       const {
         status, price, state, city, address, type, image_url, property_name, image_url_2, image_url_3, description, map_lat, map_lng, purpose,
       } = req.body;
-      const sqlQuery = `INSERT INTO properties(type, state, city, address, price, image_url)
-                    VALUES($1, $2, $3, $4, $5, $6)
+      const sqlQuery = `INSERT INTO properties(type, state, city, address, price, image_url, owner_email)
+                    VALUES($1, $2, $3, $4, $5, $6, $7)
                     RETURNING *`;
-      const values = [type, state, city, address, price, image_url];
+      const values = [type, state, city, address, price, image_url, owner_email];
       property = await client.query({ text: sqlQuery, values });
       if (property.rows && property.rowCount) {
         property = property.rows[0];
         // const token = await generateToken(122);
-        return res.status(201).json({ status: 'success', data: { id: property.id, status: property.status, type: property.type, state: property.state, city: property.city, address: property.address, price: property.price, image_url: property.image_url } });
+        // return res.status(201).json({ status: 'success', data: { id: property.id, status: property.status, type: property.type, state: property.state, city: property.city, address: property.address, price: property.price, image_url: property.image_url } });
+        return res.status(201).json({ status: 'success', data: property });
       }
     } catch (err) {
       return res.status(404).json({ status: 'error', error: 'User ID does not exists in database' });

@@ -2,7 +2,7 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import Property from '../controllers/propertyController';
 import User from '../controllers/userController';
-import AuthValidator from '../middlewares/authValidator';
+import authValidator from '../middlewares/authValidator';
 import PropertyValidator from '../middlewares/propertyValidator';
 import Cloudinary from '../config/cloudinaryConfig';
 import PasswordResetController from '../controllers/passwordResetController';
@@ -24,6 +24,7 @@ const {
   getPropertiesByAgent,
   editPropertyPrice,
 } = Property;
+const { AuthValidator } = authValidator;
 const {
   validateSignUp,
   userExists,
@@ -42,7 +43,7 @@ router.get('/', (req, res) => {
 
 /** Property Routes */
 const propertyUrl = '/api/v1/property';
-router.post(`${propertyUrl}`, validateProperty, createProperty);
+router.post(`${propertyUrl}`, isAuthenticated, validateProperty, createProperty);
 router.get(`${propertyUrl}`, isAuthenticated, getProperties);
 router.get(`${propertyUrl}/:propertyId`, isAuthenticated, getProperty);
 router.get(`${propertyUrl}?type=propertyType`, isAuthenticated, getProperties);
