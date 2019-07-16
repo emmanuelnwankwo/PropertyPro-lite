@@ -13,9 +13,9 @@ const checkSignup = (data) => {
   data.phone_number = !isEmpty(data.phone_number) ? data.phone_number : '';
   data.user_type = !isEmpty(data.user_type) ? data.user_type : '';
   data.is_admin = !isEmpty(data.is_admin) ? data.is_admin : '';
-  if (!Validator.isEmail(data.email)) {
-    errors.email = 'Email is not valid. Enter a valid email';
-  }
+  // if (!Validator.isEmail(data.email)) {
+  //   errors.email = 'Email is not valid. Enter a valid email';
+  // }
   if (Validator.isEmpty(data.email)) {
     errors.email = 'Email is required';
   }
@@ -46,9 +46,9 @@ const checkSignup = (data) => {
   // if (Validator.isEmpty(data.user_type)) {
   //   errors.user_type = 'UserType is required';
   // }
-  if (!Validator.isBoolean(data.is_admin)) {
-    errors.is_admin = 'IsAdmin must be a Boolean';
-  }
+  // if (!Validator.isBoolean(data.is_admin)) {
+  //   errors.is_admin = 'IsAdmin must be a Boolean';
+  // }
   return {
     errors,
     isValid: isEmpty(errors),
@@ -59,9 +59,9 @@ const checkLogin = (data) => {
   const errors = {};
   data.email = !isEmpty(data.email) ? data.email : '';
   data.password = !isEmpty(data.password) ? data.password : '';
-  if (!Validator.isEmail(data.email)) {
-    errors.email = 'Email is not valid. Enter a valid email';
-  }
+  // if (!Validator.isEmail(data.email)) {
+  //   errors.email = 'Email is not valid. Enter a valid email';
+  // }
   if (Validator.isEmpty(data.email)) {
     errors.email = 'Email is required';
   }
