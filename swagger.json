@@ -216,7 +216,7 @@
                 }
             }
         },
-        "/auth/reset": {
+        "/auth/{userEmail}/reset_password": {
             "post": {
                 "description": "Handles password reset",
                 "summary": "User can reset password",
@@ -229,10 +229,10 @@
                 "security": [],
                 "parameters": [
                     {
-                      "in": "body",
-                      "name": "body",
+                      "in": "path",
+                      "name": "userEmail",
                       "required": true,
-                      "description": "This is the request body object containing user email for password reset",
+                      "description": "The user email for password reset",
                       "schema": {
                         "$ref": "#/requestBody/passwordResetRequest"
                       }
@@ -554,60 +554,6 @@
                     }
                 }
             }
-        },
-        "/property/{propertyId}/price": {
-            "patch": {
-                "description": "Edit a single property with the propertyId",
-                "summary": "User (agent) can edit his/her posted advert price",
-                "tags": [
-                    "Property"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "propertyId",
-                        "required": true,
-                        "description": "The Id of the property to be edited"
-                    },
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
-                        "description": "This is the request body object containing new property status update",
-                        "schema": {
-                            "$ref": "#/requestBody/patchPropertyRequestPrice"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "401": {
-                        "description": "Authorization required"
-                    },
-                    "403": {
-                        "description": "Only an Agent can mark a property SOLD or AVAILABLE"
-                    },
-                    "404": {
-                        "description": "Property Not Found"
-                    },
-                    "500": {
-                        "description": "Internal Server Error"
-                    },
-                    "schema": {
-                        "$ref": "#/requestBody/patchPropertyRequest"
-                    }
-                }
-            }
         }
     },
     "requestBody": {
@@ -857,22 +803,6 @@
             },
             "required": [
                 "status"
-            ]
-        },
-        "patchPropertyRequestPrice": {
-            "title": "Edit Property Price",
-            "type": "object",
-            "property": {
-                "price": {
-                    "description": "New property price",
-                    "type": "string"
-                }
-            },
-            "example": {
-                "price": "20000"
-            },
-            "required": [
-                "price"
             ]
         }
     }
