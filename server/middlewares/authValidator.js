@@ -8,7 +8,6 @@ const { checkSignup, checkLogin, checkEmail } = validator;
 
 const header = (req) => {
   const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
-  // const decoded = decodeToken(token);
   return token;
 };
 /**
@@ -106,7 +105,6 @@ class AuthValidator {
    */
   static isAuthenticated(req, res, next) {
     try {
-      // const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
       const token = header(req);
       const verifiedToken = verifyToken(token);
       if (!verifiedToken) {
@@ -138,7 +136,9 @@ class AuthValidator {
    * @param {callback} next
    */
   static isAgent(req, res, next) {
-    const accountType = header(req).user_type;
+    const token = header(req);
+    const decoded = decodeToken(token);
+    const accountType = decoded.payload.user_type;
     if (accountType.toUpperCase() === 'USER') {
       return res.status(403).json({
         status: 'error',
@@ -155,7 +155,9 @@ class AuthValidator {
    * @param {callback} next
    */
   static isAdmin(req, res, next) {
-    const Admin = JSON.parse(header(req).is_admin);
+    const token = header(req);
+    const decoded = decodeToken(token);
+    const Admin = JSON.parse(decoded.payload.is_admin);
     if (!Admin) {
       return res.status(403).json({
         status: 'error',

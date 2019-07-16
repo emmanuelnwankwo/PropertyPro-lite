@@ -30,27 +30,20 @@ class PropertyController {
      * @memberof PropertyController
      */
   static async createProperty(req, res) {
-    // const owner = header(req).id;
-    // const owner_phone = header(req).phone_number;
-    // const owner_email = header(req).email;
-    // const token = req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
-    // const { payload } = header(req);
-  // const decoded = decodeToken(token);
-  // const owner = decoded.payload.id; const owner_phone = decoded.payload.phone_number;
-  // console.log(owner_email);
-  const token = header(req);
-  // console.log(token);
-  const decoded = decodeToken(token);
-  const owner_email = decoded.payload.email;
+    const token = header(req);
+    const decoded = decodeToken(token);
+    const owner = decoded.payload.id;
+    const owner_phone = decoded.payload.phone_number;
+    const owner_email = decoded.payload.email;
     const client = await pool.connect();
     try {
       const {
         status, price, state, city, address, type, image_url, property_name, image_url_2, image_url_3, description, map_lat, map_lng, purpose,
       } = req.body;
-      const sqlQuery = `INSERT INTO properties(type, state, city, address, price, image_url, owner_email)
-                    VALUES($1, $2, $3, $4, $5, $6, $7)
+      const sqlQuery = `INSERT INTO properties(owner, property_name, status, type, state, city, address, price, image_url, image_url_2, image_url_3, owner_email, owner_phone, purpose, description, map_lat, map_lng)
+                    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
                     RETURNING *`;
-      const values = [type, state, city, address, price, image_url, owner_email];
+      const values = [owner, property_name, status, type, state, city, address, price, image_url, image_url_2, image_url_3, owner_email, owner_phone, purpose, description, map_lat, map_lng];
       property = await client.query({ text: sqlQuery, values });
       if (property.rows && property.rowCount) {
         property = property.rows[0];
@@ -75,13 +68,8 @@ class PropertyController {
      * @memberof PropertyController
      */
   static async getProperties(req, res) {
-    // const owner = header(req).id; const owner_phone = header(req).phone_number;
-    // const owner_email = header(req).email;
-    // const token = req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
-    const { token } = header(req);
+    // const { token } = header(req);
   // const decoded = decodeToken(token);
-  // // const owner = decoded.payload.id; const owner_phone = decoded.payload.phone_number;
-  //   const owner_email = decoded.payload.email;
     const { type } = req.query;
     const sqlQuery = 'SELECT * FROM properties ORDER BY created_on ASC';
     const sqlQueryType = 'SELECT * FROM properties WHERE type = $1 ORDER BY created_on DESC';
@@ -92,10 +80,8 @@ class PropertyController {
         property = await client.query(sqlQueryType, [type]);
       }
       if (property.rowCount) {
-        // const token = await generateToken(122);
         property = property.rows;
-        // const { owner_email } = req.body;
-        return res.status(200).json({ status: 'success', data: property, token });
+        return res.status(200).json({ status: 'success', data: property });
       }
       return res.status(404).json({ status: 'error', error: 'Property Not Found' });
     } catch (err) {
@@ -116,7 +102,7 @@ class PropertyController {
   static async getProperty(req, res) {
     // const owner = header(req).id; const owner_phone = header(req).phone_number;
     // const owner_email = header(req).email;
-    const { token } = header(req);
+    // const { token } = header(req);
     // const token = req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
     const { propertyId } = req.params;
     const client = await pool.connect();
@@ -127,7 +113,7 @@ class PropertyController {
       if (property.rowCount) {
         property = property.rows[0];
         // const token = await generateToken(122);
-        return res.status(200).json({ status: 'success', data: { token, status: property.status } });
+        return res.status(200).json({ status: 'success', data: property });
       }
       return res.status(404).json({ status: 'error', error: 'Property Not Found' });
     } catch (err) {
