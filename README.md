@@ -29,7 +29,7 @@ ProperyPro Lite is a platform where people can create and search properties for 
 * git clone  https://github.com/emmanuelnwankwo/PropertyPro-lite.git
 * git checkout develop
 * npm install
-* touch .env && cp .env.example .env
+* touch .env && cp .env.example
 * Add the postgress connectionString
 
 ### To get connectionString
@@ -38,11 +38,11 @@ ProperyPro Lite is a platform where people can create and search properties for 
 * In the .env, assign the connectionString to DATABASE_URL
 * Run the migration
 
-### Migration
-# To generate the database tables
+## Migration
+### To generate the database tables
 - npm run migrate
 
-# To drop the tables
+### To drop the tables
 - npm run migrate:reset
 
 ### How to run the automated test
@@ -65,3 +65,9 @@ The UI is hosted on gh-pages
 - User can view all properties adverts.
 - User can view all properties of a specific type - 2 bedroom, 3 bedroom, mini flat etc.
 - User can view a specific property advert.
+
+### Optional Features
+- User can reset password.
+- Flag/report​ a posted AD as fraudulent.
+- User can add multiple pictures to a posted ad.
+- The application should display a Google Map with Marker showing the red-flag or intervention location.
