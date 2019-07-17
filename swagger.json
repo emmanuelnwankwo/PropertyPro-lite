@@ -643,12 +643,7 @@
                 "type": "string"
               }
             },
-            "example": {
-              "email": "mike@example.com"
-            },
-            "required": [
-              "email"
-            ]
+            "example": "mike@example.com"
           },
         "propertyRequest": {
             "title": "Create Property Request",
