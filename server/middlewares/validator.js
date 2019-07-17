@@ -4,8 +4,9 @@ import isEmpty from './is-empty';
 
 // Credit: https://stackoverflow.com/questions/16299036/to-check-if-a-string-is-alphanumeric-in-javascript
 const regex = /((^[0-9]+[a-z]+)|(^[a-z]+[0-9]+))+[0-9a-z]+$/i;
-const errors = {};
+
 const checkSignup = (data) => {
+  const errors = {};
   data.email = !isEmpty(data.email) ? data.email : '';
   data.password = !isEmpty(data.password) ? data.password : '';
   data.first_name = !isEmpty(data.first_name) ? data.first_name : '';
@@ -48,6 +49,7 @@ const checkSignup = (data) => {
 };
 
 const checkLogin = (data) => {
+  const errors = {};
   data.email = !isEmpty(data.email) ? data.email : '';
   data.password = !isEmpty(data.password) ? data.password : '';
   // if (!Validator.isEmail(data.email)) {
@@ -72,6 +74,7 @@ const checkLogin = (data) => {
 };
 
 const checkEmail = (data) => {
+  const errors = {};
   data.email = !isEmpty(data.email) ? data.email : '';
   if (!Validator.isEmail(data.email)) {
     errors.email = 'Email is not valid. Enter a valid email';
@@ -86,6 +89,7 @@ const checkEmail = (data) => {
 };
 
 const checkProperty = (data) => {
+  const errors = {};
   data.price = !isEmpty(data.price) ? data.price : '';
   data.state = !isEmpty(data.state) ? data.state : '';
   data.city = !isEmpty(data.city) ? data.city : '';
