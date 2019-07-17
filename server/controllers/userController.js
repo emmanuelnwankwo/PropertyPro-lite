@@ -22,9 +22,10 @@ class UserController {
   static async createUser(req, res) {
     const passport_url = req.body.passport_url || defaultImage;
     const client = await pool.connect();
+    const user_type = 'agent';
     try {
       const {
-        email, first_name, last_name, password, phone_number, address, user_type, is_admin,
+        email, first_name, last_name, password, phone_number, address, is_admin,
       } = req.body;
       const hashedPassword = passwordHash.generate(password);
       const text = `INSERT INTO users(email, first_name, last_name, password, phone_number, address, passport_url, user_type)
@@ -38,7 +39,7 @@ class UserController {
         const token = await generateToken({
           id, is_admin, user_type, phone_number, email,
         });
-        return res.status(201).json({ status: 'success', data: [{ token, user }] });
+        return res.status(201).json({ status: 'success', data: { token, user } });
       }
     } catch (err) {
       const { constraint } = err;
@@ -82,9 +83,7 @@ class UserController {
       return res.status(404).json({ status: 'error', error: 'User does not exists' });
     } catch (err) {
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
-    } finally {
-      await client.release();
-    }
+    } finally { await client.release(); }
   }
 
   /**

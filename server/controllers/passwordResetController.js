@@ -13,15 +13,15 @@ class PasswordResetController {
     let token;
     let info;
     try {
-      const { email } = req.body;
-      token = await generateToken({ email });
+      const { userEmail } = req.params;
+      token = await generateToken({ userEmail });
       const url = `${req.protocol}://${req.get('host')}/password/reset/${token}`;
       const message = Helper.passwordResetTemplate(url);
       const subject = 'Password Reset';
-      info = await sendMail({ to: email, subject, html: message });
+      info = await sendMail({ to: userEmail, subject, html: message });
       const { accepted } = info;
-      if (accepted[0] === email) {
-        return res.status(200).json({ status: 'success', message: 'Check your mailbox for password reset link', email });
+      if (accepted[0] === userEmail) {
+        return res.status(200).json({ status: 'success', message: 'Check your mailbox for password reset link', userEmail });
       }
     } catch (err) {
       return res.status(500).json({ status: 'error', error: err, info });

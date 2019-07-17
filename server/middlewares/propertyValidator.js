@@ -15,7 +15,7 @@ class PropertyValidator {
     try {
       const { errors, isValid } = checkProperty(req.body);
       if (!isValid) {
-        return res.status(400).json(errors);
+        return res.status(400).json({ status: 'error', error: errors });
       }
     } catch (err) {
       const { error } = err;

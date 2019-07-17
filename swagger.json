@@ -71,7 +71,7 @@
                 }
             }
         },
-        "/auth/login": {
+        "/auth/signin": {
             "post": {
                 "description": "Handles sign in",
                 "summary": "User can sign in",
@@ -216,7 +216,7 @@
                 }
             }
         },
-        "/auth/reset": {
+        "/auth/{userEmail}/reset_password": {
             "post": {
                 "description": "Handles password reset",
                 "summary": "User can reset password",
@@ -229,10 +229,10 @@
                 "security": [],
                 "parameters": [
                     {
-                      "in": "body",
-                      "name": "body",
+                      "in": "path",
+                      "name": "userEmail",
                       "required": true,
-                      "description": "This is the request body object containing user email for password reset",
+                      "description": "The user email for password reset",
                       "schema": {
                         "$ref": "#/requestBody/passwordResetRequest"
                       }
@@ -405,7 +405,7 @@
                 }
             }
         },
-        "/property/{propertId}": {
+        "/property/{propertyId}/": {
             "delete": {
                 "description": "Deletes property with the propertyId",
                 "summary": "User (agent) can delete an advert",
@@ -423,7 +423,7 @@
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "propertId",
+                        "name": "propertyId",
                         "required": true,
                         "description": "The Id of the property to be deleted"
                     }
@@ -643,12 +643,7 @@
                 "type": "string"
               }
             },
-            "example": {
-              "email": "mike@example.com"
-            },
-            "required": [
-              "email"
-            ]
+            "example": "mike@example.com"
           },
         "propertyRequest": {
             "title": "Create Property Request",

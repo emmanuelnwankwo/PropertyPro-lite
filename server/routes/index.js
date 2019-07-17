@@ -1,9 +1,8 @@
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
-import 'babel-polyfill';
 import Property from '../controllers/propertyController';
 import User from '../controllers/userController';
-import AuthValidator from '../middlewares/authValidator';
+import authValidator from '../middlewares/authValidator';
 import PropertyValidator from '../middlewares/propertyValidator';
 import Cloudinary from '../config/cloudinaryConfig';
 import PasswordResetController from '../controllers/passwordResetController';
@@ -14,7 +13,7 @@ const swaggerDocument = require('../../swagger.json');
 const {
   createUser, loginUser, getAllUsers, deleteUser,
 } = User;
-const { upload } = Cloudinary;
+const { imageupload } = Cloudinary;
 const {
   createProperty,
   getProperties,
@@ -24,6 +23,7 @@ const {
   markProperty,
   getPropertiesByAgent,
 } = Property;
+const { AuthValidator } = authValidator;
 const {
   validateSignUp,
   userExists,
@@ -37,7 +37,7 @@ const {
 const { validateProperty } = PropertyValidator;
 const { resetPassword, passwordReset, resetPasswordForm } = PasswordResetController;
 router.get('/', (req, res) => {
-  res.redirect('https://propertypro-lit.herokuapp.com/api/docs');
+  return res.redirect('https://propertypro-lit.herokuapp.com/api/docs');
 });
 
 /** Property Routes */
@@ -54,9 +54,9 @@ router.patch(`${propertyUrl}/:propertyId/sold`, isAuthenticated, isAgent, markPr
 
 /**  authBaseUrl Routes */
 const authBaseUrl = '/api/v1/auth';
-router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, validatePhone, createUser);
-router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
-router.post(`${authBaseUrl}/reset`, validatePasswordReset, passwordReset);
+router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createUser);
+router.post(`${authBaseUrl}/signin`, validateLogin, loginUser);
+router.post(`${authBaseUrl}/:userEmail/reset_password`, validatePasswordReset, passwordReset);
 router.get('/password/reset/:token', resetPasswordForm);
 router.post('/password/reset', resetPassword);
 
@@ -64,12 +64,12 @@ router.get('/api/v1/admin', isAuthenticated, isAdmin, getAllUsers);
 router.delete('/api/v1/admin/:userId', isAuthenticated, isAdmin, deleteUser);
 router.get('/api/v1/agent', isAuthenticated, isAgent, getPropertiesByAgent);
 /** Image upload in Cloudinary */
-// router.post('/api/v1/upload', upload);
-router.post('/api/v1/upload', upload, (req, res) => {
-  console.log(req.files);
-  // console.log(req);
-  console.log(res);
-});
+// router.post('/api/v1/upload', imageupload);
+// router.post('/api/v1/upload', upload, (req, res) => {
+//   console.log(req.files);
+//   // console.log(req);
+//   console.log(res);
+// });
 
 /** Documentation */
 router.use('/api/docs', swaggerUi.serve);

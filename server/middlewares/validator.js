@@ -4,6 +4,7 @@ import isEmpty from './is-empty';
 
 // Credit: https://stackoverflow.com/questions/16299036/to-check-if-a-string-is-alphanumeric-in-javascript
 const regex = /((^[0-9]+[a-z]+)|(^[a-z]+[0-9]+))+[0-9a-z]+$/i;
+
 const checkSignup = (data) => {
   const errors = {};
   data.email = !isEmpty(data.email) ? data.email : '';
@@ -11,20 +12,18 @@ const checkSignup = (data) => {
   data.first_name = !isEmpty(data.first_name) ? data.first_name : '';
   data.last_name = !isEmpty(data.last_name) ? data.last_name : '';
   data.phone_number = !isEmpty(data.phone_number) ? data.phone_number : '';
-  data.user_type = !isEmpty(data.user_type) ? data.user_type : '';
-  data.is_admin = !isEmpty(data.is_admin) ? data.is_admin : '';
-  if (!Validator.isEmail(data.email)) {
-    errors.email = 'Email is not valid. Enter a valid email';
-  }
+  // if (!Validator.isEmail(data.email)) {
+  //   errors.email = 'Email is not valid. Enter a valid email';
+  // }
   if (Validator.isEmpty(data.email)) {
     errors.email = 'Email is required';
   }
-  if (!regex.test(data.password)) {
-    errors.password = 'Your Password must contain atleast 2 numbers and letter';
-  }
-  if (!Validator.isLength(data.password, { min: 8 })) {
-    errors.password = 'Your Password must be up to 8 digits';
-  }
+  // if (!regex.test(data.password)) {
+  //   errors.password = 'Your Password must contain atleast 2 numbers and letter';
+  // }
+  // if (!Validator.isLength(data.password, { min: 8 })) {
+  //   errors.password = 'Your Password must be up to 8 digits';
+  // }
   if (Validator.isEmpty(data.password)) {
     errors.password = 'Password is required';
   }
@@ -43,12 +42,6 @@ const checkSignup = (data) => {
   if (Validator.isEmpty(data.phone_number)) {
     errors.phone_number = 'Phone number is required';
   }
-  if (Validator.isEmpty(data.user_type)) {
-    errors.user_type = 'UserType is required';
-  }
-  if (!Validator.isBoolean(data.is_admin)) {
-    errors.is_admin = 'IsAdmin must be a Boolean';
-  }
   return {
     errors,
     isValid: isEmpty(errors),
@@ -59,18 +52,18 @@ const checkLogin = (data) => {
   const errors = {};
   data.email = !isEmpty(data.email) ? data.email : '';
   data.password = !isEmpty(data.password) ? data.password : '';
-  if (!Validator.isEmail(data.email)) {
-    errors.email = 'Email is not valid. Enter a valid email';
-  }
+  // if (!Validator.isEmail(data.email)) {
+  //   errors.email = 'Email is not valid. Enter a valid email';
+  // }
   if (Validator.isEmpty(data.email)) {
     errors.email = 'Email is required';
   }
-  if (!regex.test(data.password)) {
-    errors.password = 'Your Password must contain atleast 2 numbers and letter';
-  }
-  if (!Validator.isLength(data.password, { min: 8 })) {
-    errors.password = 'Your Password must be up to 8 digits';
-  }
+  // if (!regex.test(data.password)) {
+  //   errors.password = 'Your Password must contain atleast 2 numbers and letter';
+  // }
+  // if (!Validator.isLength(data.password, { min: 8 })) {
+  //   errors.password = 'Your Password must be up to 8 digits';
+  // }
   if (Validator.isEmpty(data.password)) {
     errors.password = 'Password is required';
   }
@@ -97,22 +90,11 @@ const checkEmail = (data) => {
 
 const checkProperty = (data) => {
   const errors = {};
-  data.property_name = !isEmpty(data.property_name) ? data.property_name : '';
-  data.status = !isEmpty(data.status) ? data.status : '';
   data.price = !isEmpty(data.price) ? data.price : '';
   data.state = !isEmpty(data.state) ? data.state : '';
   data.city = !isEmpty(data.city) ? data.city : '';
   data.address = !isEmpty(data.address) ? data.address : '';
   data.type = !isEmpty(data.type) ? data.type : '';
-  data.purpose = !isEmpty(data.purpose) ? data.purpose : '';
-  data.image_url = !isEmpty(data.image_url) ? data.image_url : '';
-  data.description = !isEmpty(data.description) ? data.description : '';
-  if (Validator.isEmpty(data.property_name)) {
-    errors.property_name = 'The property name is required';
-  }
-  if (Validator.isEmpty(data.status)) {
-    errors.status = 'The property status is required';
-  }
   if (!Validator.isFloat(data.price)) {
     errors.price = 'The property price must be a float';
   }
@@ -130,15 +112,6 @@ const checkProperty = (data) => {
   }
   if (Validator.isEmpty(data.type)) {
     errors.type = 'The property type is required';
-  }
-  if (Validator.isEmpty(data.purpose)) {
-    errors.purpose = 'The property purpose is required';
-  }
-  if (Validator.isEmpty(data.image_url)) {
-    errors.image_url = 'The property image is required';
-  }
-  if (Validator.isEmpty(data.description)) {
-    errors.description = 'The property description is required';
   }
   return {
     errors,
