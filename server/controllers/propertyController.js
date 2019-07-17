@@ -36,7 +36,6 @@ class PropertyController {
       const values = [owner, property_name, type, state, city, address, price, image_url, image_url_2, image_url_3, owner_email, owner_phone, purpose, description, map_lat, map_lng];
       property = await client.query({ text: sqlQuery, values });
       if (property.rows && property.rowCount) {
-        // property = property.rows[0];
         return res.status(201).json({ status: 'success', data: property.rows[0] });
       }
     } catch (err) {
@@ -91,7 +90,6 @@ class PropertyController {
       const values = [propertyId];
       property = await client.query({ text: sqlQuery, values });
       if (property.rowCount) {
-        // property = ;
         return res.status(200).json({ status: 'success', data: property.rows[0] });
       }
       return res.status(404).json({ status: 'error', error: 'Property Not Found' });
@@ -141,7 +139,6 @@ class PropertyController {
         ownerId,
       ];
       property = await client.query(sqlQuery, values);
-      // property = property.rows[0];
       return res.status(200).json({ status: 'success', data: property.rows[0] });
     } catch (err) {
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
