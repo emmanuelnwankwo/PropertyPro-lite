@@ -1,14 +1,12 @@
 /* eslint-disable no-undef */
 import chai from 'chai';
 import chaiHTTP from 'chai-http';
-import uuid from 'uuid';
 import app from '../server';
 
 chai.use(chaiHTTP);
 const { expect } = chai;
 const authBaseUrl = '/api/v1/auth';
 const user = {
-  id: uuid.v4(),
   email: 'test@gmail.com',
   first_name: 'First Name',
   last_name: 'Second Name',
@@ -19,8 +17,12 @@ const user = {
   passport_url: 'https://example.com/avatar.png',
   is_admin: 'true',
 };
-let userId = '';
-let token = '';
+const userLogin = {
+  email: 'test@gmail.com',
+  password: 'testpass123',
+};
+let userId;
+let token;
 
 describe('Test User Endpoints', () => {
   describe('POST REQUESTS', () => {
@@ -32,9 +34,9 @@ describe('Test User Endpoints', () => {
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body.status).to.eql('success');
-          userId = res.body.data[0].user.id;
+          userId = res.body.data.user.id;
           // eslint-disable-next-line prefer-destructuring
-          token = res.body.data[0].token;
+          token = res.body.data.token;
           done();
         });
     });
@@ -58,7 +60,7 @@ describe('Test User Endpoints', () => {
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.email).to.eql('Email is required');
+          expect(res.body.error.email).to.eql('Email is required');
           done();
         });
     });
@@ -71,7 +73,7 @@ describe('Test User Endpoints', () => {
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.first_name).to.eql('First Name is required');
+          expect(res.body.error.first_name).to.eql('First Name is required');
           done();
         });
     });
@@ -85,7 +87,7 @@ describe('Test User Endpoints', () => {
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.last_name).to.eql('Last Name is required');
+          expect(res.body.error.last_name).to.eql('Last Name is required');
           done();
         });
     });
@@ -100,7 +102,7 @@ describe('Test User Endpoints', () => {
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.password).to.eql('Password is required');
+          expect(res.body.error.password).to.eql('Password is required');
           done();
         });
     });
@@ -108,7 +110,7 @@ describe('Test User Endpoints', () => {
       user.email = 'test@gmail.com';
       user.first_name = 'First Name';
       user.last_name = 'Last Name';
-      user.password = 'testpass';
+      user.password = 'testpass123';
       user.phone_number = '';
       chai
         .request(app)
@@ -116,33 +118,15 @@ describe('Test User Endpoints', () => {
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.phone_number).to.eql('Phone number is required');
-          done();
-        });
-    });
-    it('It should return Phone Number already exits in the database', (done) => {
-      user.email = 'test1@gmail.com';
-      user.first_name = 'First Name';
-      user.last_name = 'Last Name';
-      user.password = 'testpass123';
-      user.phone_number = '07020000000';
-      user.address = 'Address';
-      chai
-        .request(app)
-        .post(`${authBaseUrl}/signup`)
-        .send(user)
-        .end((err, res) => {
-          expect(res).to.have.status(409);
-          expect(res.body.status).to.eql('error');
+          expect(res.body.error.phone_number).to.eql('Phone number is required');
           done();
         });
     });
     it('It should return Password is incorrect', (done) => {
-      user.email = 'test@gmail.com';
-      user.password = 'pass1234';
+      userLogin.password = 'pass1234';
       chai.request(app)
-        .post(`${authBaseUrl}/login`)
-        .send(user)
+        .post(`${authBaseUrl}/signin`)
+        .send(userLogin)
         .end((err, res) => {
           expect(res).to.have.status(401);
           expect(res.body.status).to.eql('error');
@@ -151,11 +135,11 @@ describe('Test User Endpoints', () => {
         });
     });
     it('It should return Error, User account does not exist', (done) => {
-      user.email = 'test1@gmail.com';
-      user.password = 'testpass123';
+      userLogin.email = 'test1@gmail.com';
+      userLogin.password = 'testpass123';
       chai.request(app)
-        .post(`${authBaseUrl}/login`)
-        .send(user)
+        .post(`${authBaseUrl}/signin`)
+        .send(userLogin)
         .end((err, res) => {
           expect(res).to.have.status(404);
           expect(res.body.status).to.eql('error');
@@ -164,11 +148,9 @@ describe('Test User Endpoints', () => {
         });
     });
     it('It should login the User', (done) => {
-      user.email = 'test@gmail.com';
-      user.password = 'testpass123';
       chai.request(app)
-        .post(`${authBaseUrl}/login`)
-        .send(user)
+        .post(`${authBaseUrl}/signin`)
+        .send(userLogin)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.status).to.eql('Login successful');
