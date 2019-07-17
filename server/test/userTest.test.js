@@ -13,13 +13,9 @@ const user = {
   password: 'testpass123',
   phone_number: '07020000000',
   address: 'Test Address',
-  user_type: 'user',
+  user_type: 'agent',
   passport_url: 'https://example.com/avatar.png',
   is_admin: 'true',
-};
-const userLogin = {
-  email: 'test@gmail.com',
-  password: 'testpass123',
 };
 let userId;
 let token;
@@ -123,10 +119,11 @@ describe('Test User Endpoints', () => {
         });
     });
     it('It should return Password is incorrect', (done) => {
-      userLogin.password = 'pass1234';
+      user.email = 'test@gmail.com';
+      user.password = 'pass1234';
       chai.request(app)
         .post(`${authBaseUrl}/signin`)
-        .send(userLogin)
+        .send(user)
         .end((err, res) => {
           expect(res).to.have.status(401);
           expect(res.body.status).to.eql('error');
@@ -135,11 +132,11 @@ describe('Test User Endpoints', () => {
         });
     });
     it('It should return Error, User account does not exist', (done) => {
-      userLogin.email = 'test1@gmail.com';
-      userLogin.password = 'testpass123';
+      user.email = 'test1@gmail.com';
+      user.password = 'testpass123';
       chai.request(app)
         .post(`${authBaseUrl}/signin`)
-        .send(userLogin)
+        .send(user)
         .end((err, res) => {
           expect(res).to.have.status(404);
           expect(res.body.status).to.eql('error');
@@ -148,9 +145,11 @@ describe('Test User Endpoints', () => {
         });
     });
     it('It should login the User', (done) => {
+      user.email = 'test@gmail.com';
+      user.password = 'testpass123';
       chai.request(app)
         .post(`${authBaseUrl}/signin`)
-        .send(userLogin)
+        .send(user)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.status).to.eql('Login successful');
