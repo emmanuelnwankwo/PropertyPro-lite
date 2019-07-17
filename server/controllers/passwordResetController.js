@@ -15,7 +15,7 @@ class PasswordResetController {
     try {
       const { userEmail } = req.params;
       token = await generateToken({ userEmail });
-      const url = `${req.protocol}://${req.get('host')}/password/reset/${token}`;
+      const url = `${req.protocol}s://${req.get('host')}/password/reset/${token}`;
       const message = Helper.passwordResetTemplate(url);
       const subject = 'Password Reset';
       info = await sendMail({ to: userEmail, subject, html: message });
