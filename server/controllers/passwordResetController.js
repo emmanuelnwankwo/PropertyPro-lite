@@ -29,15 +29,15 @@ class PasswordResetController {
   }
 
   static async resetPassword(req, res) {
-    const { userEmail, password, passwordConfirmation } = req.body;
+    const { email, password, passwordConfirmation } = req.body;
     if (!password || password.length < 8) {
-      res.send(Helper.resetTemplate(userEmail, '<div class="alert">Password must be at least 8 characters long</div>'));
+      res.send(Helper.resetTemplate(email, '<div class="alert">Password must be at least 8 characters long</div>'));
     } else if (password !== passwordConfirmation) {
-      res.send(Helper.resetTemplate(userEmail, '<div class="alert">Password does not match!</div>'));
+      res.send(Helper.resetTemplate(email, '<div class="alert">Password does not match!</div>'));
     } else {
       const hashPassword = await passwordHash.generate(password);
       const sqlQuery = 'UPDATE users SET password = $1 WHERE email = $2';
-      const values = [hashPassword, userEmail];
+      const values = [hashPassword, email];
       const client = await pool.connect();
       try {
         const updatedPassword = await client.query({ text: sqlQuery, values });
@@ -45,10 +45,10 @@ class PasswordResetController {
           const url = 'https://emmanuelnwankwo.github.io/PropertyPro-lite/UI/login.html';
           res.send(Helper.successTemplate('Password reset successfully', `<a href="${url}">Login</a>`));
         } else {
-          res.send(Helper.resetTemplate(userEmail, '<div class="alert">Unable to reset password, try again</div>'));
+          res.send(Helper.resetTemplate(email, '<div class="alert">Unable to reset password, try again</div>'));
         }
       } catch (err) {
-        res.send(Helper.resetTemplate(userEmail, '<div class="alert">Unable to reset password, try again</div>'));
+        res.send(Helper.resetTemplate(email, '<div class="alert">Unable to reset password, try again</div>'));
       } finally {
         await client.release();
       }
