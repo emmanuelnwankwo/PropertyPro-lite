@@ -83,9 +83,7 @@ class UserController {
       return res.status(404).json({ status: 'error', error: 'User does not exists' });
     } catch (err) {
       return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
-    } finally {
-      await client.release();
-    }
+    } finally { await client.release(); }
   }
 
   /**
