@@ -79,11 +79,11 @@ class UserController {
           });
           return res.status(200).json({ status: 'Login successful', data: { token, user } });
         }
-        return res.status(401).json({ status: 'error', error: 'Password is not correct' });
+        return res.status(401).json({ status: 401, error: 'Password is not correct' });
       }
-      return res.status(404).json({ status: 'error', error: 'User does not exists' });
+      return res.status(404).json({ status: 404, error: 'User does not exists' });
     } catch (err) {
-      return res.status(500).json({ status: 'error', error: err.message });
+      return res.status(500).json({ status: 500, error: err.message });
     } finally { await client.release(); }
   }
 
@@ -103,7 +103,7 @@ class UserController {
       user = await client.query(sqlQuery);
       return res.status(200).json({ status: 'success', data: user.rows });
     } catch (err) {
-      return res.status(500).json({ status: 'error', error: err.message });
+      return res.status(500).json({ status: 500, error: err.message });
     } finally {
       await client.release();
     }
@@ -124,11 +124,11 @@ class UserController {
     try {
       user = await client.query(deleteQuery, [userId]);
       if (!user.rows[0]) {
-        return res.status(404).json({ status: 'error', error: 'User Not Found' });
+        return res.status(404).json({ status: 404, error: 'User Not Found' });
       }
       return res.status(200).json({ status: 'success', data: `User with ID: ${userId} deleted` });
     } catch (err) {
-      return res.status(500).json({ status: 'error', error: err.message });
+      return res.status(500).json({ status: 500, error: err.message });
     } finally {
       await client.release();
     }
