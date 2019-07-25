@@ -55,7 +55,7 @@ class AuthValidator {
       if (user.rows && user.rowCount) {
         return res.status(409).json({
           status: 409,
-          data: `User with email ${email} already exists`,
+          error: `User with email ${email} already exists`,
         });
       }
     } catch (err) {
