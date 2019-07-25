@@ -4,11 +4,9 @@ const email = document.querySelector('#email');
 const password = document.querySelector('#password');
 const alertError = document.querySelector('#alert-error');
 const error = document.querySelector('#error');
-const alertSuccess = document.getElementsByClassName('alert-success')[0];
 const spinner = document.getElementsByClassName('spinner')[0];
 
 alertError.style.display = 'none';
-alertSuccess.style.display = 'none';
 spinner.style.display = 'none';
 
 // Credit: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
@@ -41,6 +39,49 @@ login.addEventListener('click', (e) => {
   }
   password.classList.remove('has-error');
   alertError.style.display = 'none';
-  this.document.location.href = 'https://emmanuelnwankwo.github.io/PropertyPro-lite/UI/user.html';
-  return true;
+
+  const url = 'https://propertypro-lit.herokuapp.com/api/v1/auth/signin';
+  const loginData = {
+    email: email.value,
+    password: password.value,
+  };
+  const fetchData = {
+    method: 'POST',
+    body: JSON.stringify(loginData),
+    headers: { 'Content-type': 'application/json' },
+  };
+  spinner.style.display = 'block';
+  fetch(url, fetchData)
+    .then(res => res.json())
+    .then((res) => {
+      spinner.style.display = 'none';
+      if (res.error) {
+        if (res.status === 401) {
+          error.innerHTML = res.error;
+          alertError.style.display = 'block';
+        } else if (res.status === 404) {
+          error.innerHTML = res.error;
+          alertError.style.display = 'block';
+        } else {
+          error.innerHTML = `${JSON.stringify(res.error).split('"')[3]}`;
+          alertError.style.display = 'block';
+        }
+      } else {
+        const { data } = res;
+        const { token, user } = data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('authUser', JSON.stringify(user));
+        if (user.is_admin) {
+          localStorage.setItem('isAdmin', user.is_admin);
+          window.location.replace('admin.html');
+        } else if (user.user_type === 'agent') {
+          localStorage.setItem('userType', user.agent);
+          window.location.replace('agent.html');
+        } else window.location.replace('user.html');
+      }
+    })
+    .catch((err) => {
+      error.innerHTML = err.message;
+      alertError.style.display = 'block';
+    });
 });
