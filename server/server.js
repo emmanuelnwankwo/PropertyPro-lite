@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import fileupload from 'express-fileupload';
 import debug from 'debug';
@@ -12,8 +11,8 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.options('*', cors());
 app.use(morgan('tiny'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(fileupload({
   useTempFiles: true,
   // tempFileDir: '/property/',
