@@ -61,7 +61,7 @@ class AuthValidator {
     } catch (err) {
       return res.status(500).json({
         status: 'error',
-        error: 'Internal Server error',
+        error: err.message,
       });
     } finally {
       client.release();
@@ -88,7 +88,7 @@ class AuthValidator {
     } catch (err) {
       return res.status(500).json({
         status: 'error',
-        error: 'Internal Server Error',
+        error: err.message,
       });
     } finally {
       client.release();
@@ -192,7 +192,7 @@ class AuthValidator {
       if (!user.rowCount) {
         return res.status(404).json({ status: 'error', error: `User with email ${userEmail} does not exist` });
       }
-    } catch (err) { return res.status(500).json({ status: 'error', error: 'Internal server error' }); } finally { await client.release(); }
+    } catch (err) { return res.status(500).json({ status: 'error', error: err.message }); } finally { await client.release(); }
     return next();
   }
 }

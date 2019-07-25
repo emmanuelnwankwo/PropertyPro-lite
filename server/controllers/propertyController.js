@@ -68,7 +68,7 @@ class PropertyController {
       }
       return res.status(404).json({ status: 'error', error: 'Property Not Found' });
     } catch (err) {
-      return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+      return res.status(500).json({ status: 'error', error: err.message });
     } finally {
       await client.release();
     }
@@ -94,7 +94,7 @@ class PropertyController {
       }
       return res.status(404).json({ status: 'error', error: 'Property Not Found' });
     } catch (err) {
-      return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+      return res.status(500).json({ status: 'error', error: err.message });
     } finally {
       await client.release();
     }
@@ -141,7 +141,7 @@ class PropertyController {
       property = await client.query(sqlQuery, values);
       return res.status(200).json({ status: 'success', data: property.rows[0] });
     } catch (err) {
-      return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+      return res.status(500).json({ status: 'error', error: err.message });
     } finally { await client.release(); }
   }
 
@@ -167,7 +167,7 @@ class PropertyController {
       }
       return res.status(200).json({ status: 'success', data: { message: `Property with ID: ${propertyId} deleted` } });
     } catch (err) {
-      return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+      return res.status(500).json({ status: 'error', error: err.message });
     } finally {
       await client.release();
     }
@@ -199,7 +199,7 @@ class PropertyController {
       const propert = property.rows[0];
       return res.status(200).json({ status: 'success', data: propert });
     } catch (err) {
-      return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+      return res.status(500).json({ status: 'error', error: err.message });
     } finally {
       await client.release();
     }
@@ -226,7 +226,7 @@ class PropertyController {
       }
       return res.status(404).json({ status: 'error', error: 'Property Not Found' });
     } catch (err) {
-      return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+      return res.status(500).json({ status: 'error', error: err.message });
     } finally {
       await client.release();
     }

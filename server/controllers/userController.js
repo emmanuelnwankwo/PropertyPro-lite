@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable camelcase */
 import passwordHash from 'password-hash';
 import Authenticator from '../helper/authenticator';
@@ -46,7 +47,7 @@ class UserController {
       if (constraint === 'users_email_key') {
         return res.status(409).json({ status: 'error', error: 'User already exists' });
       }
-      return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+      return res.status(500).json({ status: 'error', error: err.message });
     } finally {
       await client.release();
     }
@@ -82,7 +83,7 @@ class UserController {
       }
       return res.status(404).json({ status: 'error', error: 'User does not exists' });
     } catch (err) {
-      return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+      return res.status(500).json({ status: 'error', error: err.message });
     } finally { await client.release(); }
   }
 
@@ -102,7 +103,7 @@ class UserController {
       user = await client.query(sqlQuery);
       return res.status(200).json({ status: 'success', data: user.rows });
     } catch (err) {
-      return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+      return res.status(500).json({ status: 'error', error: err.message });
     } finally {
       await client.release();
     }
@@ -127,7 +128,7 @@ class UserController {
       }
       return res.status(200).json({ status: 'success', data: `User with ID: ${userId} deleted` });
     } catch (err) {
-      return res.status(500).json({ status: 'error', error: 'Internal Server Error' });
+      return res.status(500).json({ status: 'error', error: err.message });
     } finally {
       await client.release();
     }
