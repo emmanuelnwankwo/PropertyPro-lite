@@ -23,10 +23,9 @@ class UserController {
   static async createUser(req, res) {
     const passport_url = req.body.passport_url || defaultImage;
     const client = await pool.connect();
-    const user_type = 'agent';
     try {
       const {
-        email, first_name, last_name, password, phone_number, address, is_admin,
+        email, first_name, last_name, password, phone_number, address, user_type, is_admin,
       } = req.body;
       const hashedPassword = passwordHash.generate(password);
       const text = `INSERT INTO users(email, first_name, last_name, password, phone_number, address, passport_url, user_type)
@@ -72,12 +71,12 @@ class UserController {
         user = user.rows[0];
         if (passwordHash.verify(password, user.password)) {
           const {
-            id, is_admin, user_type, phone_number,
+            id, is_admin, user_type, phone_number, first_name, last_name, address, passport_url
           } = user;
           const token = await generateToken({
             id, is_admin, user_type, phone_number, email,
           });
-          return res.status(200).json({ status: 'Login successful', data: { token, user } });
+          return res.status(200).json({ status: 'Login successful', data: { token, id, email, first_name, last_name, phone_number, address, passport_url, user_type, is_admin } });
         }
         return res.status(401).json({ status: 401, error: 'Password is not correct' });
       }
