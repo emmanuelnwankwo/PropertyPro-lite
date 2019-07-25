@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description"
+        content="ProperyPro Lite is a platform where people can create and search properties for sale or rent">
+    <meta name="author" content="Nwankwo Emmanuel">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin | PropertyPro-Lite</title>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./assets/styles/style.css">
+    <link rel="stylesheet" href="./assets/styles/dashboard.css">
+    <link rel="stylesheet" href="./assets/styles/responsive.css">
+</head>
+
+<body>
+    <nav class="fixed front-navbar container f-18 w-100">
+        <a href="index.html" class="logo">
+            PropertyPro-<span class="logo-small">Lite</span>
+        </a>
+        <ul class="front-main-nav" id="main_nav_menu">
+            <li><a href="#" class="nav-link">Log out</a></li>
+        </ul>
+    </nav>
+    <aside class="menu" tabindex="0">
+        <div class="smartphone-menu-trigger"></div>
+        <header class="avatar">
+            <img src="./assets/img/avatar.png" />
+            <h2>Hi John!</h2>
+        </header>
+        <ul>
+            <a href="./agent.html">
+                <li tabindex="0" class="icon-dashboard"><span>Dashboard</span></li>
+            </a>
+            <a href="./post.html">
+                <li tabindex="0" class="icon-plus"><span>Post</span></li>
+            </a>
+            <a href="./user.html">
+                <li tabindex="0" class="icon-user"><span>Users</span></li>
+            </a>
+            <a href="#">
+                <li tabindex="0" class="icon-log-out"><span>Log out</span></li>
+            </a>
+        </ul>
+    </aside>
+    <div class="property mt-150">
+        <div class="property-title text-center">
+            <h2>
+                Users
+            </h2>
+        </div>
+        <div class="row">
+            <div class="agent-table-body">
+                <div class="agent-table-filter"><label>Search:<input type="search" class="" placeholder="Search"><label>
+                </div>
+                <table id="customers" class="agent-table">
+                    <tr>
+                        <th>Property Name</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>Twin Duplex for sale at Lekki</td>
+                        <td>2 Bedroom</td>
+                        <td>For Sale</td>
+                        <td class="text-center pr-0 pl-0">
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
+                                    id="myonoffswitch">
+                                <label class="onoffswitch-label" for="myonoffswitch">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                            <a href="./update.html" class="btn btn-primary">
+                                <i class="icon-edit"></i></a>
+                            <a href="./delete.html" class="btn btn-primary">
+                                <i class="icon-trash"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Twin Duplex for sale at Lekki</td>
+                        <td>3 Bedroom</td>
+                        <td>Sold</td>
+                        <td class="text-center pr-0 pl-0">
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
+                                    id="myonoffswitch2">
+                                <label class="onoffswitch-label" for="myonoffswitch2">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                            <a href="./update.html" class="btn btn-primary">
+                                <i class="icon-edit"></i></a>
+                            <a href="./delete.html" class="btn btn-primary">
+                                <i class="icon-trash"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Twin Duplex for sale at Lekki</td>
+                        <td>2 Bedroom</td>
+                        <td>For Sale</td>
+                        <td class="text-center pr-0 pl-0">
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
+                                    id="myonoffswitch3">
+                                <label class="onoffswitch-label" for="myonoffswitch3">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                            <a href="./update.html" class="btn btn-primary">
+                                <i class="icon-edit"></i></a>
+                            <a href="./delete.html" class="btn btn-primary">
+                                <i class="icon-trash"></i></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="./assets/scripts/agent.js"></script>
+</body>
+
+</html>
