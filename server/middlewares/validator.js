@@ -12,9 +12,9 @@ const checkSignup = (data) => {
   data.first_name = !isEmpty(data.first_name) ? data.first_name : '';
   data.last_name = !isEmpty(data.last_name) ? data.last_name : '';
   data.phone_number = !isEmpty(data.phone_number) ? data.phone_number : '';
-  // if (!Validator.isEmail(data.email)) {
-  //   errors.email = 'Email is not valid. Enter a valid email';
-  // }
+  if (!Validator.isEmail(data.email)) {
+    errors.email = 'Email is not valid. Enter a valid email';
+  }
   if (Validator.isEmpty(data.email)) {
     errors.email = 'Email is required';
   }
@@ -52,9 +52,9 @@ const checkLogin = (data) => {
   const errors = {};
   data.email = !isEmpty(data.email) ? data.email : '';
   data.password = !isEmpty(data.password) ? data.password : '';
-  // if (!Validator.isEmail(data.email)) {
-  //   errors.email = 'Email is not valid. Enter a valid email';
-  // }
+  if (!Validator.isEmail(data.email)) {
+    errors.email = 'Email is not valid. Enter a valid email';
+  }
   if (Validator.isEmpty(data.email)) {
     errors.email = 'Email is required';
   }
