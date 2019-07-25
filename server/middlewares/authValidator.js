@@ -25,13 +25,13 @@ class AuthValidator {
     try {
       const { errors, isValid } = checkSignup(req.body);
       if (!isValid) {
-        return res.status(400).json({ status: 'error', error: errors });
+        return res.status(400).json({ status: 400, error: errors });
       }
     } catch (err) {
       const { error } = err;
       if (error === undefined) {
         return res.status(500).json({
-          status: 'error',
+          status: 500,
           error: 'Invalid Data Input',
         });
       }
@@ -54,13 +54,13 @@ class AuthValidator {
       user = await client.query({ text: sqlQuery, values });
       if (user.rows && user.rowCount) {
         return res.status(409).json({
-          status: 'error',
+          status: 409,
           data: `User with email ${email} already exists`,
         });
       }
     } catch (err) {
       return res.status(500).json({
-        status: 'error',
+        status: 500,
         error: err.message,
       });
     } finally {
@@ -108,20 +108,20 @@ class AuthValidator {
       const verifiedToken = verifyToken(token);
       if (!verifiedToken) {
         return res.status(401).json({
-          status: 'error',
+          status: 401,
           error: 'Access denied, Token has expired',
         });
       }
       const decoded = decodeToken(token);
       if (Date.now() >= decoded.payload.exp * 1000) {
         return res.status(401).json({
-          status: 'error',
+          status: 401,
           error: 'Access denied, Token has expired',
         });
       }
     } catch (error) {
       return res.status(401).json({
-        status: 'error',
+        status: 401,
         error: 'Access denied, Token not valid',
       });
     }
@@ -140,7 +140,7 @@ class AuthValidator {
     const accountType = decoded.payload.user_type;
     if (accountType.toUpperCase() === 'USER') {
       return res.status(403).json({
-        status: 'error',
+        status: 403,
         error: 'Access denied, Only Agent can perform this action',
       });
     }
@@ -159,7 +159,7 @@ class AuthValidator {
     const Admin = JSON.parse(decoded.payload.is_admin);
     if (!Admin) {
       return res.status(403).json({
-        status: 'error',
+        status: 403,
         error: 'Access denied, contact Admin',
       });
     }
@@ -169,7 +169,7 @@ class AuthValidator {
   static validateLogin(req, res, next) {
     const { errors, isValid } = checkLogin(req.body);
     if (!isValid) {
-      return res.status(400).json({ status: 'error', error: errors });
+      return res.status(400).json({ status: 400, error: errors });
     }
     return next();
   }
@@ -190,9 +190,9 @@ class AuthValidator {
     try {
       user = await client.query(sqlQuery);
       if (!user.rowCount) {
-        return res.status(404).json({ status: 'error', error: `User with email ${userEmail} does not exist` });
+        return res.status(404).json({ status: 404, error: `User with email ${userEmail} does not exist` });
       }
-    } catch (err) { return res.status(500).json({ status: 'error', error: err.message }); } finally { await client.release(); }
+    } catch (err) { return res.status(500).json({ status: 500, error: err.message }); } finally { await client.release(); }
     return next();
   }
 }
