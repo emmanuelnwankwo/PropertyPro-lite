@@ -44,7 +44,7 @@ describe('Test User Endpoints', () => {
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(409);
-          expect(res.body.status).to.eql('error');
+          expect(res.body.status).to.eql(409);
           done();
         });
     });
