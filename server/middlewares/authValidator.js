@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import Authenticator from '../helper/authenticator';
 import validator from './validator';
