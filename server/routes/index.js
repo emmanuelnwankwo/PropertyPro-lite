@@ -33,6 +33,7 @@ const {
   validateLogin,
   isAdmin,
   validatePasswordReset,
+  validateToken,
 } = AuthValidator;
 const { validateProperty } = PropertyValidator;
 const { resetPassword, passwordReset, resetPasswordForm } = PasswordResetController;
@@ -63,7 +64,7 @@ router.post('/password/reset', resetPassword);
 router.get('/api/v1/admin', isAuthenticated, isAdmin, getAllUsers);
 router.delete('/api/v1/admin/:userId', isAuthenticated, isAdmin, deleteUser);
 router.get('/api/v1/agent', isAuthenticated, isAgent, getPropertiesByAgent);
-router.post('/api/v1/token', isAuthenticated);
+router.post('/api/v1/token', validateToken);
 /** Image upload in Cloudinary */
 // router.post('/api/v1/upload', imageupload);
 // router.post('/api/v1/upload', upload, (req, res) => {
