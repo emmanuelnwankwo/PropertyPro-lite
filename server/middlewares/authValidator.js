@@ -1,8 +1,11 @@
 /* eslint-disable camelcase */
+import dotenv from 'dotenv';
 import Authenticator from '../helper/authenticator';
 import validator from './validator';
 import pool from '../config/connection';
 
+dotenv.config();
+const { SECRET } = process.env;
 const { verifyToken, decodeToken } = Authenticator;
 const { checkSignup, checkLogin } = validator;
 
@@ -194,6 +197,14 @@ class AuthValidator {
       }
     } catch (err) { return res.status(500).json({ status: 500, error: err.message }); } finally { await client.release(); }
     return next();
+  }
+  
+  static validateToken(req, res) {
+    const { token } = req.body;
+    jwt.verify(token, SECRET, (err, decoded) => {
+      if (err) return res.status(401).json({ status: 401, error: err.message });
+      return res.status(200).json({ status: 200, data: decoded });
+    });
   }
 }
 
