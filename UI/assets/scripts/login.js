@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-useless-escape */
 const login = document.querySelector('#login');
 const email = document.querySelector('#email');
@@ -42,7 +43,7 @@ login.addEventListener('click', (e) => {
 
   const url = 'https://propertypro-lit.herokuapp.com/api/v1/auth/signin';
   const loginData = {
-    email: email.value,
+    email: String(email.value).toLowerCase(),
     password: password.value,
   };
   const fetchData = {
@@ -68,14 +69,15 @@ login.addEventListener('click', (e) => {
         }
       } else {
         const { data } = res;
-        const { token, user } = data;
+        const { token, id, first_name, last_name, phone_number, address, passport_url, user_type, is_admin } = data;
         localStorage.setItem('token', token);
+        const user = { id, email: loginData.email, first_name, last_name, phone_number, address, passport_url, user_type, is_admin };
         localStorage.setItem('authUser', JSON.stringify(user));
-        if (user.is_admin) {
-          localStorage.setItem('isAdmin', user.is_admin);
+        if (is_admin) {
+          localStorage.setItem('isAdmin', is_admin);
           window.location.replace('admin.html');
-        } else if (user.user_type === 'agent') {
-          localStorage.setItem('userType', user.agent);
+        } else if (user_type === 'agent') {
+          localStorage.setItem('userType', user_type);
           window.location.replace('agent.html');
         } else window.location.replace('user.html');
       }
