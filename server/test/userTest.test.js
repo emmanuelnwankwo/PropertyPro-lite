@@ -126,7 +126,7 @@ describe('Test User Endpoints', () => {
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(401);
-          expect(res.body.status).to.eql('error');
+          expect(res.body.status).to.eql(401);
           expect(res.body.error).to.eql('Password is not correct');
           done();
         });
@@ -139,7 +139,7 @@ describe('Test User Endpoints', () => {
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(404);
-          expect(res.body.status).to.eql('error');
+          expect(res.body.status).to.eql(404);
           expect(res.body.error).to.eql('User does not exists');
           done();
         });

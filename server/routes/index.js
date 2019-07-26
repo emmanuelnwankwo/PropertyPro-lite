@@ -63,6 +63,7 @@ router.post('/password/reset', resetPassword);
 router.get('/api/v1/admin', isAuthenticated, isAdmin, getAllUsers);
 router.delete('/api/v1/admin/:userId', isAuthenticated, isAdmin, deleteUser);
 router.get('/api/v1/agent', isAuthenticated, isAgent, getPropertiesByAgent);
+router.post('/api/v1/token', isAuthenticated);
 /** Image upload in Cloudinary */
 // router.post('/api/v1/upload', imageupload);
 // router.post('/api/v1/upload', upload, (req, res) => {
