@@ -119,10 +119,10 @@ class AuthValidator {
           error: 'Access denied, Token has expired',
         });
       }
-    } catch (error) {
-      return res.status(401).json({
-        status: 401,
-        error: 'Access denied, Token not valid',
+    } catch (err) {
+      return res.status(500).json({
+        status: 500,
+        error: err.message,
       });
     }
     return next();
