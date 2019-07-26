@@ -4,7 +4,7 @@ import validator from './validator';
 import pool from '../config/connection';
 
 const { verifyToken, decodeToken } = Authenticator;
-const { checkSignup, checkLogin, checkEmail } = validator;
+const { checkSignup, checkLogin } = validator;
 
 const header = (req) => {
   const token = req.headers.authorization.split(' ')[1] || req.headers.authorization || req.headers['x-access-token'] || req.headers.token || req.body.token;
