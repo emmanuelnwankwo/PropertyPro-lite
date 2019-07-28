@@ -57,7 +57,7 @@ describe('Test Property Endpoints', () => {
         .send(newProperty)
         .end((err, res) => {
           expect(res).to.have.status(201);
-          expect(res.body.status).to.eql('success');
+          expect(res.body.status).to.eql(201);
           expect(res.body.data.property_name).to.eql(newProperty.property_name);
           expect(res.body.data.status).to.eql(newProperty.status);
           expect(res.body.data.price).to.eql(500);
@@ -171,7 +171,7 @@ describe('Test Property Endpoints', () => {
         .set('authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.status).to.eql('success');
+          expect(res.body.status).to.eql(200);
           done();
         });
     });
@@ -181,7 +181,7 @@ describe('Test Property Endpoints', () => {
         .set('authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.status).to.eql('success');
+          expect(res.body.status).to.eql(200);
           done();
         });
     });
@@ -192,7 +192,7 @@ describe('Test Property Endpoints', () => {
         .set('authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.status).to.eql('success');
+          expect(res.body.status).to.eql(200);
           done();
         });
     });
@@ -229,7 +229,7 @@ describe('Test Property Endpoints', () => {
         .send(property)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.status).to.eql('success');
+          expect(res.body.status).to.eql(200);
           done();
         });
     });
@@ -264,7 +264,7 @@ describe('Test Property Endpoints', () => {
         .set('authorization', `Bearer ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.status).to.eql('success');
+          expect(res.body.status).to.eql(200);
           done();
         });
     });
