@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Post Advert | PropertyPro-Lite</title>
+    <script src="./assets/scripts/auth.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800&display=swap"
         rel="stylesheet">
@@ -22,15 +23,12 @@
         <a href="index.html" class="logo">
             PropertyPro-<span class="logo-small">Lite</span>
         </a>
-        <ul class="front-main-nav" id="main_nav_menu">
-            <li><a href="#" class="nav-link">Log out</a></li>
-        </ul>
     </nav>
     <aside class="menu" tabindex="0">
         <div class="smartphone-menu-trigger"></div>
         <header class="avatar">
-            <img src="./assets/img/avatar.png" />
-            <h2>Hi John!</h2>
+            <img id="profile_photo" alt="Profile photo" />
+            <h2>Hi <span id="first_name"></span>!</h2>
         </header>
         <ul>
             <a href="./agent.html">
@@ -39,11 +37,8 @@
             <a href="./post.html">
                 <li tabindex="0" class="icon-plus"><span>Post</span></li>
             </a>
-            <a href="./user.html">
-                <li tabindex="0" class="icon-user"><span>Users</span></li>
-            </a>
-            <a href="#">
-                <li tabindex="0" class="icon-log-out"><span>Log out</span></li>
+            <a>
+                <li tabindex="0" class="icon-log-out" id="logout"><span>Log out</span></li>
             </a>
         </ul>
     </aside>
@@ -55,17 +50,9 @@
         </div>
         <div class="row">
             <form action="" class="property-post">
-                    <div class="alert" id="alert-error">
-                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                            <p id="error"></p>
-                        </div>
-                        <div class="alert-success">
-                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                            <p id="success"></p>
-                        </div>
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="property-name">Property Name</label>
+                        <label for="property-name">Property Title<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-75">
                         <input type="text" id="property-name" name="property-name" placeholder="">
@@ -73,76 +60,50 @@
                 </div>
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="property-owner">Owner</label>
+                        <label for="property-price">Price<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-owner" name="property-owner" placeholder="">
+                        <input type="text" id="property-price" name="property-price" placeholder="e.g 500000">
                     </div>
                 </div>
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="property-price">Price</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="property-price" name="property-price" placeholder="e.g ₦ 5,500,000">
-                    </div>
-                </div>
-                <div class="property-row">
-                    <div class="col-25">
-                        <label for="property-status">Status</label>
-                    </div>
-                    <div class="col-75">
-                        <select id="property-status" name="property-status">
-                            <option value="available" selected>Available</option>
-                            <option value="sold">Sold</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="property-row">
-                    <div class="col-25">
-                        <label for="property-purpose">Purpose</label>
+                        <label for="property-purpose">Purpose<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-75">
                         <select id="property-purpose" name="property-purpose">
-                            <option value="sale" selected>Sale</option>
-                            <option value="rent">Rent</option>
+                            <option value="Sale" selected>Sale</option>
+                            <option value="Rent">Rent</option>
                         </select>
                     </div>
                 </div>
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="property-type">Type</label>
+                        <label for="property-type">Type<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-75">
                         <select id="property-type" name="property-type">
-                            <option value="1-bedroom" selected>1 Bedroom</option>
-                            <option value="2-bedroom">2 Bedroom</option>
-                            <option value="3-bedroom">3 Bedroom</option>
-                            <option value="mini-flat">Mini Flat</option>
+                            <option value="1 Bedroom" selected>1 Bedroom</option>
+                            <option value="2 Bedroom">2 Bedroom</option>
+                            <option value="3 Bedroom">3 Bedroom</option>
+                            <option value="4 Bedroom">4 Bedroom</option>
+                            <option value="Mini Flat">Mini Flat</option>
                         </select>
                     </div>
                 </div>
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="property-owner-phone">Owner Phone</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="tel" id="property-owner-phone" name="property-owner-phone" placeholder="">
-                    </div>
-                </div>
-                <div class="property-row">
-                    <div class="col-25">
-                        <label for="property-state">State</label>
+                        <label for="property-state">State<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-75">
                         <select id="property-state" name="property-state">
-                            <option value="" disabled>No Selection</option>
+                            <option value="" disabled selected>No Selection</option>
                         </select>
                     </div>
                 </div>
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="property-city">City</label>
+                        <label for="property-city">City<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-75">
                         <input type="text" id="property-city" name="property-city" placeholder="">
@@ -151,7 +112,7 @@
 
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="property-image1">Featured Image</label>
+                        <label for="property-image1">Featured Image<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-75">
                         <input type="file" accept=".jpg, .png, .jpeg" id="property-image1" name="property-image1"
@@ -169,7 +130,16 @@
                 </div>
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="property-address">Address</label>
+                        <label for="property-image2">Featured Image 3</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="file" accept=".jpg, .png, .jpeg" id="property-image3" name="property-image2"
+                            placeholder="">
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="col-25">
+                        <label for="property-address">Address<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-75">
                         <textarea id="property-address" name="property-address" placeholder=""></textarea>
@@ -177,13 +147,27 @@
                 </div>
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="subject">Description</label>
+                        <label for="subject">Description<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-75">
                         <textarea id="property-description" name="property-description" placeholder=""></textarea>
                     </div>
                 </div> <br />
                 <div class="property-row">
+                        <div class="alert-container col-75" style="align-items: flex-end !important; padding-left: 25% !important;">
+                                <div class="alert w-100" id="alert-error">
+                                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                  <p id="error"></p>
+                                </div>
+                                <div class="alert-success w-100">
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                    <p id="success"></p>
+                                </div>
+                                <div class="alert-info w-100">
+                                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                  <p id="info"></p>
+                                </div>
+                              </div>
                     <input type="submit" class="btn btn-primary" id="post-property" value="Add Property">
                 </div><br />
             </form>
@@ -191,6 +175,7 @@
     </div>
     <script src="./assets/scripts/state.js"></script>
     <script src="./assets/scripts/postProperty.js"></script>
+    <script src="./assets/scripts/logout.js"></script>
     <script src="./assets/scripts/googleAPI.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiXGHkAKOXSjxqMpr_7-IVX8BrJ4FaklA&libraries=places&callback=initMap"
         async defer></script>

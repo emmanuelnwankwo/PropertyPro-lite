@@ -68,6 +68,7 @@ const createAccount = (userData) => {
       }
     })
     .catch((err) => {
+      spinner.style.display = 'none';
       error.innerHTML = err.message;
       alertError.style.display = 'block';
     });

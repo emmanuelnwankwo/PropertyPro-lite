@@ -1,3 +1,4 @@
+const updatePropertyBtn = document.querySelector('#update-property');
 const propertyName = document.querySelector('#property-name');
 const propertyPrice = document.querySelector('#property-price');
 const propertyCity = document.querySelector('#property-city');
@@ -9,7 +10,6 @@ const propertyDescription = document.querySelector('#property-description');
 const propertyState = document.querySelector('#property-state');
 const propertyType = document.querySelector('#property-type');
 const propertyPurpose = document.querySelector('#property-purpose');
-const postPropertyBtn = document.querySelector('#post-property');
 const error = document.querySelector('#error');
 const alertError = document.querySelector('#alert-error');
 const alertSuccess = document.getElementsByClassName('alert-success')[0];
@@ -17,21 +17,42 @@ const alertInfo = document.getElementsByClassName('alert-info')[0];
 const success = document.getElementById('success');
 const info = document.getElementById('info');
 
+alertError.style.display = 'none';
+alertSuccess.style.display = 'none';
+alertInfo.style.display = 'none';
 const firstName = document.getElementById('first_name');
 const profilePic = document.getElementById('profile_photo');
 
 const user = JSON.parse(localStorage.getItem('authUser'));
 const token = localStorage.getItem('token');
-const mapLng = localStorage.getItem('mapLng');
-const mapLat = localStorage.getItem('mapLat');
+const propertyId = localStorage.getItem('propertyId');
 const passportUrl = user.passport_url || './assets/img/avatar.png';
-const propertyUrl = 'https://propertypro-lit.herokuapp.com/api/v1/property';
-
+const propertyUrl = `https://propertypro-lit.herokuapp.com/api/v1/property/${propertyId}`;
+const getOptions = {
+  method: 'GET',
+  headers: new Headers({
+    'Content-Type': 'application/json',
+    authorization: token,
+  }),
+};
 firstName.innerHTML = user.first_name;
 profilePic.setAttribute('src', passportUrl);
-alertError.style.display = 'none';
-alertSuccess.style.display = 'none';
-alertInfo.style.display = 'none';
+fetch(propertyUrl, getOptions)
+  .then(res => res.json())
+  .then((res) => {
+    const { data } = res;
+    propertyName.value = data.property_name;
+    propertyPrice.value = data.price;
+    propertyCity.value = data.city;
+    propertyState.value = data.state;
+    propertyAddress.value = data.address;
+    propertyDescription.value = data.description;
+    propertyType.value = data.type;
+    propertyPurpose.value = data.purpose;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const showAlert = (message, succeeded = true) => {
   if (succeeded) {
@@ -56,7 +77,7 @@ const toggleInfo = (msg = null, hide = true) => {
     alertInfo.style.display = 'block';
   }
 };
-const postProperty = () => {
+const updateProperty = () => {
   const propertyData = {
     property_name: propertyName.value,
     price: propertyPrice.value,
@@ -69,11 +90,9 @@ const postProperty = () => {
     image_url: propertyImage1.value,
     image_url_2: propertyImage2.value,
     image_url_3: propertyImage3.value,
-    map_lng: mapLng,
-    map_lat: mapLat,
   };
-  const postOptions = {
-    method: 'POST',
+  const updateOptions = {
+    method: 'PATCH',
     body: JSON.stringify(propertyData),
     headers: {
       'Content-type': 'application/json',
@@ -81,82 +100,24 @@ const postProperty = () => {
     },
   };
   toggleInfo('Processing...', false);
-  fetch(propertyUrl, postOptions)
+  fetch(propertyUrl, updateOptions)
     .then(res => res.json())
     .then((res) => {
       toggleInfo();
-      if (res.status === 201) {
-        showAlert('Property successful created');
+      if (res.status === 200) {
+        showAlert('Property successful updated');
         setTimeout(() => {
           window.location.replace('agent.html');
         }, 3000);
-      } else showAlert('Unable to create a property, try again', false);
+      } else showAlert('Unable to update property, try again', false);
     })
     .catch((err) => {
       console.log(err);
       toggleInfo();
-      if (err) showAlert('Unable to create a property, try again', false);
+      if (err) showAlert('Unable to update property, try again', false);
     });
 };
-
-postPropertyBtn.addEventListener('click', (e) => {
+updatePropertyBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  if (propertyName.value === '') {
-    propertyName.classList.add('has-error');
-    error.innerHTML = 'Property Title is required';
-    alertError.style.display = 'block';
-    propertyName.focus();
-    return false;
-  }
-  propertyName.classList.remove('has-error');
-  if (propertyPrice.value === '') {
-    propertyPrice.classList.add('has-error');
-    error.innerHTML = 'Price cannot be empty';
-    alertError.style.display = 'block';
-    propertyPrice.focus();
-    return false;
-  }
-  propertyPrice.classList.remove('has-error');
-  if (propertyState.value === '') {
-    propertyState.classList.add('has-error');
-    error.innerHTML = 'State is required';
-    alertError.style.display = 'block';
-    propertyState.focus();
-    return false;
-  }
-  propertyState.classList.remove('has-error');
-  if (propertyCity.value === '') {
-    propertyCity.classList.add('has-error');
-    error.innerHTML = 'City is required';
-    alertError.style.display = 'block';
-    propertyCity.focus();
-    return false;
-  }
-  propertyCity.classList.remove('has-error');
-  if (propertyImage1.value === '') {
-    propertyImage1.classList.add('has-error');
-    error.innerHTML = 'Select Featured Image';
-    alertError.style.display = 'block';
-    propertyImage1.focus();
-    return false;
-  }
-  propertyImage1.classList.remove('has-error');
-  if (propertyAddress.value === '') {
-    propertyAddress.classList.add('has-error');
-    error.innerHTML = 'Property Address is required';
-    alertError.style.display = 'block';
-    propertyAddress.focus();
-    return false;
-  }
-  propertyAddress.classList.remove('has-error');
-  if (propertyDescription.value === '') {
-    propertyDescription.classList.add('has-error');
-    error.innerHTML = 'Property Description is required';
-    alertError.style.display = 'block';
-    propertyDescription.focus();
-    return false;
-  }
-  propertyDescription.classList.remove('has-error');
-  alertError.style.display = 'none';
-  postProperty();
+  updateProperty();
 });

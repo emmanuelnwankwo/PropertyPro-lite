@@ -4,7 +4,7 @@ function initMap() {
   const autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.addListener('place_changed', () => {
     const place = autocomplete.getPlace();
-    console.log(place.geometry.location.lng());
-    console.log(place.geometry.location.lat());
+    localStorage.setItem('mapLng', place.geometry.location.lng());
+    localStorage.setItem('mapLat', place.geometry.location.lat());
   });
 }

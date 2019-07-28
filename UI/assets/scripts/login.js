@@ -69,9 +69,9 @@ login.addEventListener('click', (e) => {
         }
       } else {
         const { data } = res;
-        const { token, id, first_name, last_name, phone_number, address, passport_url, user_type, is_admin } = data;
+        const { token, id, first_name, passport_url, user_type, is_admin } = data;
         localStorage.setItem('token', token);
-        const user = { id, email: loginData.email, first_name, last_name, phone_number, address, passport_url, user_type, is_admin };
+        const user = { id, email: loginData.email, first_name, passport_url, user_type, is_admin };
         localStorage.setItem('authUser', JSON.stringify(user));
         if (is_admin) {
           localStorage.setItem('isAdmin', is_admin);
@@ -83,6 +83,7 @@ login.addEventListener('click', (e) => {
       }
     })
     .catch((err) => {
+      spinner.style.display = 'none';
       error.innerHTML = err.message;
       alertError.style.display = 'block';
     });
