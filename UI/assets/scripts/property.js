@@ -1,3 +1,7 @@
+/* eslint-disable no-unused-vars, no-undef, no-plusplus */
+const mapLng = localStorage.getItem('mapLng');
+const mapLat = localStorage.getItem('mapLat');
+const city = localStorage.getItem('city');
 
 const firstName = document.getElementById('first_name');
 const profilePic = document.getElementById('profile_photo');
@@ -16,7 +20,20 @@ const getOptions = {
     authorization: token,
   }),
 };
+const initMap = () => {
+  const myLatLng = { lat: Number(mapLat), lng: Number(mapLng) };
 
+  const map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: myLatLng,
+  });
+
+  const marker = new google.maps.Marker({
+    position: myLatLng,
+    map,
+    title: city,
+  });
+};
 firstName.innerHTML = user.first_name;
 profilePic.setAttribute('src', passportUrl);
 fetch(propertyUrl, getOptions)
@@ -25,7 +42,7 @@ fetch(propertyUrl, getOptions)
     if (res.status === 200) {
       const { data } = res;
       const date = new Date(data.created_on);
-          properties = `
+      properties = `
           <div class="tab-pane" id="detail">
                         <div class="row">
                             <div class="col-md-12">
@@ -82,10 +99,10 @@ fetch(propertyUrl, getOptions)
                                         <tr>
                                             <th><strong>Posted on</strong></th>
                                             <td>${date.toLocaleString('en-US', {
-                                                month: 'long',
-                                                day: '2-digit',
-                                                year: 'numeric',
-                                              })}</td>
+    month: 'long',
+    day: '2-digit',
+    year: 'numeric',
+  })}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -97,11 +114,10 @@ fetch(propertyUrl, getOptions)
                         <br>
                     </div>
       `;
-          table.insertAdjacentHTML('afterbegin', properties);
-
+      table.insertAdjacentHTML('afterbegin', properties);
+      initMap();
     }
   })
   .catch((err) => {
     console.log(err);
   });
- 
