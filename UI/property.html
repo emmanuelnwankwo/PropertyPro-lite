@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Property | PropertyPro-Lite</title>
+    <script src="./assets/scripts/auth.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800&display=swap"
         rel="stylesheet">
@@ -22,15 +23,12 @@
         <a href="index.html" class="logo">
             PropertyPro-<span class="logo-small">Lite</span>
         </a>
-        <ul class="front-main-nav" id="main_nav_menu">
-            <li><a href="#" class="nav-link">Log out</a></li>
-        </ul>
     </nav>
     <aside class="menu" tabindex="0">
         <div class="smartphone-menu-trigger"></div>
         <header class="avatar">
-            <img src="./assets/img/avatar.png" />
-            <h2>Hi John!</h2>
+            <img id="profile_photo" alt="Profile photo" />
+            <h2>Hi <span id="first_name"></span>!</h2>
         </header>
         <ul>
             <a href="./user.html">
@@ -39,8 +37,8 @@
             <a href="./agent.html">
                 <li tabindex="0" class="icon-user"><span>Agent</span></li>
             </a>
-            <a href="#">
-                <li tabindex="0" class="icon-log-out"><span>Log out</span></li>
+            <a>
+                <li tabindex="0" class="icon-log-out" id="logout"><span>Log out</span></li>
             </a>
         </ul>
     </aside>
@@ -51,77 +49,13 @@
             </h2>
         </div>
         <div class="row">
-            <div class="single-post">
-                    <div class="tab-pane" id="detail">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h2>Twin Duplex for sale at Lekki</h2>
-                                    <div id="carousel">
-                                        <div class="item active visible">
-                                            <img src="./assets/img/advert.jpeg" alt="Property">
-                                        </div>
-                                        <div class="item active">
-                                            <img src="./assets/img/property.jpg" alt="property">
-                                        </div>
-                                    </div>
-                                <h3>Interested? call +234 800 000 0000</h3>
-                                <h3>Property Overview</h3>
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th width="20%"><strong>Property ID</strong></th>
-                                            <td>100001</td>
-                                        </tr>
-                                        <tr>
-                                            <th><strong> Sale Price </strong></th>
-                                            <td>
-                                                ₦55,000,000
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th><strong>Status</strong></th>
-                                            <td>Avaliable</td>
-                                        </tr>
-                                        <tr>
-                                            <th><strong>Purpose</strong></th>
-                                            <td>
-                                                Sale
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th><strong>Type</strong></th>
-                                            <td>2 Bedroom</td>
-                                        </tr>
-                                        <tr>
-                                            <th><strong>Address</strong></th>
-                                            <td>41 Street</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th><strong>State</strong></th>
-                                            <td>Lagos </td>
-                                        </tr>
-                                        <tr>
-                                            <th><strong>City</strong></th>
-                                            <td>Lekki</td>
-                                        </tr>
-                                        <tr>
-                                            <th><strong>Created on</strong></th>
-                                            <td>12th June 2019 </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <h3>Property Description</h3>
-                                <p>This is a Twin duplex in a quite and reserved part of Lekki.</p>
-                                <div id="map"></div>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
+            <div class="single-post" id="property_table">
             </div>
         </div>
     </div>
+    <script src="./assets/scripts/property.js"></script>
     <script src="./assets/scripts/dashboard.js"></script>
+    <script src="./assets/scripts/logout.js"></script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYEEvtglxljhMg8GrRZHcLutww1772rJc&callback=initMap">
     </script>

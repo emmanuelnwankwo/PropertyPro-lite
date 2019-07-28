@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Update Property | PropertyPro-Lite</title>
+    <script src="./assets/scripts/auth.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800&display=swap"
         rel="stylesheet">
@@ -22,15 +23,12 @@
         <a href="index.html" class="logo">
             PropertyPro-<span class="logo-small">Lite</span>
         </a>
-        <ul class="front-main-nav" id="main_nav_menu">
-            <li><a href="#" class="nav-link">Log out</a></li>
-        </ul>
     </nav>
     <aside class="menu" tabindex="0">
         <div class="smartphone-menu-trigger"></div>
         <header class="avatar">
-            <img src="./assets/img/avatar.png" />
-            <h2>Hi John!</h2>
+            <img id="profile_photo" alt="Profile photo" />
+            <h2>Hi <span id="first_name"></span>!</h2>
         </header>
         <ul>
             <a href="./agent.html">
@@ -42,8 +40,8 @@
             <a href="./user.html">
                 <li tabindex="0" class="icon-user"><span>Users</span></li>
             </a>
-            <a href="#">
-                <li tabindex="0" class="icon-log-out"><span>Log out</span></li>
+            <a>
+                <li tabindex="0" class="icon-log-out" id="logout"><span>Log out</span></li>
             </a>
         </ul>
     </aside>
@@ -60,16 +58,8 @@
                         <label for="property-name">Property Name</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-name" name="property-name" value="Twin Duplex for sale at Lekki"
+                        <input type="text" id="property-name" name="property-name"
                             required>
-                    </div>
-                </div>
-                <div class="property-row">
-                    <div class="col-25">
-                        <label for="property-owner">Owner</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="property-owner" name="property-owner" value="John">
                     </div>
                 </div>
                 <div class="property-row">
@@ -77,18 +67,7 @@
                         <label for="property-price">Price</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-price" name="property-price" value="₦ 5,500,000">
-                    </div>
-                </div>
-                <div class="property-row">
-                    <div class="col-25">
-                        <label for="property-status">Status</label>
-                    </div>
-                    <div class="col-75">
-                        <select id="property-status" name="property-status">
-                            <option value="available" selected>Available</option>
-                            <option value="sold">Sold</option>
-                        </select>
+                        <input type="text" id="property-price" name="property-price">
                     </div>
                 </div>
                 <div class="property-row">
@@ -97,8 +76,8 @@
                     </div>
                     <div class="col-75">
                         <select id="property-purpose" name="property-purpose">
-                            <option value="sale" selected>Sale</option>
-                            <option value="rent">Rent</option>
+                            <option value="Sale">Sale</option>
+                            <option value="Rent">Rent</option>
                         </select>
                     </div>
                 </div>
@@ -108,19 +87,12 @@
                     </div>
                     <div class="col-75">
                         <select id="property-type" name="property-type">
-                            <option value="1-bedroom" selected>1 Bedroom</option>
-                            <option value="2-bedroom">2 Bedroom</option>
-                            <option value="3-bedroom">3 Bedroom</option>
-                            <option value="mini-flat">Mini Flat</option>
+                            <option value="1 Bedroom">1 Bedroom</option>
+                            <option value="2 Bedroom">2 Bedroom</option>
+                            <option value="3 Bedroom">3 Bedroom</option>
+                            <option value="4 Bedroom">4 Bedroom</option>
+                            <option value="Mini Flat">Mini Flat</option>
                         </select>
-                    </div>
-                </div>
-                <div class="property-row">
-                    <div class="col-25">
-                        <label for="property-owner-phone">Owner Phone</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="tel" id="property-owner-phone" name="property-owner-phone" value="070-000-0000">
                     </div>
                 </div>
                 <div class="property-row">
@@ -138,7 +110,7 @@
                         <label for="property-city">City</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="property-city" name="property-city" value="Lekki">
+                        <input type="text" id="property-city" name="property-city" >
                     </div>
                 </div>
                 <div class="property-row">
@@ -161,10 +133,11 @@
                 </div>
                 <div class="property-row">
                     <div class="col-25">
-                        <label for="property-date">Created on</label>
+                        <label for="property-image3">Featured Image 3</label>
                     </div>
                     <div class="col-75">
-                        <input type="date" id="property-date" name="property-date" placeholder="">
+                        <input type="file" accept=".jpg, .png, .jpeg" id="property-image3" name="property-image3"
+                            placeholder="">
                     </div>
                 </div>
                 <div class="property-row">
@@ -172,7 +145,7 @@
                         <label for="subject">Address</label>
                     </div>
                     <div class="col-75">
-                        <textarea id="property-address" name="property-address">Lekki 1</textarea>
+                        <textarea id="property-address" name="property-address"></textarea>
                     </div>
                 </div>
                 <div class="property-row">
@@ -181,16 +154,32 @@
                     </div>
                     <div class="col-75">
                         <textarea id="property-description"
-                            name="property-description">This is a Twin duplex in a quite and reserved part of Lekki.</textarea>
+                            name="property-description"></textarea>
                     </div>
                 </div> <br />
                 <div class="property-row">
-                    <input type="submit" class="btn btn-primary" value="Update Property">
+                        <div class="alert-container col-75" style="align-items: flex-end !important; padding-left: 25% !important;">
+                                <div class="alert w-100" id="alert-error">
+                                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                  <p id="error"></p>
+                                </div>
+                                <div class="alert-success w-100">
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                    <p id="success"></p>
+                                </div>
+                                <div class="alert-info w-100">
+                                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                  <p id="info"></p>
+                                </div>
+                              </div>
+                    <input type="submit" class="btn btn-primary" value="Update Property" id="update-property">
                 </div><br />
             </form>
         </div>
     </div>
     <script src="./assets/scripts/state.js"></script>
+    <script src="./assets/scripts/update.js"></script>
+    <script src="./assets/scripts/logout.js"></script>
 </body>
 
 </html>
