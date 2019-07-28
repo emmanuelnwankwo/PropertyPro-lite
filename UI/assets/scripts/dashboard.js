@@ -2,10 +2,6 @@
 const slideInterval = 3500;
 const getFigures = () => document.getElementById('carousel').getElementsByTagName('div');
 const hideImage = () => document.getElementById('hide');
-const mapLng = localStorage.getItem('mapLng');
-const mapLat = localStorage.getItem('mapLat');
-const city = localStorage.getItem('city');
-
 const moveForward = () => {
   let pointer = 0;
   const figures = getFigures();
@@ -29,18 +25,3 @@ const startPlayback = () => {
 };
 
 startPlayback(); 
-
-function initMap() {
-  const myLatLng = { lat: mapLat, lng: mapLng };
-
-  const map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: myLatLng,
-  });
-
-  const marker = new google.maps.Marker({
-    position: myLatLng,
-    map,
-    title: city,
-  });
-}
