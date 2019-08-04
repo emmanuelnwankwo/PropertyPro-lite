@@ -24,13 +24,11 @@ const isAuthenticated = (token) => {
           if (!(urlPath === 'admin.html')) {
             window.location.replace('admin.html');
           }
-        }
-        if (!is_admin && user_type === 'agent') {
+        } else if (!is_admin && user_type === 'agent') {
           if (!(urlPath === 'agent.html' || urlPath === 'post.html' || urlPath === 'update.html')) {
             window.location.replace('agent.html');
           }
-        }
-        if (user_type === 'user') {
+        } else if (user_type === 'user') {
           if (!(urlPath === 'user.html' || urlPath === 'property.html')) {
             window.location.replace('user.html');
           }
