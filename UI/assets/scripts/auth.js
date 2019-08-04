@@ -17,22 +17,23 @@ const isAuthenticated = (token) => {
       .then(res => res.json())
       .then((res) => {
         const { is_admin, user_type } = res.data;
-        if (res.status !== 200) {
-          window.location = 'login.html';
-        }
-        if (is_admin) {
-          if (!(urlPath === 'admin.html')) {
-            window.location.replace('admin.html');
-          }
-        } else if (!is_admin && user_type === 'agent') {
-          if (!(urlPath === 'agent.html' || urlPath === 'post.html' || urlPath === 'update.html')) {
-            window.location.replace('agent.html');
-          }
-        } else if (user_type === 'user') {
-          if (!(urlPath === 'user.html' || urlPath === 'property.html')) {
-            window.location.replace('user.html');
-          }
-        }
+      console.log(urlPath);
+//         if (res.status !== 200) {
+//           window.location = 'login.html';
+//         }
+//         if (is_admin) {
+//           if (!(urlPath === 'admin.html')) {
+//             window.location.replace('admin.html');
+//           }
+//         } else if (!is_admin && user_type === 'agent') {
+//           if (!(urlPath === 'agent.html' || urlPath === 'post.html' || urlPath === 'update.html')) {
+//             window.location.replace('agent.html');
+//           }
+//         } else if (user_type === 'user') {
+//           if (!(urlPath === 'user.html' || urlPath === 'property.html')) {
+//             window.location.replace('user.html');
+//           }
+//         }
       })
       .catch((err) => {
         console.log(err);
