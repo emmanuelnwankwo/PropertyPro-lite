@@ -32,7 +32,6 @@
             </header>
             <ul>
                 <a href="./user.html"><li tabindex="0" class="icon-home"><span>All Properties</span></li></a>
-                <a href="./agent.html"><li tabindex="0" class="icon-user"><span>Agent</span></li></a>
                 <a><li tabindex="0" class="icon-log-out" id="logout"><span>Log out</span></li></a>
             </ul>
         </aside>
@@ -46,16 +45,13 @@
                 <div class="property-specific-type text-center">
                     <label for="bedroom">Type </label>
                     <select name="bedroom" id="search-bedroom">
+                        <option value="">No Selection</option>
                         <option value="1 Bedroom" selected>1 Bedroom</option>
                         <option value="2 Bedroom">2 Bedroom</option>
                         <option value="3 Bedroom">3 Bedroom</option>
                         <option value="4 Bedroom">4 Bedroom</option>
+                        <option value="5 Bedroom">5 Bedroom</option>
                         <option value="Mini Flat">Mini Flat</option>
-                    </select>
-                    <label for="purpose">Purpose</label>
-                    <select name="purpose" id="search-purpose">
-                        <option value="Sale" selected>Sale</option>
-                        <option value="Rent">Rent</option>
                     </select>
                     <button id="search-type-btn" class="btn btn-primary">Search</button>
                 </div>

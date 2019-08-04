@@ -20,20 +20,6 @@ const getOptions = {
     authorization: token,
   }),
 };
-const initMap = () => {
-  const myLatLng = { lat: Number(mapLat), lng: Number(mapLng) };
-
-  const map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: myLatLng,
-  });
-
-  const marker = new google.maps.Marker({
-    position: myLatLng,
-    map,
-    title: city,
-  });
-};
 firstName.innerHTML = user.first_name;
 profilePic.setAttribute('src', passportUrl);
 fetch(propertyUrl, getOptions)
@@ -43,9 +29,6 @@ fetch(propertyUrl, getOptions)
       const { data } = res;
       const date = new Date(data.created_on);
       properties = `
-          <div class="tab-pane" id="detail">
-                        <div class="row">
-                            <div class="col-md-12">
                                 <h2>${data.property_name}</h2>
                                     <div id="carousel">
                                         <div class="item active visible">
@@ -108,16 +91,23 @@ fetch(propertyUrl, getOptions)
                                 </table>
                                 <h3>Property Description</h3>
                                 <p>${data.description}</p>
-                                <div id="map"></div>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
       `;
       table.insertAdjacentHTML('afterbegin', properties);
-      initMap();
     }
   })
   .catch((err) => {
     console.log(err);
   });
+function initMap() {
+  const myLatLng = { lat: Number(mapLat), lng: Number(mapLng) };
+  const map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: myLatLng,
+  });
+
+  const marker = new google.maps.Marker({
+    position: myLatLng,
+    map,
+    title: city,
+  });
+}

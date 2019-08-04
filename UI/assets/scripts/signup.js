@@ -58,13 +58,11 @@ const createAccount = (userData) => {
         localStorage.setItem('authUser', JSON.stringify(user));
         setTimeout(() => {
           if (user.is_admin) {
-            localStorage.setItem('isAdmin', user.is_admin);
             window.location.replace('admin.html');
           } else if (user.user_type === 'agent') {
-            localStorage.setItem('userType', user.user_type);
             window.location.replace('agent.html');
           } else window.location.replace('user.html');
-        }, 3000);
+        }, 1000);
       }
     })
     .catch((err) => {
