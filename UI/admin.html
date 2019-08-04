@@ -27,18 +27,12 @@
     <aside class="menu" tabindex="0">
         <div class="smartphone-menu-trigger"></div>
         <header class="avatar">
-            <img src="./assets/img/avatar.png" />
-            <h2>Hi John!</h2>
+            <img id="profile_photo" alt="Profile photo" />
+            <h2>Hi <span id="first_name"></span>!</h2>
         </header>
         <ul>
-            <a href="./agent.html">
+            <a href="./admin.html">
                 <li tabindex="0" class="icon-dashboard"><span>Dashboard</span></li>
-            </a>
-            <a href="./post.html">
-                <li tabindex="0" class="icon-plus"><span>Post</span></li>
-            </a>
-            <a href="./user.html">
-                <li tabindex="0" class="icon-user"><span>Users</span></li>
             </a>
             <a>
                 <li tabindex="0" class="icon-log-out" id="logout"><span>Log out</span></li>
@@ -51,78 +45,40 @@
                 Users
             </h2>
         </div>
+        <div class="alert-container">
+            <div class="alert w-100" id="alert-error">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <p id="error"></p>
+            </div>
+            <div class="alert-success w-100">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <p id="success"></p>
+            </div>
+            <div class="alert-info w-100">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <p id="info"></p>
+            </div>
+        </div>
         <div class="row">
             <div class="agent-table-body">
-                <div class="agent-table-filter"><label>Search:<input type="search" class="" placeholder="Search"><label>
+                <div class="agent-table-filter">
+                    <label>Search:<input type="search" id="search-type-btn" placeholder="Search"></label>
                 </div>
-                <table id="customers" class="agent-table">
-                    <tr>
-                        <th>Property Name</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                    <tr>
-                        <td>Twin Duplex for sale at Lekki</td>
-                        <td>2 Bedroom</td>
-                        <td>For Sale</td>
-                        <td class="text-center pr-0 pl-0">
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
-                                    id="myonoffswitch">
-                                <label class="onoffswitch-label" for="myonoffswitch">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
-                            </div>
-                            <a href="./update.html" class="btn btn-primary">
-                                <i class="icon-edit"></i></a>
-                            <a href="./delete.html" class="btn btn-primary">
-                                <i class="icon-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Twin Duplex for sale at Lekki</td>
-                        <td>3 Bedroom</td>
-                        <td>Sold</td>
-                        <td class="text-center pr-0 pl-0">
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
-                                    id="myonoffswitch2">
-                                <label class="onoffswitch-label" for="myonoffswitch2">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
-                            </div>
-                            <a href="./update.html" class="btn btn-primary">
-                                <i class="icon-edit"></i></a>
-                            <a href="./delete.html" class="btn btn-primary">
-                                <i class="icon-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Twin Duplex for sale at Lekki</td>
-                        <td>2 Bedroom</td>
-                        <td>For Sale</td>
-                        <td class="text-center pr-0 pl-0">
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
-                                    id="myonoffswitch3">
-                                <label class="onoffswitch-label" for="myonoffswitch3">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
-                            </div>
-                            <a href="./update.html" class="btn btn-primary">
-                                <i class="icon-edit"></i></a>
-                            <a href="./delete.html" class="btn btn-primary">
-                                <i class="icon-trash"></i></a>
-                        </td>
-                    </tr>
+                <table id="users" class="agent-table">
+                    <thead>
+                        <tr>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>User Type</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user_table"></tbody>
                 </table>
             </div>
         </div>
     </div>
+    <script src="./assets/scripts/admin.js"></script>
     <script src="./assets/scripts/logout.js"></script>
 </body>
 

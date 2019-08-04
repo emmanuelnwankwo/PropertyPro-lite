@@ -49,6 +49,7 @@ fetch(propertyUrl, getOptions)
       const { data } = res;
       if (data.length) {
         data.forEach((property) => {
+          console.log(property);
           const date = new Date(property.created_on);
           properties = `
           <a href="./property.html" onclick="property(${property.id}, ${property.map_lat}, ${property.map_lng}, '${property.city}')">
@@ -67,7 +68,7 @@ fetch(propertyUrl, getOptions)
           </div>
       </div>
       <div class="property-features">
-          <span><i class="location"></i>${property.city}, ${property.state}</span>
+          <span><i class="location"></i>${property.city}</span>
       </div>
       <div class="property-content">
           <h3>${property.property_name}<small>${date.toLocaleString('en-US', {

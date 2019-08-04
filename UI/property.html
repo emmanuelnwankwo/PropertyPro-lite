@@ -34,9 +34,6 @@
             <a href="./user.html">
                 <li tabindex="0" class="icon-home"><span>All Properties</span></li>
             </a>
-            <a href="./agent.html">
-                <li tabindex="0" class="icon-user"><span>Agent</span></li>
-            </a>
             <a>
                 <li tabindex="0" class="icon-log-out" id="logout"><span>Log out</span></li>
             </a>
@@ -49,7 +46,15 @@
             </h2>
         </div>
         <div class="row">
-            <div class="single-post" id="property_table">
+            <div class="single-post">
+                <div class="tab-pane" id="detail">
+                    <div class="row">
+                        <div class="col-md-12" id="property_table">
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
             </div>
         </div>
     </div>
@@ -57,8 +62,8 @@
     <script src="./assets/scripts/dashboard.js"></script>
     <script src="./assets/scripts/logout.js"></script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYEEvtglxljhMg8GrRZHcLutww1772rJc&callback=initMap">
-    </script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiXGHkAKOXSjxqMpr_7-IVX8BrJ4FaklA&callback=initMap">
+        </script>
 </body>
 
 </html>

@@ -24,4 +24,4 @@ const startPlayback = () => {
   setTimeout(moveForward, slideInterval);
 };
 
-startPlayback(); 
+startPlayback();

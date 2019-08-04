@@ -68,16 +68,13 @@ login.addEventListener('click', (e) => {
           alertError.style.display = 'block';
         }
       } else {
-        const { data } = res;
-        const { token, id, first_name, passport_url, user_type, is_admin } = data;
+        const { token, first_name, passport_url, user_type, is_admin } = res.data;
         localStorage.setItem('token', token);
-        const user = { id, email: loginData.email, first_name, passport_url, user_type, is_admin };
+        const user = { first_name, passport_url };
         localStorage.setItem('authUser', JSON.stringify(user));
         if (is_admin) {
-          localStorage.setItem('isAdmin', is_admin);
           window.location.replace('admin.html');
         } else if (user_type === 'agent') {
-          localStorage.setItem('userType', user_type);
           window.location.replace('agent.html');
         } else window.location.replace('user.html');
       }

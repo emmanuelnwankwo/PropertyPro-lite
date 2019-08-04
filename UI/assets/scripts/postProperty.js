@@ -88,8 +88,10 @@ const postProperty = () => {
       if (res.status === 201) {
         showAlert('Property successful created');
         setTimeout(() => {
-          window.location.replace('agent.html');
-        }, 3000);
+          localStorage.removeItem('mapLng');
+          localStorage.removeItem('mapLat');
+          window.location = 'agent.html';
+        }, 1000);
       } else showAlert('Unable to create a property, try again', false);
     })
     .catch((err) => {

@@ -37,9 +37,6 @@
             <a href="./post.html">
                 <li tabindex="0" class="icon-plus"><span>Post</span></li>
             </a>
-            <a href="./user.html">
-                <li tabindex="0" class="icon-user"><span>Users</span></li>
-            </a>
             <a>
                 <li tabindex="0" class="icon-log-out" id="logout"><span>Log out</span></li>
             </a>
@@ -73,9 +70,10 @@
                 </div><br />
             </div>
             <div class="agent-table-body">
-                <div class="agent-table-filter"><label>Search:<input type="search" class="" placeholder="Search"><label>
+                <div class="agent-table-filter">
+                    <label>Search:<input type="search" id="search-type-btn" placeholder="Search"></label>
                 </div>
-                <table id="customers" class="agent-table">
+                <table id="properties" class="agent-table">
                     <thead>
                     <tr>
                         <th>Property Name</th>
